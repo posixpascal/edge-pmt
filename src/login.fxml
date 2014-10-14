@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <SplitPane orientation="VERTICAL" prefHeight="703.0" prefWidth="1306.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="380.0" prefWidth="776.0">
+               <children>
+                  <TextField layoutX="489.0" layoutY="408.0" prefHeight="31.0" prefWidth="341.0" />
+                  <TextField layoutX="489.0" layoutY="331.0" prefHeight="31.0" prefWidth="341.0" />
+                  <Text layoutX="490.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benutzername:" />
+                  <Text layoutX="490.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwort:" />
+                  <Text layoutX="468.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDGE - PMT">
+                     <font>
+                        <Font name="AR DARLING" size="65.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="564.0" layoutY="496.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="182.0" text="Login" />
+                  <CheckBox layoutX="569.0" layoutY="456.0" mnemonicParsing="false" text="Remember Password" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
