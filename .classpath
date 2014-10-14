@@ -10,5 +10,7 @@
 	<classpathentry kind="lib" path="build_time_libs/activejdbc-instrumentation-1.4.10-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="build_time_libs/javassist-3.8.0.GA.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
