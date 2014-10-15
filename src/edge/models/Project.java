@@ -1,7 +1,27 @@
 package edge.models;
 
-import org.javalite.activejdbc.Model;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
 
-public class Project extends Model {
+
+
+@Entity
+@Table
+public class Project {
+	@Id
+	@GeneratedValue
+	private Long id;
 	
+	private String name;
+	
+	public Project(){}
+	
+	public String getName(){
+			return name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
 }

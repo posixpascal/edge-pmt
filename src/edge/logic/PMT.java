@@ -1,10 +1,11 @@
 package edge.logic;
 
-
 import edge.models.Project;
 import edge.models.User;
-import edge.models.GoogleDriveFile;
-import edge.models.Todo;
+
+import org.hibernate.*;
+
+
 
 public class PMT {
 	
@@ -13,18 +14,14 @@ public class PMT {
 		config.loadConfig(config.DEFAULT_CONFIG);
 		
 
-		DatabaseConnector db = new DatabaseConnector();
-		db.open();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
 		
-		GoogleDrive drive = new GoogleDrive();
-		try {
-			drive.authorize();
-		} catch (Exception e){
-			e.printStackTrace();
-		}
+		Project project = new Project();
+		project.setName("EDGE");
+					  
+		session.save(project);
+		session.getTransaction().commit();
 		
-		System.out.print("ok");
-		
-		db.close();
 	}
 }

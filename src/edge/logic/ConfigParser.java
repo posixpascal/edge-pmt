@@ -90,17 +90,17 @@ public class ConfigParser {
 			String databaseName = childElement.getAttribute("name");
 			String databaseEnvironment = childElement.getAttribute("environment");
 			
-			String host = childElement.getElementsByTagName("host").item(0).getTextContent();
-			int port = Integer.parseInt(childElement.getElementsByTagName("port").item(0).getTextContent());
+			/*Object host = childElement.getElementsByTagName("host").item(0);
+			Object port = 0;//Integer.parseInt(childElement.getElementsByTagName("port").item(0));
 			
-			String username = childElement.getElementsByTagName("user").item(0).getTextContent();
-			String password = childElement.getElementsByTagName("pass").item(0).getTextContent();
+			Object username = childElement.getElementsByTagName("user").item(0);
+			Object password = childElement.getElementsByTagName("pass").item(0);
 			
 			databaseConfig.put("dbname", databaseName);
 			databaseConfig.put("host", host);
 			databaseConfig.put("port", port);
 			databaseConfig.put("username", username);
-			databaseConfig.put("password", password);
+			databaseConfig.put("password", password);*/
 			
 			databaseConfigs.put(databaseEnvironment, databaseConfig);
 		}
