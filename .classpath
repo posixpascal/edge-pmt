@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="target/lib"/>
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.6.jar"/>
@@ -55,6 +54,8 @@
 	<classpathentry kind="lib" path="target/lib/slf4j-log4j12-1.6.4.jar"/>
 	<classpathentry kind="lib" path="target/lib/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="lib" path="target/lib/xml-apis-1.0.b2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="target/lib/commons-codec-1.9.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>

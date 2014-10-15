@@ -18,8 +18,13 @@ public class PMT {
 		session.beginTransaction();
 		
 		Project project = new Project();
-		project.setName("EDGE");
-					  
+		project.setName("HURENSOHN");
+		
+		User user = new User();
+		user.setUsername("penis");
+		user.setPassword("hurensohn");
+		
+		session.save(user);			  
 		session.save(project);
 		session.getTransaction().commit();
 		
