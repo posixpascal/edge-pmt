@@ -2,6 +2,9 @@ package edge.logic;
 
 
 import edge.models.Project;
+import edge.models.User;
+import edge.models.GoogleDriveFile;
+import edge.models.Todo;
 
 public class PMT {
 	
@@ -13,17 +16,15 @@ public class PMT {
 		DatabaseConnector db = new DatabaseConnector();
 		db.open();
 		
-		Project p = new Project();
-		p.set("name", "VANKASHHHHHH$$$$");
-		p.saveIt();
+		GoogleDrive drive = new GoogleDrive();
+		try {
+			drive.authorize();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		System.out.print("ok");
 		
 		db.close();
-		
-		ModuleLoader moduleLoader = new ModuleLoader();
-		moduleLoader.fetchAll();
-		
-		System.out.println("OK");
-	
-
 	}
 }
