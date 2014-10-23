@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edge.view.MainView">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edge.controllers.LoginController">
    <children>
       <SplitPane orientation="VERTICAL" prefHeight="703.0" prefWidth="1306.0">
         <items>
@@ -23,7 +23,7 @@
                         <Font name="AR DARLING" size="65.0" />
                      </font>
                   </Text>
-                  <Button fx:id="btnLogic" layoutX="564.0" layoutY="496.0" mnemonicParsing="false" onAction="#toMainView" prefHeight="31.0" prefWidth="182.0" text="Login" />
+                  <Button fx:id="loginBtn" defaultButton="true" layoutX="564.0" layoutY="496.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="182.0" text="Login" />
                   <CheckBox layoutX="569.0" layoutY="456.0" mnemonicParsing="false" text="Remember Password" />
                </children>
             </AnchorPane>

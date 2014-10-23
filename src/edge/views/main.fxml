@@ -19,7 +19,7 @@
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@assets/img/UserManagement.png" />
+                              <Image url="@../assets/img/UserManagement.png" />
                            </image>
                         </ImageView>
                      </graphic>

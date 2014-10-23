@@ -1,4 +1,4 @@
-package edge.view;
+package edge.views;
 
 import java.io.IOException;
 
@@ -13,13 +13,13 @@ import javafx.stage.Stage;
 public class MainView extends Application{
 	private Stage mainStage;
 	private String [] args;
-	private LoginView lv;
+	//private LoginView lv;
 	
 	@Override
 	public void start(Stage mainStage) throws Exception {
 		// TODO Auto-generated method stub
 		try{
-			lv.close();
+			//lv.close();
 			Parent main = (AnchorPane)FXMLLoader.load(getClass().getResource("main.fxml"));
 			Scene mainScene = new Scene(main);
 			mainScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -32,7 +32,7 @@ public class MainView extends Application{
 	}
 	
 	public void toMainView(ActionEvent event) throws IOException {
-		lv.close();
+		//lv.close();
 		launch(args);
 	}
 }

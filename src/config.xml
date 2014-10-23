@@ -1,13 +1,7 @@
 <?xml version="1.0" ?>
 <edge>
 	<config>
-		<database name="EDGE" environment="development">
-			<host>localhost</host>
-			<port>3306</port>
-			<user>root</user>
-			<pass>troopermedia</pass>
-			
-		</database>
+		
 	</config>
 	
 	<!--  auto generated on program start -->
