@@ -5,9 +5,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.application.Application;
+import edge.logic.EdgeApplication;
+import edge.models.User;
 
-public class LoginView extends Application {
+public class LoginView extends EdgeApplication {
 
 	@Override
 	public void start(Stage primaryStage) {
