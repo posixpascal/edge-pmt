@@ -61,7 +61,7 @@ public class User {
 		
 		byte[] md5password = md.digest();
 		
-		password = Hex.encodeHexString(md5password);
+		password = Hex.encodeHex(md5password).toString();
 		
 		return password;
 	}
