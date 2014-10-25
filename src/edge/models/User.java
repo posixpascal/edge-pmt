@@ -49,10 +49,17 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = User.hashPassword(password);
 	}
 	
+	/**
+	 * Searches DB for a user with the specified username
+	 * @param username String containing the username which Hibernate should look for
+	 * @return User returns user as UserObject if found otherwise null.
+	 * @author pr
+	 */
 	public static Object findByUsername(String username){
 		Session session = HibernateUtil.getSession();
 		session.beginTransaction();

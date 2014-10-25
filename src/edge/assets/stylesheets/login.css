@@ -2,6 +2,14 @@
 	-fx-background-color: #EE6456;
 }
 
+.status-error {
+	-fx-color: #EE6456;
+}
+
+.status-success {
+	-fx-color: #98E466;
+}
+
 .success {
 	-fx-background-color: #98E466;
 }

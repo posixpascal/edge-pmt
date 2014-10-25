@@ -23,8 +23,8 @@
                         <Font name="AR DARLING" size="65.0" />
                      </font>
                   </Text>
-                  <CheckBox layoutX="569.0" layoutY="456.0" mnemonicParsing="false" text="Remember Password" />
                   <Button fx:id="loginBtn" defaultButton="true" layoutX="564.0" layoutY="496.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="182.0" text="Login" />
+                  <Text fx:id="statusLabel" layoutX="529.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="260.6829261779785" />
                </children>
             </AnchorPane>
         </items>
