@@ -6,8 +6,17 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.codec.binary.Hex;
+
+import edge.logic.HibernateUtil;
+
 import javax.persistence.*;
+
+import org.hibernate.*;
+import org.hibernate.Query;
+
 
 @Entity
 @Table
@@ -22,7 +31,7 @@ public class User {
 	public User(){}
 	public User(String username, String password){
 		this.username = username;
-		this.password = this.hashPassword(password);
+		this.password = User.hashPassword(password);
 	}
 	
 	public Long getId() {
@@ -41,10 +50,25 @@ public class User {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = this.hashPassword(password);
+		this.password = User.hashPassword(password);
 	}
 	
-	private String hashPassword(String password){
+	public static Object findByUsername(String username){
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from User as user where user.username = :username");
+		query.setParameter("username", username);
+		
+		List<?> result = query.list();
+		
+		session.close();
+		
+		if (result.size() == 0){ return null; }
+		return result.get(0);
+	}
+	
+	public static String hashPassword(String password){
 
 		MessageDigest md = null;
 		try {
@@ -61,8 +85,11 @@ public class User {
 		
 		byte[] md5password = md.digest();
 		
-		password = Hex.encodeHex(md5password).toString();
+		char[] hexPassword = Hex.encodeHex(md5password);
 		
-		return password;
+		return String.copyValueOf(hexPassword);
 	}
+	
+
+	
 }

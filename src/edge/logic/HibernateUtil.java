@@ -1,5 +1,9 @@
 package edge.logic;
 
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -20,6 +24,12 @@ public class HibernateUtil {
 	    public static SessionFactory getSessionFactory() {
 	        return sessionFactory;
 	    }
+	    
+	    public static Session getSession(){
+	    	return HibernateUtil.sessionFactory.getCurrentSession();
+	    }
+	    
+	
 	  
 	    public static void shutdown() {
 	        // Close caches and connection pools
