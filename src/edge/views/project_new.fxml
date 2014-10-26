@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edge.controllers.ProjectController">
+   <children>
+      <Text layoutX="90.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Projekt anlegen">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <TextField fx:id="projectNameField" layoutX="14.0" layoutY="60.0" prefHeight="26.0" prefWidth="398.0" promptText="Projektname" />
+      <Text layoutX="14.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Datum:" />
+      <DatePicker fx:id="deadlineField" layoutX="94.0" layoutY="96.0" prefHeight="26.0" prefWidth="318.0" promptText="Deadline auswählen" />
+      <Text layoutX="14.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kunde:" />
+      <TextField fx:id="customerField" layoutX="94.0" layoutY="134.0" prefHeight="26.0" prefWidth="318.0" promptText="Kunde auswählen" />
+      <Text layoutX="14.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eingeteilte Mitarbeiter" />
+      <TableView fx:id="coworkerTable" layoutX="14.0" layoutY="199.0" prefHeight="179.0" prefWidth="401.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Name" />
+          <TableColumn prefWidth="118.0" text="Aktive Projekte" />
+            <TableColumn prefWidth="102.0" text="Aktive Todos" />
+            <TableColumn prefWidth="105.0" text="Zugeteilt?" />
+        </columns>
+      </TableView>
+      <CheckBox fx:id="notifyPerEmailCheckBox" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="237.0" layoutY="177.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Per Email benachrichtigen" />
+      <Text layoutX="14.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Template" />
+      <ToggleButton fx:id="mobileToggleBtn" layoutX="9.0" layoutY="415.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="178.0">
+     
+      </ToggleButton>
+      <ToggleButton fx:id="webToggleButton" layoutX="244.0" layoutY="415.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="170.0">
+       
+      </ToggleButton>
+      <Button fx:id="createProjectBtn" layoutX="13.0" layoutY="556.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="401.0" text="Projekt anlegen" />
+   </children>
+</Pane>
