@@ -54,6 +54,26 @@ public class User {
 		this.password = User.hashPassword(password);
 	}
 	
+	
+	/**
+	 * Get all users from DB
+	 * @author pr
+	 * @return A List containing every user found in the database.
+	 */
+	public static List<User> getAll() {
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from User");
+		
+		@SuppressWarnings("unchecked")
+		List<User> result = (List<User>) query.list();
+		
+		session.close();
+		
+		return result;
+	}
+	
 	/**
 	 * Searches DB for a user with the specified username
 	 * @param username String containing the username which Hibernate should look for
@@ -96,6 +116,7 @@ public class User {
 		
 		return String.copyValueOf(hexPassword);
 	}
+	
 	
 
 	

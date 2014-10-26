@@ -3,7 +3,7 @@
 }
 
 .status-error {
-	-fx-color: #EE6456;
+	-fx-font-color: #EE6456;
 }
 
 .status-success {

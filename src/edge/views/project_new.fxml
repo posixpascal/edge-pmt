@@ -32,12 +32,8 @@
       </TableView>
       <CheckBox fx:id="notifyPerEmailCheckBox" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="237.0" layoutY="177.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Per Email benachrichtigen" />
       <Text layoutX="14.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Template" />
-      <ToggleButton fx:id="mobileToggleBtn" layoutX="9.0" layoutY="415.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="178.0">
-     
-      </ToggleButton>
-      <ToggleButton fx:id="webToggleButton" layoutX="244.0" layoutY="415.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="170.0">
-       
-      </ToggleButton>
-      <Button fx:id="createProjectBtn" layoutX="13.0" layoutY="556.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="401.0" text="Projekt anlegen" />
+      <ToggleButton fx:id="mobileToggleBtn" layoutX="9.0" layoutY="415.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="178.0" text="Mobile" />
+      <ToggleButton fx:id="webToggleButton" layoutX="244.0" layoutY="415.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="170.0" text="Web" />
+      <Button fx:id="createProjectBtn" layoutX="13.0" layoutY="556.0" mnemonicParsing="false" onAction="#createProject" prefHeight="26.0" prefWidth="401.0" text="Projekt anlegen" />
    </children>
 </Pane>
