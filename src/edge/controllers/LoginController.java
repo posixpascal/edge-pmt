@@ -1,8 +1,11 @@
 package edge.controllers;
 
-
+import edge.logic.MainApplication;
+import edge.logic.EdgeFxmlLoader;
 import edge.models.User;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -55,6 +58,20 @@ public class LoginController extends BaseController {
 					statusLabel.setText("... nächste View öffnen (TODO)");
 					statusLabel.getStyleClass().remove("status-error");
 					statusLabel.getStyleClass().add("status-success");
+					
+					EdgeFxmlLoader loader = new EdgeFxmlLoader();
+					try {
+			        Parent root = (Parent) loader.load("../views/main.fxml", MainController.class);
+			        Scene scene = new Scene(root, 1306, 703);
+			        
+			        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/main.css").toString());
+			        String StageTitle = "EDGE-PMT: Projects";
+					edge.logic.MainApplication.GetInstance().GetView(StageTitle, scene);x
+					}
+					catch(Exception ex)
+					{
+						System.out.println(ex);
+					}
 				} else {
 					// TODO: told ya it's redundant...
 					usernameField.getStyleClass().remove("success");

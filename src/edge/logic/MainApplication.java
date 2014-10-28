@@ -10,24 +10,47 @@ import javafx.stage.Stage;
 
 public class MainApplication extends Application {
 	
-	
+
 	 public static void main(String[] args)
 	    {
 		 	SessionFactory factory = HibernateUtil.getSessionFactory();
 	        launch(args);
 	    }
-	 
-	    public void start(Stage stage) throws Exception
+	 	
+	 	private static MainApplication instance;
+	 	
+	 	public MainApplication()
+	 	{
+	 		instance = this;
+	 	}
+	 	
+	 	public static MainApplication GetInstance(){
+	 		return instance;
+	 	}
+	 	
+		 private Stage RootStage;
+		    
+		 	public Stage GetRootStage()
+		 	{
+		 		return RootStage;
+		 	}
+	 	
+		 	
+	    public void GetView(String StageTitle, Scene scene) throws Exception
 	    {
-	        EdgeFxmlLoader loader = new EdgeFxmlLoader();
-	        
+	    	RootStage.setScene(scene);
+	        RootStage.setTitle(StageTitle);
+	        RootStage.show();
+	    }
 
+		public void start(Stage primaryStage) throws Exception {
+			this.RootStage = primaryStage;
+			EdgeFxmlLoader loader = new EdgeFxmlLoader();
 	        Parent root = (Parent) loader.load("../views/login.fxml", LoginController.class);
 	        Scene scene = new Scene(root, 1306, 703);
+	        
 	        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/login.css").toString());
-	        stage.setScene(scene);
-	        stage.setTitle("EDGE - PMT - Login");
-	        stage.show();
-	    }
-	
+	        String StageTitle = "EDGE-PMT - Login";
+			GetView(StageTitle, scene);
+		}
 }
