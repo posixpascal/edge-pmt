@@ -38,7 +38,6 @@ public class LoginController extends BaseController {
 			
 			User user = (User) User.findByUsername(username);
 			if (user == null){
-				// TODO: bisschen redundant.
 				usernameField.getStyleClass().remove("success");
 				passwordField.getStyleClass().remove("success");
 				passwordField.getStyleClass().remove("error");
@@ -49,7 +48,6 @@ public class LoginController extends BaseController {
 			}
 			else {
 				if (md5Password.equals(user.getPassword())){
-					// TODO: ziemlich redundant...
 					usernameField.getStyleClass().remove("error");
 					passwordField.getStyleClass().remove("error");
 					addSuccessClass(usernameField);
@@ -66,7 +64,8 @@ public class LoginController extends BaseController {
 			        
 			        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/main.css").toString());
 			        String StageTitle = "EDGE-PMT: Projects";
-					edge.logic.MainApplication.GetInstance().GetView(StageTitle, scene);x
+					MainApplication.GetInstance().setView(StageTitle, scene);
+					
 					}
 					catch(Exception ex)
 					{

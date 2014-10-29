@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateUtil {
+public class Database {
 	 private static final SessionFactory sessionFactory = buildSessionFactory();
 	  
 	    private static SessionFactory buildSessionFactory() {
@@ -24,7 +24,14 @@ public class HibernateUtil {
 	    }
 	    
 	    public static Session getSession(){
-	    	return HibernateUtil.sessionFactory.getCurrentSession();
+	    	if (Database.sessionFactory.getCurrentSession() == null)
+	    		Database.sessionFactory.openSession();
+	    		
+	    	return Database.sessionFactory.getCurrentSession();
+	    }
+	    
+	    public static void closeSession(){
+	    	Database.sessionFactory.close();
 	    }
 	    
 	
@@ -32,6 +39,11 @@ public class HibernateUtil {
 	    public static void shutdown() {
 	        // Close caches and connection pools
 	        getSessionFactory().close();
+	    }
+	    
+	    public static void save(Object hibernateObject){
+	    	Session session = Database.getSession();
+	    	session.save(hibernateObject);
 	    }
 	  
 }

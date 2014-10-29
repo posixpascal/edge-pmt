@@ -13,7 +13,7 @@ public class MainApplication extends Application {
 
 	 public static void main(String[] args)
 	    {
-		 	SessionFactory factory = HibernateUtil.getSessionFactory();
+		 	SessionFactory factory = Database.getSessionFactory();
 	        launch(args);
 	    }
 	 	
@@ -28,29 +28,30 @@ public class MainApplication extends Application {
 	 		return instance;
 	 	}
 	 	
-		 private Stage RootStage;
-		    
-		 	public Stage GetRootStage()
-		 	{
-		 		return RootStage;
-		 	}
+	 	
+		private Stage rootStage;    
+		public Stage getRootStage()
+		{
+		 		return rootStage;
+		}
 	 	
 		 	
-	    public void GetView(String StageTitle, Scene scene) throws Exception
+	    public void setView(String stageTitle, Scene scene) throws Exception
 	    {
-	    	RootStage.setScene(scene);
-	        RootStage.setTitle(StageTitle);
-	        RootStage.show();
+	    	rootStage.setScene(scene);
+	    	rootStage.setTitle(stageTitle);
+	        rootStage.show();
 	    }
 
 		public void start(Stage primaryStage) throws Exception {
-			this.RootStage = primaryStage;
+			rootStage = primaryStage;
+			
 			EdgeFxmlLoader loader = new EdgeFxmlLoader();
-	        Parent root = (Parent) loader.load("../views/login.fxml", LoginController.class);
+	        Parent root = (Parent) loader.load("../views/project_new.fxml", LoginController.class);
 	        Scene scene = new Scene(root, 1306, 703);
 	        
 	        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/login.css").toString());
 	        String StageTitle = "EDGE-PMT - Login";
-			GetView(StageTitle, scene);
+			setView(StageTitle, scene);
 		}
 }

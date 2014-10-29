@@ -22,14 +22,7 @@
       <Text layoutX="14.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kunde:" />
       <TextField fx:id="customerField" layoutX="94.0" layoutY="134.0" prefHeight="26.0" prefWidth="318.0" promptText="Kunde auswählen" />
       <Text layoutX="14.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eingeteilte Mitarbeiter" />
-      <TableView fx:id="coworkerTable" layoutX="14.0" layoutY="199.0" prefHeight="179.0" prefWidth="401.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Name" />
-          <TableColumn prefWidth="118.0" text="Aktive Projekte" />
-            <TableColumn prefWidth="102.0" text="Aktive Todos" />
-            <TableColumn prefWidth="105.0" text="Zugeteilt?" />
-        </columns>
-      </TableView>
+      <TableView fx:id="coworkerTable" layoutX="14.0" layoutY="199.0" prefHeight="179.0" prefWidth="401.0" />
       <CheckBox fx:id="notifyPerEmailCheckBox" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="237.0" layoutY="177.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Per Email benachrichtigen" />
       <Text layoutX="14.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Template" />
       <ToggleButton fx:id="mobileToggleBtn" layoutX="9.0" layoutY="415.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="178.0" text="Mobile" />
