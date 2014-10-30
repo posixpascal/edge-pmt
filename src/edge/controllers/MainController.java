@@ -19,12 +19,16 @@ public class MainController extends BaseController {
 		{
 			EdgeFxmlLoader loader = new EdgeFxmlLoader();
 	        Parent projectCreate = (Parent) loader.load("../views/project_new.fxml", ProjectController.class);
-	        Scene scene = new Scene(projectCreate, 1306, 703);
-	        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/main.css").toString());
+	        Scene scene = new Scene(projectCreate, 425, 650);
+	        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/project.css").toString());
 	        String StageTitle = "Create a new Project";
-	       
-			MainApplication stageasda = new MainApplication();
-			stageasda.SetNewView(StageTitle, scene);
+	       Boolean alreadyopen = false;
+	        if (alreadyopen == false)
+	        {
+			MainApplication projectCreateWindow = new MainApplication();
+			projectCreateWindow.SetNewView(StageTitle, scene);
+			alreadyopen = true;
+			}	
 		}
 		catch(Exception ex)
 		{
