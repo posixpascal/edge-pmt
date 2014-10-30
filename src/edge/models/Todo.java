@@ -18,18 +18,19 @@ import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
 @Entity
 @Table
-public class Project {
+public class Todo {
 	
 	@Id
 	@GeneratedValue
 	private Long id;
+	private Long projectId;
 	
-	//@NotNull(message = "Das Projekt benötigt einen Namen")
+	//@NotNull(message = "Das Todo ben�tigt einen Titel")
 	//@Min(2)
-	private String name;
+	private String title;
 	
-	//@NotNull(message = "Ein Projekt muss einem Kunden zugewiesen sein")
-	private String customerName;
+	//@NotNull(message = "Das kann aber leer sein")
+	private String content;
 	
 	//@NotNull(message = "Füge eine Deadline zum Projekt hinzu")
 	private Date deadLine;
@@ -47,8 +48,7 @@ public class Project {
 		modified = new Date();
 	}
 	
-	
-	public Project(){}
+	public Todo(){}
 	
 	public Date getCreated() {
 		return created;
@@ -63,19 +63,20 @@ public class Project {
 		this.modified = modified;
 	}
 	
-	
-
-	
-	public String getCustomerName() {
-		return customerName;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setTitleName(String title) {
+		this.title = title;
 	}
 
-	public String getName(){
-			return name;
+	public String getContent(){
+			return content;
+	}
+	
+	public void setContent(String content){
+		this.content = content;
 	}
 	
 	public Long getId() {
@@ -85,13 +86,21 @@ public class Project {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public Long getProjectId() {
+		return id;
+	}
 
-	public void setName(String name){
-		this.name = name;
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 
 	public void setDeadline(Date value) {
 		this.deadLine = value;
+	}
+	public Date getDeadline()
+	{
+		return deadLine;
 	}
 	
 	public boolean isValid(){

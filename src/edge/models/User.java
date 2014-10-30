@@ -31,6 +31,7 @@ public class User {
 	private String password;
 	private String firstname;
 	private String lastname;
+	private String eMail;
 	
 	public User(){}
 	public User(String username, String password){
@@ -71,6 +72,12 @@ public class User {
 		this.password = User.hashPassword(password);
 	}
 	
+	public void setEMail(String eMail) {
+		this.eMail = eMail;
+	}
+	public String getEMail() {
+		return eMail;
+	}
 	
 	/**
 	 * Get all users from DB
