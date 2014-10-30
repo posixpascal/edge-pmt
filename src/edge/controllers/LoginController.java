@@ -72,9 +72,6 @@ public class LoginController extends BaseController {
 						System.out.println(ex);
 					}
 				} else {
-					// TODO: told ya it's redundant...
-					usernameField.getStyleClass().remove("success");
-					passwordField.getStyleClass().remove("success");
 					addErrorClass(usernameField);
 					addErrorClass(passwordField);
 					

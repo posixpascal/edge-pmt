@@ -34,20 +34,28 @@ public class MainApplication extends Application {
 		{
 		 		return rootStage;
 		}
-	 	
-		 	
+		
+				 	
 	    public void setView(String stageTitle, Scene scene) throws Exception
 	    {
 	    	rootStage.setScene(scene);
 	    	rootStage.setTitle(stageTitle);
 	        rootStage.show();
 	    }
+	    
+	    public void SetNewView(String stageTitle, Scene scene)
+	    {
+	    	Stage tempStage = new Stage();
+	    	tempStage.setScene(scene);
+	    	tempStage.setTitle(stageTitle);
+	        tempStage.show();
+	    }
 
 		public void start(Stage primaryStage) throws Exception {
 			rootStage = primaryStage;
 			
 			EdgeFxmlLoader loader = new EdgeFxmlLoader();
-	        Parent root = (Parent) loader.load("../views/project_new.fxml", LoginController.class);
+	        Parent root = (Parent) loader.load("../views/login.fxml", LoginController.class);
 	        Scene scene = new Scene(root, 1306, 703);
 	        
 	        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/login.css").toString());
