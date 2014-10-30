@@ -3,6 +3,7 @@ package edge.logic;
 import org.hibernate.SessionFactory;
 
 import edge.controllers.LoginController;
+import edge.controllers.TodoController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -51,7 +52,7 @@ public class MainApplication extends Application {
 	        tempStage.show();
 	    }
 
-		public void start(Stage primaryStage) throws Exception {
+	    public void start(Stage primaryStage) throws Exception {
 			rootStage = primaryStage;
 			
 			EdgeFxmlLoader loader = new EdgeFxmlLoader();

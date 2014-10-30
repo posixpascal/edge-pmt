@@ -23,12 +23,9 @@ public class MainController extends BaseController {
 	        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/project.css").toString());
 	        String StageTitle = "Create a new Project";
 	       
-	        if (alreadyopen == false)
-	        {
+	       
 			MainApplication projectCreateWindow = new MainApplication();
 			projectCreateWindow.SetNewView(StageTitle, scene);
-			alreadyopen = true;
-			}	
 		}
 		catch(Exception ex)
 		{

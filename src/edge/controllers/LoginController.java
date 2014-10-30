@@ -60,7 +60,7 @@ public class LoginController extends BaseController {
 					EdgeFxmlLoader loader = new EdgeFxmlLoader();
 					try {
 			        Parent root = (Parent) loader.load("../views/main.fxml", MainController.class);
-			        Scene scene = new Scene(root, 1306, 703);
+			        Scene scene = new Scene(root, 1300, 700);
 			        
 			        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/main.css").toString());
 			        String StageTitle = "EDGE-PMT: Projects";

@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edge.logic.Database;
+import edge.logic.EdgeFxmlLoader;
+import edge.logic.MainApplication;
 import edge.models.Project;
 import edge.models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -53,17 +57,33 @@ public class ProjectController extends BaseController {
 	@FXML
 	private void initialize() {
 		List<User> users = User.getAll();
-		
-		
-		
-		
-		
-		
+	}
+	
+	@FXML
+	public void createTodoStage()
+	{
+		try
+		{
+			EdgeFxmlLoader loader = new EdgeFxmlLoader();
+	        Parent projectCreate = (Parent) loader.load("../views/Todo.fxml", TodoController.class);
+	        Scene scene = new Scene(projectCreate, 575, 250);
+	        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/todo.css").toString());
+	        String StageTitle = "Todo";
+	      
+			MainApplication projectCreateWindow = new MainApplication();
+			projectCreateWindow.SetNewView(StageTitle, scene); 
+				
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
 		
 	}
 	
 	@FXML
-	private void createProject(){
+	private void createProject()
+	{
 		String projectName = this.projectNameField.getText();
 		String customerName = this.customerField.getText();
 		
@@ -74,12 +94,14 @@ public class ProjectController extends BaseController {
 		//project.setDeadline(new Date(deadlineField.getValue().toEpochDay()));
 		
 		// notify every selected user per mail here
-		if (notifyPerEmailCheckBox.isSelected()){
+		if (notifyPerEmailCheckBox.isSelected())
+		{
 			// TODO: implement email features.
 			// How about GoogleMails SMTP server?
 		}
 		
-		if (project.isValid()){
+		if (project.isValid())
+		{
 		
 		
 			Database.getSession().beginTransaction();
@@ -92,7 +114,9 @@ public class ProjectController extends BaseController {
 			alert.setContentText("Das Projekt wurde erfolgreich erstellt. Die Mitarbeiter wurden per E-Mail informiert.");
 			alert.showAndWait();
 		
-		} else {
+		} 
+		else 
+		{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Hinweis");
 			alert.setHeaderText("Fehler im Formular enthalten!");
