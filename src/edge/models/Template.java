@@ -1,5 +1,24 @@
 package edge.models;
 
-public class Template {
+import java.util.Date;
 
+import javax.persistence.*;
+
+import org.hibernate.*;
+import org.hibernate.Query;
+
+@Entity
+@Table
+public class Template {
+	@Id
+	@GeneratedValue
+	private Integer id;
+	
+	public String templateName;
+	
+	// eg: edge.templates.MobileTemplate
+	public String templateClass;
+	
+	
+	
 }

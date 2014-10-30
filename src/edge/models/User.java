@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Hex;
@@ -77,6 +78,19 @@ public class User {
 	}
 	public String getEMail() {
 		return eMail;
+	}
+	
+	private Date created;
+	private Date modified;
+	
+	@PrePersist
+	protected void onCreate(){
+		created = new Date();
+	}
+	
+	@PreUpdate
+	protected void onUpdate(){
+		modified = new Date();
 	}
 	
 	/**

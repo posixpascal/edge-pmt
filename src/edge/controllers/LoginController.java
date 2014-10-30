@@ -1,8 +1,5 @@
 package edge.controllers;
 
-import edge.logic.MainApplication;
-import edge.logic.EdgeFxmlLoader;
-import edge.models.User;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,6 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import edge.logic.EdgeFxmlLoader;
+import edge.logic.MainApplication;
+import edge.models.User;
+import edge.helper.EdgeMailer;
 
 public class LoginController extends BaseController {
 	@FXML
@@ -20,13 +21,12 @@ public class LoginController extends BaseController {
 	
 	@FXML
 	private TextField usernameField;
-	
+	 
 	@FXML
 	private Text statusLabel;
 	
 	@FXML
-	private void initialize() {
-		
+	private void initialize() {		
 		/**
 		 * @loginBtn clicked
 		 */

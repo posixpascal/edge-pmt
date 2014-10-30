@@ -1,4 +1,4 @@
-package helper;
+package edge.helper;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;

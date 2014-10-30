@@ -29,6 +29,5 @@
       <ToggleButton fx:id="mobileToggleBtn" layoutX="20.0" layoutY="506.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="86.0" text="Mobile" />
       <ToggleButton fx:id="webToggleButton" layoutX="20.0" layoutY="468.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="86.0" text="Web" />
       <Button fx:id="createProjectBtn" layoutX="13.0" layoutY="556.0" mnemonicParsing="false" onAction="#createProject" prefHeight="26.0" prefWidth="401.0" text="Projekt anlegen" />
-      <Button layoutX="153.0" layoutY="173.0" mnemonicParsing="false" onAction="#createTodoStage" text="Add Todo" />
    </children>
 </Pane>
