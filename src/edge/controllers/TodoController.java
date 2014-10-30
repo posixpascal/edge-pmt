@@ -50,8 +50,8 @@ public class TodoController extends BaseController {
 	private void loadUsernames()
 	{
 		List<User> users = User.getAll();
-		List<String> ichweiﬂnichtwieso = new ArrayList<String>();
-		ObservableList<String> usernames = FXCollections.observableList(ichweiﬂnichtwieso);
+		List<String> userList = new ArrayList<String>();
+		ObservableList<String> usernames = FXCollections.observableList(userList);
 		
 		for (int index = 0; index < users.size(); index++)
 		{
@@ -67,37 +67,13 @@ public class TodoController extends BaseController {
 	{
 		String title = this.titleField.getText();
 		String content = this.contentField.getText();
-		Date deadLine = Date.;
+		Date deadLine = new Date();
 		
 		Todo todo = new Todo();
 		
 		todo.setContent(content);
 		todo.setTitleName(title);
-		todo.setDeadline(value);
-				
-		if (project.isValid())
-		{
 		
-		
-			Database.getSession().beginTransaction();
-			Database.save(project);
-			Database.getSession().getTransaction().commit();
-			
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Hinweis");
-			alert.setHeaderText("Projekt '" + projectName + "' f√ºr '" + customerName + "' erstellt.");
-			alert.setContentText("Das Projekt wurde erfolgreich erstellt. Die Mitarbeiter wurden per E-Mail informiert.");
-			alert.showAndWait();
-		
-		} 
-		else 
-		{
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Hinweis");
-			alert.setHeaderText("Fehler im Formular enthalten!");
-			alert.setContentText("Das Projekt konnte nicht gespeichert werden");
-			alert.showAndWait();
-		}
 	
 	}
 
