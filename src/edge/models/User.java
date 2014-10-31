@@ -34,54 +34,133 @@ public class User {
 	private String lastname;
 	private String eMail;
 	
+	private Date created;
+	private Date modified;
+	
+	
+	/**
+	 * @constructor
+	 */
 	public User(){}
+	
+	/**
+	 * @constructor
+	 * @param username The username for the new user
+	 * @param password The password of the new user
+	 */
 	public User(String username, String password){
 		this.username = username;
 		this.password = User.hashPassword(password);
 	}
 	
+	
+	/**
+	 * gets the database ID of the user object
+	 * @return database id as integer
+	 */
 	public Long getId() {
 		return id;
 	}
+	
+	/**
+	 * sets the ID of the user object
+	 * FIXME: We should remove this.
+	 * @param id a non-negative integer for the database ID.
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	/**
+	 * gets the username of the user object
+	 * @return username as string
+	 * @author pr
+	 */
 	public String getUsername() {
 		return username;
 	}
 	
+	/**
+	 * gets the firstname of the user object
+	 * @return firstname as string
+	 * @author pr
+	 */
 	public String getFirstname() {
 		return firstname;
 	}
+	
+	/**
+	 * sets the firstname of the user object
+	 * @param firstname a string containing the firstname of the user
+	 * @author pr
+	 */
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
+	
+	/**
+	 * gets the last name of the user object
+	 * @return lastname as string 
+	 * @author pr
+	 */
 	public String getLastname() {
 		return lastname;
 	}
+	
+	/**
+	 * Sets the lastname of the user object
+	 * @param lastname a string containing the lastname of the user
+	 * @author pr
+	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	
+	/**
+	 * Sets the username of the user object
+	 * @param username a string containing the username of the user
+	 * @author pr
+	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	/**
+	 * Gets the MD5 password of the user object
+	 * @return the password as MD5 string
+	 * @author pr
+	 */
 	public String getPassword() {
 		return password;
 	}
 	
+	/**
+	 * Sets the password of the user object
+	 * This method takes the password and transforms it into an MD5 hash.
+	 * @param password
+	 * @author pr
+	 */
 	public void setPassword(String password) {
 		this.password = User.hashPassword(password);
 	}
 	
+	/**
+	 * Sets the email of the user
+	 * @author nahom
+	 * @param eMail
+	 */
 	public void setEMail(String eMail) {
 		this.eMail = eMail;
 	}
+	
+	/**
+	 * Gets the email of user
+	 * @return the email of the current user. returns null if not available.
+	 * @author nahom
+	 */
 	public String getEMail() {
 		return eMail;
 	}
-	
-	private Date created;
-	private Date modified;
 	
 	@PrePersist
 	protected void onCreate(){
@@ -133,6 +212,12 @@ public class User {
 		return result.get(0);
 	}
 	
+	/**
+	 * Transform any password into a MD5 hash
+	 * @param password
+	 * @author pr
+	 * @return the MD5 hash of the given password
+	 */
 	public static String hashPassword(String password){
 
 		MessageDigest md = null;

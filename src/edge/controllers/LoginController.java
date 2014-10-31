@@ -26,7 +26,7 @@ public class LoginController extends BaseController {
 	private Text statusLabel;
 	
 	@FXML
-	private void initialize() {		
+	private void initialize() {
 		/**
 		 * @loginBtn clicked
 		 */

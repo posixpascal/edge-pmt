@@ -25,7 +25,7 @@ public class Todo {
 	private Long id;
 	private Long projectId;
 	
-	//@NotNull(message = "Das Todo benötigt einen Titel")
+	//@NotNull(message = "Das Todo benï¿½tigt einen Titel")
 	//@Min(2)
 	private String title;
 	
@@ -50,23 +50,55 @@ public class Todo {
 	
 	public Todo(){}
 	
+	/**
+	 * get the date when the todo object was created
+	 * @return the date when the Todo Object was originally created.
+	 * @author nahom
+	 */
 	public Date getCreated() {
 		return created;
 	}
+	
+	/**
+	 * FIXME: We should remove this, shouldn't we?
+	 * @param created
+	 */
 	public void setCreated(Date created) {
 		this.created = created;
 	}
+	
+	/**
+	 * get the date when the todo object was last modified
+	 * @return
+	 */
 	public Date getModified() {
 		return modified;
 	}
+	
+	/**
+	 * FIXME: das passiert automatisch. siehe @onUpdate
+	 * @param modified
+	 * @author nahom
+	 */
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
 	
+	/**
+	 * gets the title of the todo
+	 * @return the title of the todo as string
+	 * @author nahom
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * sets the title of the todo
+	 * @author nahom
+	 * FIXME: rename this to setTitle()
+	 * @param title
+	 */
 	public void setTitleName(String title) {
 		this.title = title;
 	}
