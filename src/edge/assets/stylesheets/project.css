@@ -1,0 +1,6 @@
+.projectBox {
+	-fx-background-color: #fff;
+}
+.dropshadow {
+	-fx-effect: dropshadow(three-pass-box, #993300, 3, 10, 2, 3);
+}

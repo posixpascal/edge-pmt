@@ -11,8 +11,12 @@ import javax.validation.Validator;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
+
+import edge.logic.Database;
 
 
 
@@ -61,6 +65,20 @@ public class Project extends BaseModel {
 	}
 	public void setModified(Date modified) {
 		this.modified = modified;
+	}
+	
+	public static List<Project> getAll() {
+		Session session = Database.getSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from Project");
+		
+		@SuppressWarnings("unchecked")
+		List<Project> result = (List<Project>) query.list();
+		
+		session.close();
+		
+		return result;
 	}
 	
 	

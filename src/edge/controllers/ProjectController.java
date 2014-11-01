@@ -6,13 +6,8 @@ package edge.controllers;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -23,8 +18,6 @@ import edge.logic.EdgeFxmlLoader;
 import edge.logic.MainApplication;
 import edge.models.Project;
 import edge.models.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -34,21 +27,21 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class ProjectController extends BaseController {
 	@FXML
 	private TextField projectNameField;
+	
+	@FXML
+	private Pane projectPane;
 	
 	@FXML
 	private DatePicker deadlineField;
@@ -77,6 +70,7 @@ public class ProjectController extends BaseController {
 	@FXML
 	private void initialize() {
 		List<User> users = User.getAll();
+
 	}
 	
 	@FXML
@@ -88,21 +82,9 @@ public class ProjectController extends BaseController {
 			new FileChooser.ExtensionFilter("JPG", "*.jpg"),
 			new FileChooser.ExtensionFilter("PNG", "*.png")
 		);
-		File imageFile = fileChooser.showOpenDialog(MainApplication.getInstance().getRootStage());
-		if (imageFile != null){
-			InputStream imageStream;
-			try {
-				imageStream = new FileInputStream(imageFile);
-				Image image = new Image(imageStream);
-				imageView.setImage(image);
-			} catch (FileNotFoundException e) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Hinweis");
-				alert.setHeaderText("Das Bild konnte nicht geladen werden!");
-				alert.setContentText("Möglicherweise ist das Bild beschädigt oder es konnte nicht gefunden werden.");
-				alert.showAndWait();
-			}
-			
+		File imageObj = fileChooser.showOpenDialog(MainApplication.getInstance().getRootStage());
+		if (imageObj != null){
+				imageView.setImage(new Image("file:/Users/pascalraszyk/Desktop/3503a3a313a37fcd.jpg"));
 		}
 		
 	}
@@ -119,7 +101,7 @@ public class ProjectController extends BaseController {
 	        String StageTitle = "Todo";
 	      
 			MainApplication projectCreateWindow = new MainApplication();
-			projectCreateWindow.SetNewView(StageTitle, scene); 
+			projectCreateWindow.setNewView(StageTitle, scene); 
 		}
 		catch(Exception ex)
 		{
@@ -138,7 +120,8 @@ public class ProjectController extends BaseController {
 		project.setCustomerName(customerName);
 		project.setName(projectName);
 		
-		if (imageView.getImage() != null){
+		/* temporär deaktiviert.
+		 * if (imageView.getImage() != null){
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			int width = (int) imageView.getImage().getWidth();
 			int height = (int) imageView.getImage().getHeight();
@@ -152,7 +135,7 @@ public class ProjectController extends BaseController {
 			String imageString = "data:image/png;base64,";
 			imageString += DatatypeConverter.printBase64Binary(baos.toByteArray());
 			project.setImage(imageString);
-		}
+		}*/
 		
 		
 		//project.setDeadline(new Date(deadlineField.getValue().toEpochDay()));
@@ -175,6 +158,8 @@ public class ProjectController extends BaseController {
 			alert.setHeaderText("Projekt '" + projectName + "' für '" + customerName + "' erstellt.");
 			alert.setContentText("Das Projekt wurde erfolgreich erstellt. Die Mitarbeiter wurden per E-Mail informiert.");
 			alert.showAndWait();
+			Stage stage = (Stage) projectPane.getScene().getWindow();
+			stage.close();
 		} 
 		else 
 		{

@@ -33,7 +33,7 @@ public class MainApplication extends Application {
 		private Stage rootStage;    
 		public Stage getRootStage()
 		{
-		 		return rootStage;
+		 	return rootStage;
 		}
 			 	 	
 	    public void setView(String stageTitle, Scene scene) throws Exception
@@ -43,7 +43,7 @@ public class MainApplication extends Application {
 	        rootStage.show();
 	    }
 	    
-	    public void SetNewView(String stageTitle, Scene scene)
+	    public void setNewView(String stageTitle, Scene scene)
 	    {
 	    	Stage tempStage = new Stage();
 	    	tempStage.setScene(scene);

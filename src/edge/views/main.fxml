@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:controller="edge.controllers.MainController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edge.controllers.MainController">
    <children>
       <TabPane prefHeight="517.0" prefWidth="711.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -17,21 +18,33 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane layoutY="70.0" prefHeight="418.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
-                          <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#createNewStage" text="Create project" />
+                        <Button fx:id="createProjectButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#createNewStage" text="Create project" />
+                        <ToolBar fx:id="bottomToolbar" prefHeight="38.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                           <effect>
+                              <InnerShadow color="#0000009f" height="17.96" offsetY="2.0" radius="3.99" width="0.0" />
+                           </effect>
+                           <items>
+                              <Button mnemonicParsing="false" onAction="#updateProjectsGrid" text="Aktualisieren" />
+                              <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+                           </items>
+                        </ToolBar>
+                        <ScrollPane fx:id="gridScrollPane" layoutY="53.0" prefHeight="392.0" prefWidth="711.0" AnchorPane.bottomAnchor="38.0">
+                          <content>
+                            <AnchorPane fx:id="gridAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="396.0" prefWidth="709.0">
+                                 <children>
+                                    <GridPane fx:id="projectsGrid" prefHeight="922.0" prefWidth="970.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                      <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
             </content>

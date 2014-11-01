@@ -69,7 +69,7 @@ public class LoginController extends BaseController {
 					}
 					catch(Exception ex)
 					{
-						System.out.println(ex);
+						ex.printStackTrace();
 					}
 				} else {
 					addErrorClass(usernameField);
