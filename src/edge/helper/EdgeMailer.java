@@ -13,11 +13,11 @@ public class EdgeMailer {
 	private String message = "";
 	private String subject = "";
 	
-	private final String from = "edge-pmt@is.just.mothafucking.cool";
+	private final String from = "fraujaeckel@ich.will.den.cock.vankash.de";
 	private final String host = "localhost";
 	
-	 Properties props = new Properties();
-     Session session = Session.getDefaultInstance(props, null);
+	Properties props = new Properties();
+    Session session = Session.getDefaultInstance(props, null);
 
 	
 	public EdgeMailer(List<String> receivers){
@@ -39,6 +39,7 @@ public class EdgeMailer {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
+            
             receivers.forEach( (receiver) -> {
             	try {
 					msg.addRecipient(Message.RecipientType.TO,
@@ -51,12 +52,12 @@ public class EdgeMailer {
             msg.setSubject(subject);
             msg.setText(message);
             Transport.send(msg);
-
         } catch (AddressException e) {
             e.printStackTrace();
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+		
 		return false;
 	}
 

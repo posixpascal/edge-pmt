@@ -9,7 +9,7 @@ import org.hibernate.Query;
 
 @Entity
 @Table
-public class Template {
+public class Template extends BaseModel {
 	@Id
 	@GeneratedValue
 	private Integer id;

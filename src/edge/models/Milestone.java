@@ -9,7 +9,7 @@ import org.hibernate.Query;
 
 @Entity
 @Table
-public class Milestone {
+public class Milestone extends BaseModel {
 	@Id
 	@GeneratedValue
 	private Integer id;

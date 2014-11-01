@@ -64,7 +64,7 @@ public class LoginController extends BaseController {
 			        
 			        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/main.css").toString());
 			        String StageTitle = "EDGE-PMT: Projects";
-					MainApplication.GetInstance().setView(StageTitle, scene);
+					MainApplication.getInstance().setView(StageTitle, scene);
 					
 					}
 					catch(Exception ex)

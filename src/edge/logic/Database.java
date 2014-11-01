@@ -5,6 +5,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import edge.models.User;
+import edge.models.BaseModel;
+
 public class Database {
 	 private static final SessionFactory sessionFactory = buildSessionFactory();
 	  
@@ -34,6 +37,7 @@ public class Database {
 	    	Database.sessionFactory.close();
 	    }
 	    
+	    
 	
 	  
 	    public static void shutdown() {
@@ -45,5 +49,19 @@ public class Database {
 	    	Session session = Database.getSession();
 	    	session.save(hibernateObject);
 	    }
+	    
+	    public static void saveAndCommit(Object hibernateObject){
+	    	Database.getSession().beginTransaction();
+			Database.save(hibernateObject);
+			Database.getSession().getTransaction().commit();
+	    }
+
+	    /**
+	     * Dump the model to console for debugging purposes.
+	     * @param model any edge model which offers the .dump method
+	     */
+		public static void dump(BaseModel model) {
+			model.dump();
+		}
 	  
 }

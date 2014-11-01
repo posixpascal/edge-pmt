@@ -9,7 +9,7 @@ import org.hibernate.Query;
 
 @Entity
 @Table
-public class GoogleDriveFile {
+public class GoogleDriveFile extends BaseModel {
 	@Id
 	@GeneratedValue
 	private Integer id;

@@ -18,7 +18,7 @@ import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
 @Entity
 @Table
-public class Todo {
+public class Todo extends BaseModel {
 	
 	@Id
 	@GeneratedValue

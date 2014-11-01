@@ -25,7 +25,7 @@ public class MainApplication extends Application {
 	 		instance = this;
 	 	}
 	 	
-	 	public static MainApplication GetInstance(){
+	 	public static MainApplication getInstance(){
 	 		return instance;
 	 	}
 	 	
@@ -35,8 +35,7 @@ public class MainApplication extends Application {
 		{
 		 		return rootStage;
 		}
-		
-				 	
+			 	 	
 	    public void setView(String stageTitle, Scene scene) throws Exception
 	    {
 	    	rootStage.setScene(scene);

@@ -9,7 +9,7 @@ import org.hibernate.Query;
 
 @Entity
 @Table
-public class Comment {
+public class Comment extends BaseModel {
 	@Id
 	@GeneratedValue
 	private Integer id;

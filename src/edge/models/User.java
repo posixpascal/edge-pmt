@@ -23,7 +23,7 @@ import org.hibernate.Query;
 
 @Entity
 @Table
-public class User {
+public class User extends BaseModel {
 	@Id
 	@GeneratedValue
 	private Long id;

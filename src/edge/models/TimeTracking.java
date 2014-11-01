@@ -9,7 +9,7 @@ import org.hibernate.Query;
 
 @Entity
 @Table
-public class TimeTracking {
+public class TimeTracking extends BaseModel {
 	@Id
 	@GeneratedValue
 	private Integer id;

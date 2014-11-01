@@ -18,7 +18,7 @@ import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
 @Entity
 @Table
-public class Project {
+public class Project extends BaseModel {
 	
 	@Id
 	@GeneratedValue
@@ -27,7 +27,7 @@ public class Project {
 	//@NotNull(message = "Das Projekt benötigt einen Namen")
 	//@Min(2)
 	private String name;
-	
+	private String image;
 	//@NotNull(message = "Ein Projekt muss einem Kunden zugewiesen sein")
 	private String customerName;
 	
@@ -97,6 +97,14 @@ public class Project {
 	public boolean isValid(){
 		// TODO: add validation here
 		return true;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

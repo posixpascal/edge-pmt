@@ -59,7 +59,7 @@ public class TodoController extends BaseController {
 		}
 
 		UsernameDropdown.getItems().clear();
-		 UsernameDropdown.setItems(usernames);
+		UsernameDropdown.setItems(usernames);
 	}
 	
 	@FXML
