@@ -85,14 +85,14 @@ public class MainController extends BaseController {
 	@FXML
 	public void initialize(){
 		bottomToolbar.setPrefWidth(WINDOW_WIDTH);
-		bottomToolbar.setMinWidth(WINDOW_WIDTH - 10);
-		gridScrollPane.setPrefWidth(WINDOW_WIDTH - 10);
-		gridScrollPane.setMinWidth(WINDOW_WIDTH - 10);
+		bottomToolbar.setMinWidth(WINDOW_WIDTH);
+		gridScrollPane.setPrefWidth(WINDOW_WIDTH - 5);
+		gridScrollPane.setMinWidth(WINDOW_WIDTH - 5);
 
 		gridScrollPane.setPrefHeight(550);
 		
-		gridAnchorPane.setPrefWidth(WINDOW_WIDTH - 20);
-		gridAnchorPane.setMinWidth(WINDOW_WIDTH - 20);
+		gridAnchorPane.setPrefWidth(WINDOW_WIDTH - 30);
+		gridAnchorPane.setMinWidth(WINDOW_WIDTH - 30);
 
 		drawProjectsGrid();
 	}
