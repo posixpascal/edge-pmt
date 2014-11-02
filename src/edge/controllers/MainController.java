@@ -175,6 +175,23 @@ public class MainController extends BaseController {
 						new BackgroundFill(Color.rgb(255, 255, 255), CornerRadii.EMPTY, Insets.EMPTY)
 				)
 			);
+			
+			Long projectId = project.getId();
+			projectBox.setOnMouseClicked( (m) -> {
+				EdgeFxmlLoader loader = new EdgeFxmlLoader();
+		        Parent projectView;
+				try {
+					projectView = (Parent) loader.load("../views/project_view.fxml", ProjectViewController.class);
+					Scene scene = new Scene(projectView, 600, 500);
+				    scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/project.css").toString());
+				    String StageTitle = "Projekt: " + projectId;
+				    
+					MainApplication projectViewWindow = new MainApplication();
+					projectViewWindow.setNewView(StageTitle, scene); 
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			});
 					
 			projectBox.setStyle("-fx-effect: dropshadow(three-pass-box, #000, 5, 0, 0, 0)");
 					
@@ -182,11 +199,7 @@ public class MainController extends BaseController {
 			if (currentColumnIndex >= maxColumns){
 				currentColumnIndex = 0;
 				currentRowIndex++;
-			}
-			
-
-				
-					
+			}		
 		});
 	}
 }

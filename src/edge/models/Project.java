@@ -3,7 +3,9 @@ package edge.models;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.Validation;
@@ -26,6 +28,7 @@ public class Project extends BaseModel {
 	
 	@Id
 	@GeneratedValue
+	@Column(name="project_id")
 	private Long id;
 	
 	//@NotNull(message = "Das Projekt benötigt einen Namen")
@@ -45,6 +48,9 @@ public class Project extends BaseModel {
 	protected void onCreate(){
 		created = new Date();
 	}
+	
+	@ManyToMany(mappedBy="projects")
+	private Set<User> users = new HashSet<User>();
 	
 	@PreUpdate
 	protected void onUpdate(){

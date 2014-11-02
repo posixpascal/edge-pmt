@@ -7,6 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Hex;
@@ -19,12 +20,15 @@ import javax.persistence.*;
 
 import org.hibernate.*;
 import org.hibernate.Query;
+import org.hibernate.annotations.GenericGenerator;
+import java.util.Set;
 
 
 @Entity
 @Table
 public class User extends BaseModel {
 	@Id
+	@Column(name="user_id")
 	@GeneratedValue
 	private Long id;
 	
@@ -37,6 +41,9 @@ public class User extends BaseModel {
 	private Date created;
 	private Date modified;
 	
+	@ManyToMany(cascade = {CascadeType.ALL})
+	@JoinTable(name="Project_User", joinColumns={@JoinColumn(name="user_id")}, inverseJoinColumns={@JoinColumn(name="project_id")})
+	private Set<Project> projects = new HashSet<Project>();
 	
 	/**
 	 * @constructor

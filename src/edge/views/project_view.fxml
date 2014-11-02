@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ToolBar prefHeight="46.0" prefWidth="600.0">
+         <items>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projektname" />
+            <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" />
+            <ProgressBar prefHeight="20.0" prefWidth="118.0" progress="1.0">
+               <effect>
+                  <Reflection bottomOpacity="0.01" fraction="0.52" topOffset="-7.0" />
+               </effect>
+            </ProgressBar>
+            <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Todos" />
+            <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mitarbeiter" />
+            <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tage bis zur Deadline" />
+         </items>
+      </ToolBar>
+      <AnchorPane layoutX="-7.0" layoutY="46.0" prefHeight="456.0" prefWidth="609.0">
+         <children>
+            <TabPane layoutX="49.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ccc;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                <Tab text="Übersicht">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab text="Todos">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                  <Tab text="Meilensteine">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Dateien">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Mitarbeiter">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Einstellungen">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>

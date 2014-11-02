@@ -25,6 +25,10 @@ public class UserRole extends BaseModel {
 	private Boolean canComment;
 	private Boolean canDeleteProjects;
 	
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private User user;
+	
 	public Boolean getCanCreateProjects() {
 		return canCreateProjects;
 	}

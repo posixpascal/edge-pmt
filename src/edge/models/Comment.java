@@ -12,6 +12,7 @@ import org.hibernate.Query;
 public class Comment extends BaseModel {
 	@Id
 	@GeneratedValue
+	@Column(name="comment_id")
 	private Integer id;
 	
 	private String comment;
@@ -19,10 +20,16 @@ public class Comment extends BaseModel {
 	private Date created;
 	private Date modified;
 	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	
 	@PrePersist
 	protected void onCreate(){
 		created = new Date();
 	}
+	
+
 	
 	@PreUpdate
 	protected void onUpdate(){

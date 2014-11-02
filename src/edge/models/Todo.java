@@ -22,6 +22,7 @@ public class Todo extends BaseModel {
 	
 	@Id
 	@GeneratedValue
+	@Column(name="todo_id")
 	private Long id;
 	private Long projectId;
 	
@@ -37,6 +38,10 @@ public class Todo extends BaseModel {
 	
 	private Date created;
 	private Date modified;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	@PrePersist
 	protected void onCreate(){
