@@ -8,11 +8,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
+import edge.helper.EdgeMailer;
 import edge.logic.Database;
 import edge.logic.EdgeFxmlLoader;
 import edge.logic.MainApplication;
@@ -143,8 +145,17 @@ public class ProjectController extends BaseController {
 		// notify every selected user per mail here
 		if (notifyPerEmailCheckBox.isSelected())
 		{
-			// TODO: implement email features.
-			// How about GoogleMails SMTP server?
+			List<User> users = new ArrayList<User>();
+			List<String> targets = new ArrayList<String>();
+			
+			users.forEach( (user) -> {
+				targets.add(user.getEMail());
+			});
+			
+			EdgeMailer mailer = new EdgeMailer(targets);
+			mailer.setSubject("EDGE: Sie wurden einem Projekt zugeteilt");
+			mailer.setMessage("YoYoYo");
+			mailer.sendMail();
 		}
 		
 		if (project.isValid())

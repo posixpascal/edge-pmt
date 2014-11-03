@@ -1,5 +1,6 @@
 package edge.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edge.logic.MainApplication;
@@ -27,11 +28,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextAlignment;import javafx.stage.Stage;
+
 
 public class MainController extends BaseController {
 	List<Project> projects = Project.getAll();
-	
+	List<Project> openProjects = new ArrayList<Project>(5);
 	private final int WINDOW_WIDTH = 1306;
 	private final int WINDOW_HEIGHT = 517;
 	
@@ -176,20 +178,29 @@ public class MainController extends BaseController {
 				)
 			);
 			
+
 			Long projectId = project.getId();
 			projectBox.setOnMouseClicked( (m) -> {
-				EdgeFxmlLoader loader = new EdgeFxmlLoader();
-		        Parent projectView;
-				try {
-					projectView = (Parent) loader.load("../views/project_view.fxml", ProjectViewController.class);
-					Scene scene = new Scene(projectView, 600, 500);
-				    scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/project.css").toString());
-				    String StageTitle = "Projekt: " + projectId;
-				    
-					MainApplication projectViewWindow = new MainApplication();
-					projectViewWindow.setNewView(StageTitle, scene); 
-				} catch (Exception e) {
-					e.printStackTrace();
+				if (!openProjects.contains(project)){
+					EdgeFxmlLoader loader = new EdgeFxmlLoader("../views/project_view.fxml");
+					ProjectViewController projectViewController = new ProjectViewController(project);
+					loader.getRawLoader().setController(projectViewController);
+					Stage stage = new Stage();
+					try {
+						stage.setScene(
+							new Scene(
+								(Pane) loader.getRawLoader().load()
+							)
+						);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					stage.show();
+					
+					
+							
+			        
 				}
 			});
 					

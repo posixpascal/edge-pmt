@@ -10,22 +10,22 @@
    <children>
       <ToolBar prefHeight="46.0" prefWidth="600.0">
          <items>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projektname" />
+            <Text fx:id="projectNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Projektname" />
             <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" />
-            <ProgressBar prefHeight="20.0" prefWidth="118.0" progress="1.0">
+            <ProgressBar fx:id="projectProgressBar" prefHeight="20.0" prefWidth="118.0" progress="1.0">
                <effect>
                   <Reflection bottomOpacity="0.01" fraction="0.52" topOffset="-7.0" />
                </effect>
             </ProgressBar>
             <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text fx:id="todoCountLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Todos" />
             <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text fx:id="coworkerCountLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mitarbeiter" />
             <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tage bis zur Deadline" />
+            <Text fx:id="deadlineLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Tage bis zur Deadline" />
          </items>
       </ToolBar>
       <AnchorPane layoutX="-7.0" layoutY="46.0" prefHeight="456.0" prefWidth="609.0">

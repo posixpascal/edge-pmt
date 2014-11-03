@@ -1,4 +1,4 @@
-package templates;
+package edge.templates;
 
 import java.util.HashMap;
 

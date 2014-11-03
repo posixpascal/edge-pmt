@@ -1,4 +1,4 @@
-package templates;
+package edge.templates;
 
 import java.util.HashMap;
 
@@ -8,9 +8,14 @@ public class WebTemplate {
 		{
 			put("index.html", "<!DOCTYPE html>\n<html>\n\t<head></head>\n\t<body></body>\n<html>");
 			put("robots.txt", "yo");
+			
 			put("assets/img", "yo");
+			
 			put("assets/css", "yo");
+			put("assets/css/main.css", "yo");
+			
 			put("assets/js", "yo");
+			put("assets/js/main.js", "yo");
 		}
 	};
 	

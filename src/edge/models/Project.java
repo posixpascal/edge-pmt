@@ -24,7 +24,7 @@ import edge.logic.Database;
 
 @Entity
 @Table
-public class Project extends BaseModel {
+public class Project extends BaseModel implements java.io.Serializable {
 	
 	@Id
 	@GeneratedValue
@@ -49,13 +49,25 @@ public class Project extends BaseModel {
 		created = new Date();
 	}
 	
-	@ManyToMany(mappedBy="projects")
+	@OneToMany(fetch = FetchType.EAGER)
 	private Set<User> users = new HashSet<User>();
+	
+	public Set<User> getUsers(){
+		return this.users;
+	}
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Todo> todos = new HashSet<Todo>();
+	
+	public Set<Todo> getTodos(){
+		return this.todos;
+	}
 	
 	@PreUpdate
 	protected void onUpdate(){
 		modified = new Date();
 	}
+	
 	
 	
 	public Project(){}

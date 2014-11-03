@@ -37,11 +37,7 @@ public class Database {
 	    	Database.sessionFactory.close();
 	    }
 	    
-	    
-	
-	  
 	    public static void shutdown() {
-	        // Close caches and connection pools
 	        getSessionFactory().close();
 	    }
 	    

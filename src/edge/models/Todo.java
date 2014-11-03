@@ -3,7 +3,9 @@ package edge.models;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.Validation;
@@ -42,6 +44,20 @@ public class Todo extends BaseModel {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	private Project project;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id", nullable = false)
+    public Project getProject()  
+    {  
+        return project;  
+    }  
+	
+	public void setProject(Project project){
+		this.project = project;
+	}
+	
 	
 	@PrePersist
 	protected void onCreate(){
