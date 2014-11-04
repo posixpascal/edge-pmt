@@ -138,7 +138,7 @@ public class ProjectController extends BaseController {
 			}
 			String imageString = "data:image/png;base64,";
 			imageString += DatatypeConverter.printBase64Binary(baos.toByteArray());
-			System.out.debug(imageString.length());
+			System.out.print(imageString.length());
 			//project.setImage(imageString);
 		}
 		
