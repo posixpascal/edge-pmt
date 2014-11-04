@@ -47,11 +47,27 @@ public class Todo extends BaseModel {
 	
 	private Project project;
 	
+	
+	@ManyToOne
+	@JoinColumn(name="todogroup_id")
+	private TodoGroup todoGroup;
+	
+	public void setTodoGroup(TodoGroup todoGroup) {
+		this.todoGroup = todoGroup;
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id", nullable = false)
     public Project getProject()  
     {  
         return project;  
+    }  
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "todogroup_id", nullable = false)
+    public TodoGroup getTodoGroup()  
+    {  
+        return todoGroup;  
     }  
 	
 	public void setProject(Project project){

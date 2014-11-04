@@ -71,12 +71,9 @@ public class Database {
 	     * @return boolean whether the object was an edge.model or not.
 	     */
 	    public static boolean save(Object hibernateObject){
-	    	if (hibernateObject.getClass().getPackage().getName() == "edge.models"){
-	    		Session session = Database.getSession();
-	    		session.save(hibernateObject);
-	    		return true;
-	    	} 
-	    	return false;
+	    	Session session = Database.getSession();
+	    	session.save(hibernateObject);
+	    	return true;
 	    }
 	    
 	    /**

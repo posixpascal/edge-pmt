@@ -28,5 +28,6 @@
      <mapping class="edge.models.GoogleDriveFile" />
      <mapping class="edge.models.Comment" />
      <mapping class="edge.models.Milestone" />
+     <mapping class="edge.models.TodoGroup" />
 </session-factory>
 </hibernate-configuration>
