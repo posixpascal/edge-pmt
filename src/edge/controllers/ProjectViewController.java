@@ -62,14 +62,11 @@ public class ProjectViewController extends BaseController {
 
 	@FXML
 	private void initialize() {
-
-		
 		this.projectNameLabel.setText("" + project.getName());
 		this.todoCountLabel.setText("" + project.getTodos().size());
 		this.coworkerCountLabel.setText("" + project.getUsers().size());
 		this.deadlineLabel.setText(project.getDaysToDeadLineInWords());
 		this.deadlineLabel.getStyleClass().add(project.getDeadlineColorClass());
-	
 	}
 	
 	protected void initWithProject(Project project){

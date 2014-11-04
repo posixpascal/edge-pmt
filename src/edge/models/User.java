@@ -41,6 +41,19 @@ public class User extends BaseModel {
 	private Date created;
 	private Date modified;
 	
+	
+	// TODO: bit retarded to use TEXT here. maybe BLOB is working too
+	@Column(name="profile_pic", columnDefinition="TEXT")
+	private String image;
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(name="Project_User", joinColumns={@JoinColumn(name="user_id")}, inverseJoinColumns={@JoinColumn(name="project_id")})
 	private Set<Project> projects = new HashSet<Project>();

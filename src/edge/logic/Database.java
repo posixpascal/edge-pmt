@@ -73,6 +73,7 @@ public class Database {
 	    public static boolean save(Object hibernateObject){
 	    	Session session = Database.getSession();
 	    	session.save(hibernateObject);
+	    	session.close();
 	    	return true;
 	    }
 	    
@@ -84,6 +85,7 @@ public class Database {
 	    	Database.getSession().beginTransaction();
 			Database.save(hibernateObject);
 			Database.getSession().getTransaction().commit();
+			Database.closeSession();
 	    }
 
 	    /**

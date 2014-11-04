@@ -34,7 +34,10 @@ public class Project extends BaseModel implements java.io.Serializable {
 	//@NotNull(message = "Das Projekt benötigt einen Namen")
 	//@Min(2)
 	private String name;
+	
+	@Column(name="image", columnDefinition="TEXT")
 	private String image;
+	
 	//@NotNull(message = "Ein Projekt muss einem Kunden zugewiesen sein")
 	private String customerName;
 	
@@ -43,6 +46,9 @@ public class Project extends BaseModel implements java.io.Serializable {
 	
 	private Date created;
 	private Date modified;
+	
+
+
 	
 	@PrePersist
 	protected void onCreate(){

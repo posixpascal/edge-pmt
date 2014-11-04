@@ -85,8 +85,10 @@ public class ProjectController extends BaseController {
 			new FileChooser.ExtensionFilter("PNG", "*.png")
 		);
 		File imageObj = fileChooser.showOpenDialog(MainApplication.getInstance().getRootStage());
-		if (imageObj != null){
-				imageView.setImage(new Image("file:/Users/pascalraszyk/Desktop/3503a3a313a37fcd.jpg"));
+		if (imageObj != null){		
+			ImageView t = new ImageView();
+			imageView.setImage(new Image(imageObj.getAbsoluteFile().toURI().toString()));
+			
 		}
 		
 	}
@@ -122,8 +124,8 @@ public class ProjectController extends BaseController {
 		project.setCustomerName(customerName);
 		project.setName(projectName);
 		
-		/* temporär deaktiviert.
-		 * if (imageView.getImage() != null){
+	
+		  if (imageView.getImage() != null){
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			int width = (int) imageView.getImage().getWidth();
 			int height = (int) imageView.getImage().getHeight();
@@ -136,8 +138,9 @@ public class ProjectController extends BaseController {
 			}
 			String imageString = "data:image/png;base64,";
 			imageString += DatatypeConverter.printBase64Binary(baos.toByteArray());
-			project.setImage(imageString);
-		}*/
+			System.out.debug(imageString.length());
+			//project.setImage(imageString);
+		}
 		
 		
 		//project.setDeadline(new Date(deadlineField.getValue().toEpochDay()));
@@ -160,9 +163,10 @@ public class ProjectController extends BaseController {
 		
 		if (project.isValid())
 		{
-			Database.getSession().beginTransaction();
-			Database.save(project);
-			Database.getSession().getTransaction().commit();
+
+			Database.saveAndCommit(project);
+
+			
 			
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Hinweis");
