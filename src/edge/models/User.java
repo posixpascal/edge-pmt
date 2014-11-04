@@ -43,14 +43,14 @@ public class User extends BaseModel {
 	
 	
 	// TODO: bit retarded to use TEXT here. maybe BLOB is working too
-	@Column(name="profile_pic", columnDefinition="TEXT")
-	private String image;
+	@Column(name="profile_pic", columnDefinition="mediumblob")
+	private byte[] image;
 	
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
@@ -206,6 +206,7 @@ public class User extends BaseModel {
 		@SuppressWarnings("unchecked")
 		List<User> result = (List<User>) query.list();
 		
+
 		session.close();
 		
 		return result;

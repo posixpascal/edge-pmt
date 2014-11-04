@@ -6,6 +6,7 @@ package edge.controllers;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -71,9 +72,12 @@ public class ProjectController extends BaseController {
 	
 	@FXML
 	private void initialize() {
-		List<User> users = User.getAll();
+		
 
 	}
+	
+	
+	private File imagePath = null;
 	
 	@FXML
 	private void setImage(){
@@ -84,10 +88,10 @@ public class ProjectController extends BaseController {
 			new FileChooser.ExtensionFilter("JPG", "*.jpg"),
 			new FileChooser.ExtensionFilter("PNG", "*.png")
 		);
-		File imageObj = fileChooser.showOpenDialog(MainApplication.getInstance().getRootStage());
-		if (imageObj != null){		
+		this.imagePath = fileChooser.showOpenDialog(MainApplication.getInstance().getRootStage());
+		if (this.imagePath  != null){		
 			ImageView t = new ImageView();
-			imageView.setImage(new Image(imageObj.getAbsoluteFile().toURI().toString()));
+			imageView.setImage(new Image(this.imagePath .getAbsoluteFile().toURI().toString()));
 			
 		}
 		
@@ -125,21 +129,18 @@ public class ProjectController extends BaseController {
 		project.setName(projectName);
 		
 	
-		  if (imageView.getImage() != null){
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			int width = (int) imageView.getImage().getWidth();
-			int height = (int) imageView.getImage().getHeight();
-			BufferedImage bImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
-			SwingFXUtils.fromFXImage(imageView.getImage(), bImage);
+		if (imagePath != null){
+			byte[] bFile = new byte[(int) imagePath.length()];
 			try {
-				ImageIO.write(bImage, "png", baos);
+				FileInputStream fis = new FileInputStream(imagePath);
+				fis.read(bFile);
+				fis.close();
 			} catch (IOException e){
 				e.printStackTrace();
 			}
-			String imageString = "data:image/png;base64,";
-			imageString += DatatypeConverter.printBase64Binary(baos.toByteArray());
-			System.out.print(imageString.length());
-			//project.setImage(imageString);
+			
+			project.setImage(bFile);
+			
 		}
 		
 		
@@ -164,7 +165,9 @@ public class ProjectController extends BaseController {
 		if (project.isValid())
 		{
 
-			Database.saveAndCommit(project);
+			Database.getSessionFactory().getCurrentSession().beginTransaction();
+			Database.getSessionFactory().getCurrentSession().save(project);
+			Database.getSession().getTransaction().commit();
 
 			
 			

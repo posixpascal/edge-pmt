@@ -1,12 +1,17 @@
 package edge.controllers;
 
 import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import edge.logic.MainApplication;
 import edge.logic.EdgeFxmlLoader;
 import edge.models.Project;
 import edge.models.User;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -29,8 +34,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;import javafx.stage.Stage;
-
-
+import javafx.scene.image.*;
 public class MainController extends BaseController {
 	List<Project> projects = Project.getAll();
 	List<Project> openProjects = new ArrayList<Project>(5);
@@ -156,9 +160,33 @@ public class MainController extends BaseController {
 			Text customerName = new Text();
 			customerName.setText("Kunde: " + project.getCustomerName());
 			customerName.setFill(Paint.valueOf("#999999"));
-					
+			
 			Pane projectImage = new Pane();
 			projectImage.setPrefHeight(260);
+			
+			if (project.getImage().length != 0){
+				ImageView imageView = new ImageView();
+
+				ByteArrayInputStream bais = new ByteArrayInputStream(project.getImage());
+				BufferedImage bImage = null;
+				try {
+					bImage = ImageIO.read(bais);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+				Image image = SwingFXUtils.toFXImage(bImage, null);
+				imageView.setImage(image);
+				
+				imageView.setFitWidth(projectBoxSize - 20);
+				imageView.setFitHeight(260);
+				imageView.setPreserveRatio(false);
+
+				
+				
+				projectImage.getChildren().add(imageView);
+				projectImage.setPrefWidth(projectBoxSize - 20);
+			}
+			
 			
 			ProgressBar projectProgress = new ProgressBar();
 			projectProgress.setProgress(0.2);
