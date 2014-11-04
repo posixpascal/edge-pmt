@@ -35,8 +35,8 @@ public class Project extends BaseModel implements java.io.Serializable {
 	//@Min(2)
 	private String name;
 	
-	@Column(name="image", columnDefinition="TEXT")
-	private String image;
+	@Column(name="image", columnDefinition="mediumblob")
+	private byte[] image;
 	
 	//@NotNull(message = "Ein Projekt muss einem Kunden zugewiesen sein")
 	private String customerName;
@@ -204,7 +204,7 @@ public class Project extends BaseModel implements java.io.Serializable {
 		return true;
 	}
 
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 	
@@ -212,7 +212,7 @@ public class Project extends BaseModel implements java.io.Serializable {
 	 * sets the image for the project as base64 encode
 	 * @param image the base64 encoded image
 	 */
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
