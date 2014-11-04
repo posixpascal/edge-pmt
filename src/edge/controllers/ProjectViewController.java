@@ -67,7 +67,9 @@ public class ProjectViewController extends BaseController {
 		this.projectNameLabel.setText("" + project.getName());
 		this.todoCountLabel.setText("" + project.getTodos().size());
 		this.coworkerCountLabel.setText("" + project.getUsers().size());
-		this.deadlineLabel.setText("0 Tage");
+		this.deadlineLabel.setText(project.getDaysToDeadLineInWords());
+		this.deadlineLabel.getStyleClass().add(project.getDeadlineColorClass());
+	
 	}
 	
 	protected void initWithProject(Project project){

@@ -3,13 +3,14 @@
 }
 
 .status-error {
-	-fx-font-color: #EE6456;
+	-fx-fill: #EE6456;
 }
 
 .status-success {
-	-fx-color: #98E466;
+	-fx-fill: #98E466;
 }
 
 .success {
 	-fx-background-color: #98E466;
+
 }

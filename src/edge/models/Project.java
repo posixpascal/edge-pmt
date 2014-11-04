@@ -52,6 +52,10 @@ public class Project extends BaseModel implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<User> users = new HashSet<User>();
 	
+	/**
+	 * returns a hashset containing all attached users to this project
+	 * @return
+	 */
 	public Set<User> getUsers(){
 		return this.users;
 	}
@@ -59,6 +63,10 @@ public class Project extends BaseModel implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Todo> todos = new HashSet<Todo>();
 	
+	/**
+	 * returns a hashset containing all attached todos to this project
+	 * @return
+	 */
 	public Set<Todo> getTodos(){
 		return this.todos;
 	}
@@ -72,19 +80,42 @@ public class Project extends BaseModel implements java.io.Serializable {
 	
 	public Project(){}
 	
+	/**
+	 * gets the date when this project was created
+	 * @return
+	 */
 	public Date getCreated() {
 		return created;
 	}
+	
+	/**
+	 * sets the date when this project is created
+	 * @param created
+	 */
 	public void setCreated(Date created) {
 		this.created = created;
 	}
+	
+	/**
+	 * returns the date when the project was last modified
+	 * @return
+	 */
 	public Date getModified() {
 		return modified;
 	}
+	
+	/**
+	 * sets the date when the project was last modified
+	 * @param modified
+	 */
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
 	
+	/**
+	 * gets a list of all projects available in the database
+	 * @return
+	 */
 	public static List<Project> getAll() {
 		Session session = Database.getSession();
 		session.beginTransaction();
@@ -101,35 +132,67 @@ public class Project extends BaseModel implements java.io.Serializable {
 	
 	
 
-	
+	/**
+	 * gets the customername of the project
+	 * @return
+	 */
 	public String getCustomerName() {
 		return customerName;
 	}
 
+	/**
+	 * sets the customername of the project
+	 * @param customerName
+	 */
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-
+	
+	/**
+	 * gets the name of the project
+	 * @return a string representing the name of the project
+	 */
 	public String getName(){
 			return name;
 	}
 	
+	/**
+	 * gets the ID of the project
+	 * @return
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * sets the ID of the project
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * sets the name of the project
+	 * @param name
+	 */
 	public void setName(String name){
 		this.name = name;
 	}
 
+	/**
+	 * sets the deadline for the project
+	 * @param value any java.util.Date object which represents a date in the future.
+	 */
 	public void setDeadline(Date value) {
-		this.deadLine = value;
+		this.setDeadLine(value);
 	}
 	
+	/**
+	 * check whether the project is valid or not.
+	 * @return
+	 * @todo
+	 */
 	public boolean isValid(){
 		// TODO: add validation here
 		return true;
@@ -138,11 +201,67 @@ public class Project extends BaseModel implements java.io.Serializable {
 	public String getImage() {
 		return image;
 	}
-
+	
+	/**
+	 * sets the image for the project as base64 encode
+	 * @param image the base64 encoded image
+	 */
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	public Date getDeadLine() {
+		return deadLine;
+	}
+
+	public void setDeadLine(Date deadLine) {
+		this.deadLine = deadLine;
+	}
+
+	public int getDaysToDeadLine() {
+		long now = new Date().getTime();
+		long deadline = this.getDeadLine().getTime();
+		long difference = (now - deadline);
+		boolean isDue = false;
+		
+		if (difference < 0){ 
+			difference *= -1;
+			isDue = true;
+		}
+		
+		int days = (int) difference / (1000 * 60 * 60 * 24);
+		
+		if (isDue){ days *= -1; }
+		return days;
+	}
 	
+	
+	public String getDaysToDeadLineInWords(){
+		int days = this.getDaysToDeadLine();
+		String dayString = "";
+		if (days == 0) { dayString = "heute"; }
+		else if (days > 0){ dayString = "in " + days + " " + (days == 1 ? "Tag" : "Tagen"); }
+		else {
+			dayString = "vor " + (-1 * days) + " " + (days == -1 ? "Tag" : "Tagen"); 
+		}
+		return dayString;
+	}
+	
+	
+	public String getDeadlineColorClass(){
+		String colorClass = "default";
+		int days = this.getDaysToDeadLine();
+		
+		if (days > 30) colorClass = "green";
+		else if (days > 20) colorClass = "yellow";
+		else if (days > 10) colorClass = "orange";
+		else if (days > 0) colorClass = "red";
+		else if (days <= 0) colorClass = "dark-red";
+		
+		return colorClass;
+			
+		
+	}
 	
 	/* validation stuff 
 	 * disabled for fucks sake. 

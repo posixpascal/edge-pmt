@@ -4,3 +4,19 @@
 .dropshadow {
 	-fx-effect: dropshadow(three-pass-box, #993300, 3, 10, 2, 3);
 }
+
+.green {
+		-fx-fill: #96CA2D;
+}
+.red {
+		-fx-fill: #B9121B;
+}
+
+.dark-red {
+		-fx-fill: #4C1B1B;
+}
+
+.orange {
+		-fx-fill: #D1570D;
+}
+

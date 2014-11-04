@@ -186,11 +186,18 @@ public class MainController extends BaseController {
 					ProjectViewController projectViewController = new ProjectViewController(project);
 					loader.getRawLoader().setController(projectViewController);
 					Stage stage = new Stage();
+					Scene scene = null;
+					try {
+						scene = new Scene(
+								(Pane) loader.getRawLoader().load()
+							);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/project.css").toString());
 					try {
 						stage.setScene(
-							new Scene(
-								(Pane) loader.getRawLoader().load()
-							)
+							scene
 						);
 					} catch (Exception e) {
 						e.printStackTrace();
