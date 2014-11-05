@@ -46,10 +46,18 @@ public class User extends BaseModel {
 	@Column(name="profile_pic", columnDefinition="mediumblob")
 	private byte[] image;
 	
+	/**
+	 * gets the image from the database as byte[]
+	 * @return
+	 */
 	public byte[] getImage() {
 		return image;
 	}
 
+	/**
+	 * sets the image of the user as a mediumblob in the database
+	 * @param image an byte[] which contains the images source
+	 */
 	public void setImage(byte[] image) {
 		this.image = image;
 	}

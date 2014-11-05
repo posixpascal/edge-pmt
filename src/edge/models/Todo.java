@@ -34,6 +34,7 @@ public class Todo extends BaseModel {
 	
 	//@NotNull(message = "Das kann aber leer sein")
 	private String content;
+	private boolean isClosed = false;
 	
 	//@NotNull(message = "Füge eine Deadline zum Projekt hinzu")
 	private Date deadLine;
@@ -63,6 +64,7 @@ public class Todo extends BaseModel {
         return project;  
     }  
 	
+	// TODO: vankash guck mal ob wir die beiden @annotations entfernen können.
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "todogroup_id", nullable = false)
     public TodoGroup getTodoGroup()  
@@ -175,6 +177,14 @@ public class Todo extends BaseModel {
 	public boolean isValid(){
 		// TODO: add validation here
 		return true;
+	}
+
+	public boolean isClosed() {
+		return this.isClosed;
+	}
+
+	public void setClosed(boolean isClosed) {
+		this.isClosed = isClosed;
 	}
 	
 	

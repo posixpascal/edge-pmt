@@ -77,6 +77,34 @@ public class Project extends BaseModel implements java.io.Serializable {
 		return this.todos;
 	}
 	
+	/**
+	 * Get a hashset of all closed todos for this project
+	 * @return
+	 */
+	public Set<Todo> getClosedTodos() {
+		Set<Todo> closedTodos = new HashSet<Todo>();
+		this.todos.forEach( (todo) -> {
+			if (todo.isClosed()){
+				closedTodos.add(todo);
+			}
+		});
+		return closedTodos;
+	}
+	
+	/**
+	 * get a hashset of all open todos for this project
+	 * @return
+	 */
+	public Set<Todo> getOpenTodos() {
+		Set<Todo> closedTodos = new HashSet<Todo>();
+		this.todos.forEach( (todo) -> {
+			if (!todo.isClosed()){
+				closedTodos.add(todo);
+			}
+		});
+		return closedTodos;
+	}
+	
 	@PreUpdate
 	protected void onUpdate(){
 		modified = new Date();
@@ -268,6 +296,7 @@ public class Project extends BaseModel implements java.io.Serializable {
 			
 		
 	}
+
 	
 	/* validation stuff 
 	 * disabled for fucks sake. 
