@@ -146,8 +146,8 @@ public class ProjectController extends BaseController {
 		}
 		
 		LocalDate t = deadlineField.getValue();
-		
-		Date deadline = new Date(t.getYear(), t.getMonth().getValue(), t.getDayOfMonth());
+		long timestamp = t.toEpochDay() * 24 * 60 * 60 * 1000;
+		Date deadline = new Date(timestamp);
 		project.setDeadline(deadline);
 		
 		// notify every selected user per mail here
