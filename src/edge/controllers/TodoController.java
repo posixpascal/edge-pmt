@@ -73,8 +73,6 @@ public class TodoController extends BaseController {
 		
 		todo.setContent(content);
 		todo.setTitleName(title);
-		
-	
 	}
 
 }

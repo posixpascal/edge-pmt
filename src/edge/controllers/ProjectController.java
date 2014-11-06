@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -143,8 +145,10 @@ public class ProjectController extends BaseController {
 			
 		}
 		
+		LocalDate t = deadlineField.getValue();
 		
-		//project.setDeadline(new Date(deadlineField.getValue().toEpochDay()));
+		Date deadline = new Date(t.getYear(), t.getMonth().getValue(), t.getDayOfMonth());
+		project.setDeadline(deadline);
 		
 		// notify every selected user per mail here
 		if (notifyPerEmailCheckBox.isSelected())

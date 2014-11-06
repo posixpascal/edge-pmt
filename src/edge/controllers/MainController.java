@@ -36,7 +36,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;import javafx.stage.Stage;
 import javafx.scene.image.*;
 public class MainController extends BaseController {
-	List<Project> projects = Project.getAll();
+	
 	List<Project> openProjects = new ArrayList<Project>(5);
 	private final int WINDOW_WIDTH = 1306;
 	private final int WINDOW_HEIGHT = 517;
@@ -104,6 +104,8 @@ public class MainController extends BaseController {
 	}
 	
 	private void drawProjectsGrid(){
+		List<Project> projects = Project.getAll();
+		
 		// 4x4 grid for projects.
 		int rows = (int) Math.ceil(projects.size() / 4);
 				
@@ -136,6 +138,7 @@ public class MainController extends BaseController {
 	
 		currentColumnIndex = 0;
 		currentRowIndex = 0;
+		
 		projects.forEach( (project) -> {
 			GridPane projectBox = new GridPane();
 			projectBox.addColumn(0);

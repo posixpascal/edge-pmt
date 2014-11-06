@@ -18,6 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
+
 import edge.logic.Database;
 
 
@@ -57,6 +58,10 @@ public class Project extends BaseModel implements java.io.Serializable {
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<User> users = new HashSet<User>();
+	
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<TodoGroup> todoGroups = new HashSet<TodoGroup>();
 	
 	/**
 	 * returns a hashset containing all attached users to this project
@@ -295,6 +300,10 @@ public class Project extends BaseModel implements java.io.Serializable {
 		return colorClass;
 			
 		
+	}
+
+	public Set<TodoGroup> getTodoGroups() {
+		return this.todoGroups;
 	}
 
 	

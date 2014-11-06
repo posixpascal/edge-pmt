@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
@@ -18,10 +19,15 @@ import edge.logic.EdgeFxmlLoader;
 import edge.logic.MainApplication;
 import edge.models.Project;
 import edge.models.User;
+import edge.models.TodoGroup;
+import edge.models.Todo;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -41,6 +47,9 @@ import javafx.stage.Stage;
 public class ProjectViewController extends BaseController {
 	Project project = null;
 
+	@FXML
+	private Pane todoChartContainer;
+	
 	@FXML
 	private Text projectNameLabel;
 	
@@ -65,12 +74,37 @@ public class ProjectViewController extends BaseController {
 		this.projectNameLabel.setText("" + project.getName());
 		this.todoCountLabel.setText("" + project.getTodos().size());
 		this.coworkerCountLabel.setText("" + project.getUsers().size());
-		this.deadlineLabel.setText(project.getDaysToDeadLineInWords());
-		this.deadlineLabel.getStyleClass().add(project.getDeadlineColorClass());
+		
+		if (project.getDeadLine() != null){
+			this.deadlineLabel.setText(project.getDaysToDeadLineInWords());
+			this.deadlineLabel.getStyleClass().add(project.getDeadlineColorClass());
+		}
+		
+		int openTodos =  project.getOpenTodos().size();
+		int closedTodos = project.getClosedTodos().size();
+		int totalTodos = openTodos + closedTodos;
+		
+		ObservableList<PieChart.Data> todoChartData = FXCollections.observableArrayList(
+			new PieChart.Data("Offene Todos (" + openTodos + ")", openTodos),
+			new PieChart.Data("Geschlossene Todos (" + closedTodos + ")", closedTodos)
+		);
+		
+		PieChart todoChart = new PieChart(todoChartData);
+		todoChart.setTitle("Todo Übersicht");
+		
+		todoChartContainer.getChildren().add(todoChart);
+		
+		Set<TodoGroup> todoGroups = project.getTodoGroups();
+		todoGroups.forEach( (todoGroup) -> {
+			Set<Todo> todos = todoGroup.getTodos();
+			
+		});
+		
+				
 	}
 	
 	protected void initWithProject(Project project){
-		List<User> users = User.getAll();
+		//List<User> users = User.getAll();
 		this.project = project;
 		
 		
