@@ -270,4 +270,8 @@ public class User extends BaseModel {
 	}
 	
 	
+	public String toString(){
+		return this.getFirstname() + " " + this.getLastname() + "(" + this.getEMail() + ")";
+	}
+	
 }

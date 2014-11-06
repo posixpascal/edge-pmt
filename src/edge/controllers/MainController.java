@@ -167,7 +167,7 @@ public class MainController extends BaseController {
 			Pane projectImage = new Pane();
 			projectImage.setPrefHeight(260);
 			
-			if (project.getImage().length != 0){
+			if (project.getImage() != null){
 				ImageView imageView = new ImageView();
 
 				ByteArrayInputStream bais = new ByteArrayInputStream(project.getImage());
@@ -224,11 +224,13 @@ public class MainController extends BaseController {
 			
 
 			Long projectId = project.getId();
+			
+			// TODO: das kann man sicher optimieren.
 			projectBox.setOnMouseClicked( (m) -> {
 				if (!openProjects.contains(project)){
 					EdgeFxmlLoader loader = new EdgeFxmlLoader("../views/project_view.fxml");
 					ProjectViewController projectViewController = new ProjectViewController(project);
-					loader.getRawLoader().setController(projectViewController);
+					loader.getRawLoader().setController(projectViewController); // das is wichtig, wie optimieren wir das?
 					Stage stage = new Stage();
 					Scene scene = null;
 					try {
@@ -248,11 +250,9 @@ public class MainController extends BaseController {
 					}
 					
 					stage.show();
-					
-					
-							
-			        
+					openProjects.add(project); // TODO: das müssen wir rückgängig machen wenns geschlossen wird!
 				}
+				
 			});
 					
 			projectBox.setStyle("-fx-effect: dropshadow(three-pass-box, #000, 5, 0, 0, 0)");

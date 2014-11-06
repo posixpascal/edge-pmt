@@ -53,8 +53,10 @@ public class TodoController extends BaseController {
 		List<String> userList = new ArrayList<String>();
 		ObservableList<String> usernames = FXCollections.observableList(userList);
 		
+		// vankash, bruh, use lambda. 
 		for (int index = 0; index < users.size(); index++)
 		{
+			// User.toString() wäre hier schön
 			usernames.add(users.get(index).getFirstname().toString());
 		}
 
