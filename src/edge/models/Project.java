@@ -18,6 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
+
 import edge.logic.Database;
 
 
@@ -58,6 +59,10 @@ public class Project extends BaseModel implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<User> users = new HashSet<User>();
 	
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<TodoGroup> todoGroups = new HashSet<TodoGroup>();
+	
 	/**
 	 * returns a hashset containing all attached users to this project
 	 * @return
@@ -75,6 +80,34 @@ public class Project extends BaseModel implements java.io.Serializable {
 	 */
 	public Set<Todo> getTodos(){
 		return this.todos;
+	}
+	
+	/**
+	 * Get a hashset of all closed todos for this project
+	 * @return
+	 */
+	public Set<Todo> getClosedTodos() {
+		Set<Todo> closedTodos = new HashSet<Todo>();
+		this.todos.forEach( (todo) -> {
+			if (todo.isClosed()){
+				closedTodos.add(todo);
+			}
+		});
+		return closedTodos;
+	}
+	
+	/**
+	 * get a hashset of all open todos for this project
+	 * @return
+	 */
+	public Set<Todo> getOpenTodos() {
+		Set<Todo> closedTodos = new HashSet<Todo>();
+		this.todos.forEach( (todo) -> {
+			if (!todo.isClosed()){
+				closedTodos.add(todo);
+			}
+		});
+		return closedTodos;
 	}
 	
 	@PreUpdate
@@ -268,6 +301,11 @@ public class Project extends BaseModel implements java.io.Serializable {
 			
 		
 	}
+
+	public Set<TodoGroup> getTodoGroups() {
+		return this.todoGroups;
+	}
+
 	
 	/* validation stuff 
 	 * disabled for fucks sake. 

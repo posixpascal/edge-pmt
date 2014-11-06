@@ -46,10 +46,24 @@ public class User extends BaseModel {
 	@Column(name="profile_pic", columnDefinition="mediumblob")
 	private byte[] image;
 	
+<<<<<<< HEAD
+=======
+	/**
+	 * gets the image from the database as byte[]
+	 * @return
+	 */
+>>>>>>> 4d857705eaf09dd4708dfcbd068aac78ace87c7e
 	public byte[] getImage() {
 		return image;
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * sets the image of the user as a mediumblob in the database
+	 * @param image an byte[] which contains the images source
+	 */
+>>>>>>> 4d857705eaf09dd4708dfcbd068aac78ace87c7e
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
@@ -261,5 +275,9 @@ public class User extends BaseModel {
 		return String.copyValueOf(hexPassword);
 	}
 	
+	
+	public String toString(){
+		return this.getFirstname() + " " + this.getLastname() + "(" + this.getEMail() + ")";
+	}
 	
 }

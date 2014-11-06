@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="502.0" prefWidth="599.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ToolBar prefHeight="46.0" prefWidth="600.0">
          <items>
@@ -34,7 +35,10 @@
               <tabs>
                 <Tab text="Übersicht">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Pane fx:id="todoChartContainer" layoutX="152.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
                   </content>
                 </Tab>
                 <Tab text="Todos">
@@ -45,25 +49,9 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="598.0">
                                        <children>
-                                          <Accordion layoutX="14.0" layoutY="14.0" prefHeight="201.0" prefWidth="517.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
-                                            <panes>
-                                              <TitledPane animated="false" text="Design">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                                </content>
-                                              </TitledPane>
-                                              <TitledPane animated="false" text="More Stuff">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                                </content>
-                                              </TitledPane>
-                                              <TitledPane animated="false" text="Other Stuff">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="244.0" prefWidth="561.0" />
-                                                </content>
-                                              </TitledPane>
-                                            </panes>
-                                          </Accordion>
+                                          <Accordion fx:id="todoAccordion" layoutX="14.0" layoutY="14.0" prefHeight="201.0" prefWidth="517.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="40.0" />
+                                          <Button layoutX="10.0" layoutY="1.0" mnemonicParsing="false" text="Neues Todo anlegen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                          <Button layoutX="515.0" layoutY="10.0" mnemonicParsing="false" text="Button" AnchorPane.rightAnchor="25.0" />
                                        </children>
                                     </AnchorPane>
                                 </content>

@@ -38,6 +38,16 @@ public class TodoGroup extends BaseModel {
 	private Date created;
 	private Date modified;
 	
+	private String title;
+	
+	public String getTitle(){
+		return this.title;
+	}
+	
+	public void setTitle(String title){
+		this.title = title;
+	}
+
 
 	
 	/**
@@ -83,6 +93,20 @@ public class TodoGroup extends BaseModel {
 		this.id = id;
 	}
 	
+	public static List<TodoGroup> getAll() {
+		Session session = Database.getSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from TodoGroup");
+		
+		@SuppressWarnings("unchecked")
+		List<TodoGroup> result = (List<TodoGroup>) query.list();
+		
+
+		session.close();
+		
+		return result;
+	}
 	
 	
 	@PrePersist
