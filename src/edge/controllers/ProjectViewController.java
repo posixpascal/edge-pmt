@@ -79,7 +79,7 @@ public class ProjectViewController extends BaseController {
 	}
 
 	@FXML
-	private void addNewTodo(){
+	private void createNewTodo(){
 		EdgeFxmlLoader loader = new EdgeFxmlLoader("../views/todo_new.fxml");
 		TodoCreateController projectViewController = new TodoCreateController(project);
 		loader.getRawLoader().setController(projectViewController); // das is wichtig, wie optimieren wir das?

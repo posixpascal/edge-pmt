@@ -21,12 +21,13 @@ import javax.persistence.*;
 import org.hibernate.*;
 import org.hibernate.Query;
 import org.hibernate.annotations.GenericGenerator;
+
 import java.util.Set;
 
 
 @Entity
 @Table
-public class User extends BaseModel {
+public class User extends BaseModel implements java.io.Serializable {
 	@Id
 	@Column(name="user_id")
 	@GeneratedValue
@@ -47,6 +48,18 @@ public class User extends BaseModel {
 	private byte[] image;
 	
 
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Todo> todos = new HashSet<Todo>();
+	
+	/**
+	 * returns a hashset containing all attached todos to this project
+	 * @return
+	 */
+	public Set<Todo> getTodos(){
+		return this.todos;
+	}
+	
+	
 	/**
 	 * gets the image from the database as byte[]
 	 * @return

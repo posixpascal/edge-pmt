@@ -50,7 +50,7 @@
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="598.0">
                                        <children>
                                           <Accordion fx:id="todoAccordion" layoutX="14.0" layoutY="14.0" prefHeight="201.0" prefWidth="517.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="40.0" />
-                                          <Button layoutX="10.0" layoutY="1.0" mnemonicParsing="false" text="Neues Todo anlegen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                          <Button layoutX="10.0" layoutY="1.0" mnemonicParsing="false" onAction="#createNewTodo" text="Neues Todo anlegen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                           <Button layoutX="515.0" layoutY="10.0" mnemonicParsing="false" text="Button" AnchorPane.rightAnchor="25.0" />
                                        </children>
                                     </AnchorPane>

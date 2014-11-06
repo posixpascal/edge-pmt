@@ -164,7 +164,8 @@ public class Project extends BaseModel implements java.io.Serializable {
 		@SuppressWarnings("unchecked")
 		List<Project> result = (List<Project>) query.list();
 		
-		session.close();
+		session.getTransaction().commit();
+		Database.closeSession();
 		
 		return result;
 	}

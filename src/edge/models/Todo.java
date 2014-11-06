@@ -20,13 +20,13 @@ import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
 @Entity
 @Table
-public class Todo extends BaseModel {
+public class Todo extends BaseModel implements java.io.Serializable {
 	
 	@Id
 	@GeneratedValue
 	@Column(name="todo_id")
 	private Long id;
-	private Long projectId;
+
 	
 	//@NotNull(message = "Das Todo ben�tigt einen Titel")
 	//@Min(2)
@@ -46,12 +46,15 @@ public class Todo extends BaseModel {
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name="project_id")
 	private Project project;
 	
 	
 	@ManyToOne
 	@JoinColumn(name="todogroup_id")
 	private TodoGroup todoGroup;
+	
 	
 	public void setTodoGroup(TodoGroup todoGroup) {
 		this.todoGroup = todoGroup;
@@ -71,6 +74,19 @@ public class Todo extends BaseModel {
     {  
         return todoGroup;  
     }  
+	
+	// TODO: vankash guck mal ob wir die beiden @annotations entfernen können.
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false)
+	public User getUser()  
+	{  
+       return user;  
+	}  
+	
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 	public void setProject(Project project){
 		this.project = project;
@@ -158,13 +174,7 @@ public class Todo extends BaseModel {
 		this.id = id;
 	}
 	
-	public Long getProjectId() {
-		return id;
-	}
-
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
-	}
+	
 
 	public void setDeadline(Date value) {
 		this.deadLine = value;

@@ -1,16 +1,26 @@
 package edge.controllers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.swing.event.ChangeEvent;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
+import javafx.stage.Stage;
+import edge.logic.Database;
 import edge.models.Project;
 import edge.models.TodoGroup;
 import edge.models.User;
@@ -41,12 +51,65 @@ public class TodoCreateController extends BaseController {
 	private HTMLEditor contentEditor;
 	
 	@FXML
-	private ComboBox<TodoGroup> categoryBox;
+	private ComboBox<String> categoryBox;
 	
 	
 	@FXML
 	private void createNewTodo(){
-		System.out.print("erstelle todo + todogroup");
+
+		String newTitle = categoryBox.getValue();
+
+		TodoGroup newTodoGroup = (TodoGroup) TodoGroup.findByTitle(newTitle, this.project);
+		
+		if (newTodoGroup == null){
+			newTodoGroup = new TodoGroup();
+			newTodoGroup.setTitle(newTitle);
+			this.project.getTodoGroups().add(newTodoGroup);	
+		}
+		
+		
+		Todo newTodo = new Todo();
+		newTodo.setClosed(false);
+		newTodo.setContent(contentEditor.getHtmlText());
+		newTodo.setTitleName(titleField.getText());
+		
+		LocalDate t = deadlineField.getValue();
+		long timestamp = t.toEpochDay() * 24 * 60 * 60 * 1000;
+		Date deadline = new Date(timestamp);
+		newTodo.setDeadline(deadline);
+		project.getTodos().add(newTodo);
+		
+		User theUser = (User) User.findByUsername(usersDropdown.getValue());
+		if (theUser == null){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Hinweis");
+			alert.setHeaderText("Fehler im Formular enthalten!");
+			alert.setContentText("Das Todo konnte nicht gespeichert werden! Es muss einem Mitarbeiter zugewiesen werden.");
+			alert.showAndWait();
+		} else {
+			theUser.getTodos().add(newTodo);
+		}
+		
+		newTodo.setUser(theUser);
+		newTodo.setProject(project);
+		
+		newTodoGroup.getTodos().add(newTodo);
+		
+		
+	
+		Database.saveAndCommit(newTodo);
+		Database.saveAndCommit(newTodoGroup);
+		Database.saveAndCommit(theUser);
+		Database.saveAndCommit(this.project);
+		
+	
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Hinweis");
+		alert.setHeaderText("Todo '" + newTodo.getTitle() + "' erstellt.");
+		alert.setContentText("Todo erfolgreich erstellt. Zugewiesen zu " + theUser.toString() + ".");
+		alert.showAndWait();
+		Stage stage = (Stage) categoryBox.getScene().getWindow();
+		stage.close();
 	}
 	
 	@FXML
@@ -59,7 +122,7 @@ public class TodoCreateController extends BaseController {
 		ObservableList<String> usernames = FXCollections.observableList(userList);
 		
 		users.forEach( (user) -> {
-			usernames.add(user.toString());
+			usernames.add(user.getUsername());
 		});
 		
 		
@@ -72,6 +135,8 @@ public class TodoCreateController extends BaseController {
 			todoGroupTitles.add(todoGroup.getTitle());
 		});
 		
+		
+		categoryBox.setItems(todoGroupTitles);
 		
 		
 
