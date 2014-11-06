@@ -167,52 +167,34 @@ public class MainController extends BaseController {
 			Pane projectImage = new Pane();
 			projectImage.setPrefHeight(260);
 			
-<<<<<<< HEAD
-			if (project.getImage().length != 0){
-=======
+
+			
+
 			if (project.getImage() != null){
->>>>>>> 4d857705eaf09dd4708dfcbd068aac78ace87c7e
 				ImageView imageView = new ImageView();
 
 				ByteArrayInputStream bais = new ByteArrayInputStream(project.getImage());
 				BufferedImage bImage = null;
 				try {
 					bImage = ImageIO.read(bais);
-<<<<<<< HEAD
-				} catch (Exception e2) {
-					e2.printStackTrace();
-				}
-				Image image = SwingFXUtils.toFXImage(bImage, null);
-				imageView.setImage(image);
-				
-				imageView.setFitWidth(projectBoxSize - 20);
-				imageView.setFitHeight(260);
-				imageView.setPreserveRatio(false);
-=======
 					Image image = SwingFXUtils.toFXImage(bImage, null);
 					imageView.setImage(image);
-				
 				} catch (Exception e2) {
 					e2.printStackTrace();
-					// show no-image-image here.
-					
 				}
 				
+		
 				imageView.setFitWidth(156);
 				imageView.setFitHeight(156);
 				imageView.setStyle("-fx-border-radius: 50%");
 				imageView.setLayoutX(0.5 * (260 - 156));
 				imageView.autosize();
->>>>>>> 4d857705eaf09dd4708dfcbd068aac78ace87c7e
-
-				
-				
+	
 				projectImage.getChildren().add(imageView);
 				projectImage.setPrefWidth(projectBoxSize - 20);
-<<<<<<< HEAD
-=======
+
 				projectImage.setMaxWidth(260.0);
->>>>>>> 4d857705eaf09dd4708dfcbd068aac78ace87c7e
+
 			}
 			
 			
