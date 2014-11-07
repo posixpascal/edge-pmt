@@ -307,6 +307,12 @@ public class Project extends BaseModel implements java.io.Serializable {
 		return this.todoGroups;
 	}
 
+	// updates the current instance of an object (only possible for already objects)
+	public void update() {
+	
+		
+	}
+
 	
 	/* validation stuff 
 	 * disabled for fucks sake. 

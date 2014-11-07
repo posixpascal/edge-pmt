@@ -48,17 +48,16 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 		this.title = title;
 	}
 
+	@OneToOne
+	private Project project;
 
 	
 	/**
 	 * @constructor
 	 */
 	public TodoGroup(){}
-	
-	private Project project;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id", nullable = false)
+
+
     public Project getProject()  
     {  
         return project;  
@@ -139,6 +138,8 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 	protected void onCreate(){
 		created = new Date();
 	}
+	
+	public void update(){};
 	
 	@PreUpdate
 	protected void onUpdate(){

@@ -42,17 +42,14 @@ public class Todo extends BaseModel implements java.io.Serializable {
 	private Date created;
 	private Date modified;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
+	@OneToOne
 	private User user;
 	
-	@ManyToOne
-	@JoinColumn(name="project_id")
+	@OneToOne
 	private Project project;
 	
 	
-	@ManyToOne
-	@JoinColumn(name="todogroup_id")
+	@OneToOne
 	private TodoGroup todoGroup;
 	
 	
@@ -60,29 +57,21 @@ public class Todo extends BaseModel implements java.io.Serializable {
 		this.todoGroup = todoGroup;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id", nullable = false)
+
     public Project getProject()  
     {  
         return project;  
     }  
 	
-	// TODO: vankash guck mal ob wir die beiden @annotations entfernen können.
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "todogroup_id", nullable = false)
     public TodoGroup getTodoGroup()  
     {  
         return todoGroup;  
     }  
 	
-	// TODO: vankash guck mal ob wir die beiden @annotations entfernen können.
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
 	public User getUser()  
 	{  
        return user;  
 	}  
-	
 	
 	public void setUser(User user) {
 		this.user = user;
@@ -104,6 +93,8 @@ public class Todo extends BaseModel implements java.io.Serializable {
 	}
 	
 	public Todo(){}
+	
+	private void update(){}
 	
 	/**
 	 * get the date when the todo object was created

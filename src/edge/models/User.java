@@ -59,6 +59,7 @@ public class User extends BaseModel implements java.io.Serializable {
 		return this.todos;
 	}
 	
+	public void update(){};
 	
 	/**
 	 * gets the image from the database as byte[]

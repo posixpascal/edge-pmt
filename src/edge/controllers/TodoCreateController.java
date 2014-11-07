@@ -65,6 +65,7 @@ public class TodoCreateController extends BaseController {
 			newTodoGroup = new TodoGroup();
 			newTodoGroup.setTitle(newTitle);
 			this.project.getTodoGroups().add(newTodoGroup);	
+			Database.save(newTodoGroup);
 		}
 		
 		
@@ -91,16 +92,19 @@ public class TodoCreateController extends BaseController {
 		}
 		
 		newTodo.setUser(theUser);
+		newTodo.setTodoGroup(newTodoGroup);
 		newTodo.setProject(project);
 		
-		newTodoGroup.getTodos().add(newTodo);
 		
-		
-	
 		Database.saveAndCommit(newTodo);
-		Database.saveAndCommit(newTodoGroup);
-		Database.saveAndCommit(theUser);
-		Database.saveAndCommit(this.project);
+		
+		theUser.update();
+		newTodoGroup.update();
+		project.update();
+		
+		
+		// TODO: vllt auch nur save & am ende die transaction commiten...
+
 		
 	
 		Alert alert = new Alert(AlertType.INFORMATION);

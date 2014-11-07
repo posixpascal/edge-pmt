@@ -12,6 +12,7 @@ import edge.logic.EdgeFxmlLoader;
 import edge.models.Project;
 import edge.models.User;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -34,6 +35,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.image.*;
 public class MainController extends BaseController {
 	
@@ -250,6 +252,11 @@ public class MainController extends BaseController {
 						e.printStackTrace();
 					}
 					
+					stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				          public void handle(WindowEvent we) {
+				        	  openProjects.remove(project);
+				          }
+				      });     
 					stage.show();
 					openProjects.add(project); // TODO: das müssen wir rückgängig machen wenns geschlossen wird!
 				}
