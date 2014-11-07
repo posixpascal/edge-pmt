@@ -27,7 +27,7 @@ import java.util.Set;
 
 @Entity
 @Table
-public class TodoGroup extends BaseModel {
+public class TodoGroup extends BaseModel implements java.io.Serializable {
 	@Id
 	@Column(name="todogroup_id")
 	@GeneratedValue
@@ -48,17 +48,16 @@ public class TodoGroup extends BaseModel {
 		this.title = title;
 	}
 
+	@OneToOne
+	private Project project;
 
 	
 	/**
 	 * @constructor
 	 */
 	public TodoGroup(){}
-	
-	private Project project;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id", nullable = false)
+
+
     public Project getProject()  
     {  
         return project;  
@@ -75,6 +74,32 @@ public class TodoGroup extends BaseModel {
 		return this.todos;
 	}
 	
+	/**
+	 * @return a TodoGroup object containing the first result found by title & projectId
+	 * @throws ProjectNotFoundException when a project wasn't found in the database
+	 * @author pr
+	 */
+	public static Object findByTitle(String title, Project project){
+		Session session = Database.getSession();
+		session.beginTransaction();
+		
+		Query projectQuery = session.createQuery("from Project as project where project.id = :project_id");
+		projectQuery.setParameter("project_id", project.getId());
+		List<?> result = projectQuery.list();
+		
+		if (result.size() == 0){ throw new Error("ProjectNotFoundException"); }
+		
+		Query query = session.createQuery("from TodoGroup as todoGroup where todoGroup.title = :title and project.id = :project_id");
+		query.setParameter("project_id", project.getId());
+		query.setParameter("title", title);
+		
+		result = query.list();
+		session.getTransaction().commit();
+		Database.closeSession();
+		
+		if (result.size() == 0){ return null; }
+		return result.get(0);
+	}
 	
 	/**
 	 * gets the database ID of the user object
@@ -113,6 +138,8 @@ public class TodoGroup extends BaseModel {
 	protected void onCreate(){
 		created = new Date();
 	}
+	
+	public void update(){};
 	
 	@PreUpdate
 	protected void onUpdate(){

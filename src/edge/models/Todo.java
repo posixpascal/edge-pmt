@@ -20,13 +20,13 @@ import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
 @Entity
 @Table
-public class Todo extends BaseModel {
+public class Todo extends BaseModel implements java.io.Serializable {
 	
 	@Id
 	@GeneratedValue
 	@Column(name="todo_id")
 	private Long id;
-	private Long projectId;
+
 	
 	//@NotNull(message = "Das Todo ben�tigt einen Titel")
 	//@Min(2)
@@ -42,35 +42,40 @@ public class Todo extends BaseModel {
 	private Date created;
 	private Date modified;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
+	@OneToOne
 	private User user;
 	
+	@OneToOne
 	private Project project;
 	
 	
-	@ManyToOne
-	@JoinColumn(name="todogroup_id")
+	@OneToOne
 	private TodoGroup todoGroup;
+	
 	
 	public void setTodoGroup(TodoGroup todoGroup) {
 		this.todoGroup = todoGroup;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id", nullable = false)
+
     public Project getProject()  
     {  
         return project;  
     }  
 	
-	// TODO: vankash guck mal ob wir die beiden @annotations entfernen können.
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "todogroup_id", nullable = false)
     public TodoGroup getTodoGroup()  
     {  
         return todoGroup;  
     }  
+	
+	public User getUser()  
+	{  
+       return user;  
+	}  
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 	public void setProject(Project project){
 		this.project = project;
@@ -88,6 +93,8 @@ public class Todo extends BaseModel {
 	}
 	
 	public Todo(){}
+	
+	private void update(){}
 	
 	/**
 	 * get the date when the todo object was created
@@ -158,13 +165,7 @@ public class Todo extends BaseModel {
 		this.id = id;
 	}
 	
-	public Long getProjectId() {
-		return id;
-	}
-
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
-	}
+	
 
 	public void setDeadline(Date value) {
 		this.deadLine = value;

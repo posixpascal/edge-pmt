@@ -28,10 +28,11 @@ public class TodoTemplate extends BaseTemplate {
 		return this.project;
 	}
 	
-	private void run(){
+	public boolean run(){
 		if (project == null){ 
 			throw new Error("Bitte Projekt setzen. TodoTemplate#setProject");
 		}
+		return false;
 		
 		
 	}

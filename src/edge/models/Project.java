@@ -164,7 +164,8 @@ public class Project extends BaseModel implements java.io.Serializable {
 		@SuppressWarnings("unchecked")
 		List<Project> result = (List<Project>) query.list();
 		
-		session.close();
+		session.getTransaction().commit();
+		Database.closeSession();
 		
 		return result;
 	}
@@ -304,6 +305,12 @@ public class Project extends BaseModel implements java.io.Serializable {
 
 	public Set<TodoGroup> getTodoGroups() {
 		return this.todoGroups;
+	}
+
+	// updates the current instance of an object (only possible for already objects)
+	public void update() {
+	
+		
 	}
 
 	

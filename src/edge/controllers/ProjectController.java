@@ -169,9 +169,7 @@ public class ProjectController extends BaseController {
 		if (project.isValid())
 		{
 
-			Database.getSessionFactory().getCurrentSession().beginTransaction();
-			Database.getSessionFactory().getCurrentSession().save(project);
-			Database.getSession().getTransaction().commit();
+			Database.saveAndCommit(project);
 
 			
 			

@@ -11,4 +11,10 @@ public class MobileTemplate extends BaseTemplate {
 		}
 	};
 	
+	@Override
+	public boolean run(){
+		
+		return false;
+	}
+	
 }

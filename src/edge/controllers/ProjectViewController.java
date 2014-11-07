@@ -25,6 +25,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
@@ -79,7 +80,7 @@ public class ProjectViewController extends BaseController {
 	}
 
 	@FXML
-	private void addNewTodo(){
+	private void createNewTodo(){
 		EdgeFxmlLoader loader = new EdgeFxmlLoader("../views/todo_new.fxml");
 		TodoCreateController projectViewController = new TodoCreateController(project);
 		loader.getRawLoader().setController(projectViewController); // das is wichtig, wie optimieren wir das?
@@ -143,8 +144,8 @@ public class ProjectViewController extends BaseController {
 			GridPane todoGridPane = new GridPane();
 			
 			todoGridPane.addColumn(4);
-			todoGridPane.addRow(0);
-			
+			todoGridPane.addRow(todos.size());
+
 			todos.forEach( (todo) -> {
 				Text todoTitle = new Text();
 				todoTitle.setText(todo.getTitle());
@@ -162,19 +163,26 @@ public class ProjectViewController extends BaseController {
 				Button openTodoViewBtn = new Button();
 				openTodoViewBtn.setText("Todo öffnen");
 				
-				todoGridPane.add(todoCompleteCheckbox, 0, 0);
-				todoGridPane.add(todoTitle, 1, 0);
-				todoGridPane.add(deadlineText, 2, 0);
-				todoGridPane.add(openTodoViewBtn, 4, 0);
+				todoGridPane.paddingProperty().set(new Insets(10, 10, 10, 10));
+				
+				todoGridPane.add(todoCompleteCheckbox, 0, currentRow);
+				todoGridPane.add(todoTitle, 1, currentRow);
+				todoGridPane.add(deadlineText, 2, currentRow);
+				todoGridPane.add(openTodoViewBtn, 4, currentRow);
+				todoGridPane.setPrefWidth(todoContainer.getWidth());
+				todoContainer.getChildren().add(todoGridPane);
+				
+				
+				currentRow++;
 				
 			});
 			
 			todoGroupPane.setContent(todoContainer);
 			todoAccordion.getPanes().add(todoGroupPane);
-		});
-		
-				
+		});	
 	}
+	
+	private int currentRow = 0;
 	
 	protected void initWithProject(Project project){
 		//List<User> users = User.getAll();

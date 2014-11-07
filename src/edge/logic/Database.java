@@ -1,9 +1,13 @@
 package edge.logic;
 
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 import edge.models.User;
 import edge.models.BaseModel;
@@ -13,22 +17,42 @@ import edge.models.BaseModel;
  * creates and handles all the hibernate stuff used in our application
  */
 public class Database {
-	 private static final SessionFactory sessionFactory = buildSessionFactory();
-	  
+	 	private static  SessionFactory sessionFactory;
+	  	private static ServiceRegistry serviceRegistry;
+	  	private static final ThreadLocal<Session> threadLocal = new ThreadLocal();
+	  	
 	 	/**
 	 	 * Initialize hibernate using the hibernate.cfg.xml file
 	 	 * @throws ExceptionInInitializerError
 	 	 * @return
 	 	 */
-	    private static SessionFactory buildSessionFactory() {
-	        try {
-	            return new Configuration().configure().buildSessionFactory();
-	        } catch (Throwable ex) {
-	            System.err.println("Initial SessionFactory creation failed." + ex);
-	            throw new ExceptionInInitializerError(ex);
+	    private static SessionFactory configureSessionFactory() {
+	    	try {
+
+	            Configuration configuration = new Configuration();
+	            configuration.configure();
+	            serviceRegistry = new ServiceRegistryBuilder()
+	                                 .applySettings(configuration.getProperties())
+	                                 .buildServiceRegistry();
+	            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+
+	            return sessionFactory;
+	        } catch (HibernateException e) {
+	            System.out.append("** Exception in SessionFactory **");
+	            e.printStackTrace();
 	        }
+	       return sessionFactory;
 	    }
-	  
+	    
+	    static {
+	    	try {
+	    		sessionFactory = configureSessionFactory();
+	    	} catch (Exception e){
+	    		System.err.println("Error creating the session factory");
+	    		e.printStackTrace();
+	    	}
+	    }
+	    
 	    /**
 	     * Access the current open session
 	     * @return SessionFactory
@@ -43,19 +67,39 @@ public class Database {
 	     * if none session is open at the time it creates it.
 	     * @return Session
 	     */
-	    public static Session getSession(){
-	    	if (Database.sessionFactory.getCurrentSession() == null)
-	    		Database.sessionFactory.openSession();
-	    		
-	    	return Database.sessionFactory.getCurrentSession();
+	    public static Session getSession() throws HibernateException {
+	    	Session session = threadLocal.get();
+	    	
+	    	if (session == null || !session.isOpen()){
+	    		if (sessionFactory == null){
+	    			rebuildSessionFactory();
+	    		}
+	    		session = (sessionFactory != null) ? sessionFactory.openSession() : null;
+	    		threadLocal.set(session);
+	    	}
+	    	
+	    	return session;
 	    }
+	    
+	    private static void rebuildSessionFactory(){
+	    	try {
+	    		sessionFactory = configureSessionFactory();
+	    	} catch (Exception e){
+	    		e.printStackTrace();
+	    	}
+	    }
+	    
 	    
 	    /**
 	     * closes the sessionFactory. No other database actions are possible
 	     * after the session is closed.
 	     */
 	    public static void closeSession(){
-	    	Database.sessionFactory.close();
+	    	Session session = (Session) threadLocal.get();
+	    	threadLocal.set(null);
+	    	if (session != null){
+	    		session.close();
+	    	}
 	    }
 	    
 	    /**
@@ -71,9 +115,7 @@ public class Database {
 	     * @return boolean whether the object was an edge.model or not.
 	     */
 	    public static boolean save(Object hibernateObject){
-	    	Session session = Database.getSession();
-	    	session.save(hibernateObject);
-	    	
+	    	Database.getSession().save(hibernateObject);
 	    	return true;
 	    }
 	    
@@ -82,10 +124,23 @@ public class Database {
 	     * @param hibernateObject any edge.models Class object which should be saved to db
 	     */
 	    public static void saveAndCommit(Object hibernateObject){
-	    	Database.getSession().beginTransaction();
-			Database.save(hibernateObject);
-			Database.getSession().getTransaction().commit();
-
+	    	Transaction transaction = null;
+	    	try {
+	    		Session session = Database.getSession();
+	    		transaction = session.beginTransaction();
+	    				
+	    	
+	    		try {
+	    			session.save(hibernateObject);
+	    			transaction.commit();
+	    		} catch (Exception ex){
+	    			transaction.rollback();
+	    			throw ex;
+	    		}
+	    		
+	    	} finally {
+	    		Database.closeSession();
+	    	}
 	    }
 
 	    /**
