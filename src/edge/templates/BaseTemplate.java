@@ -2,11 +2,16 @@ package edge.templates;
 
 import java.util.HashMap;
 import java.io.File;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import edge.logic.MainApplication;
 public class BaseTemplate {
 	public BaseTemplate(){}
 	
 	private String rootPath = "classpath:";
-	
+	private String template = null;
 	/**
 	 * A hashmap which consists of a fileName and the fileContent.
 	 * the run() method should iterate over this HashMap and create
@@ -21,6 +26,18 @@ public class BaseTemplate {
 		
 		}
 	};
+	
+	public File pickFile(){
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Bild zum Projekt hinzufügen");
+		fileChooser.getExtensionFilters().addAll(
+			new FileChooser.ExtensionFilter("Alle Bilder", "*.*"),
+			new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+			new FileChooser.ExtensionFilter("PNG", "*.png")
+		);
+		File theFile = fileChooser.showOpenDialog(null);
+		return theFile;
+	}
 	
 	/**
 	 * Sets the rootPath of the template
@@ -45,12 +62,17 @@ public class BaseTemplate {
 		return directory.mkdirs();
 	}
 	
+	private boolean setTemplate(String classPath){
+		this.template = classPath;
+		return true;
+	}
+	
 	/**
 	 * runs the specific template
 	 * @abstract
 	 * @return boolean whether the template ran successfully or not.
 	 */
-	private boolean run(){
+	public boolean run(){
 		System.out.print("Can't run BaseTemplate. Try using a different template");
 		return false;
 	}
