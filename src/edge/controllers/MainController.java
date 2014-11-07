@@ -41,28 +41,30 @@ import javafx.scene.text.TextAlignment;import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.image.*;
 public class MainController extends BaseController {
-	
+	public MainController(){
+		System.out.println("faggots");
+	}
 	List<Project> openProjects = new ArrayList<Project>(5);
-	private final int WINDOW_WIDTH = 1306;
-	private final int WINDOW_HEIGHT = 517;
+	protected final int WINDOW_WIDTH = 1306;
+	protected final int WINDOW_HEIGHT = 517;
 	
 	@FXML
-	private ToolBar bottomToolbar;
+	protected ToolBar bottomToolbar;
 	
 	@FXML
-	private TilePane projectsGrid;
+	public TilePane projectsGrid;
 	
 	@FXML
-	private AnchorPane gridAnchorPane;
+	protected AnchorPane gridAnchorPane;
 	
 	@FXML
-	private ScrollPane gridScrollPane;
+	protected ScrollPane gridScrollPane;
 	
 	@FXML
-	private Button createProjectButton;
+	protected Button createProjectButton;
 	
 	@FXML
-	private void updateProjectsGrid(){
+	public void updateProjectsGrid(){
 		projectsGrid.getChildren().clear();
 		drawProjectsGrid();
 	}
@@ -71,15 +73,11 @@ public class MainController extends BaseController {
 	public void createProject(){
 		try
 		{
-			EdgeFxmlLoader loader = new EdgeFxmlLoader();
-	        Parent projectCreate = (Parent) loader.load("../views/project_new.fxml", ProjectController.class);
-	        Scene scene = new Scene(projectCreate, 425, 625);
-	        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/project.css").toString());
-	        String StageTitle = "Create a new Project";
-	       
-	       
-			MainApplication projectCreateWindow = new MainApplication();
-			projectCreateWindow.setNewView(StageTitle, scene);
+			ProjectController projectController = new ProjectController();
+			projectController.setMainController(this);
+			openView("project_new.fxml", projectController);
+		
+		
 		}
 		catch(Exception ex)
 		{
@@ -87,11 +85,11 @@ public class MainController extends BaseController {
 		}
 	}
 	
-	private int currentColumnIndex;
-	private int currentRowIndex;
+	protected int currentColumnIndex;
+	protected int currentRowIndex;
 	
 	// how many columns for projects should be in the grid yo.
-	private final int maxColumns = 4;
+	protected final int maxColumns = 4;
 	
 	@FXML
 	public void initialize(){
@@ -108,7 +106,7 @@ public class MainController extends BaseController {
 		drawProjectsGrid();
 	}
 	
-	private void drawProjectsGrid(){
+	protected void drawProjectsGrid(){
 		List<Project> projects = Project.getAll();
 		
 		// 4x4 grid for projects.
@@ -243,33 +241,10 @@ public class MainController extends BaseController {
 			// TODO: das kann man sicher optimieren.
 			projectBox.setOnMouseClicked( (m) -> {
 				if (!openProjects.contains(project)){
-					EdgeFxmlLoader loader = new EdgeFxmlLoader("../views/project_view.fxml");
-					ProjectViewController projectViewController = new ProjectViewController(project);
-					loader.getRawLoader().setController(projectViewController); // das is wichtig, wie optimieren wir das?
-					Stage stage = new Stage();
-					Scene scene = null;
-					try {
-						scene = new Scene(
-								(Pane) loader.getRawLoader().load()
-							);
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-					scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/project.css").toString());
-					try {
-						stage.setScene(
-							scene
-						);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
 					
-					stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				          public void handle(WindowEvent we) {
-				        	  openProjects.remove(project);
-				          }
-				      });     
-					stage.show();
+					ProjectViewController projectViewController = new ProjectViewController(project);
+					openView("project_view.fxml", projectViewController);
+					
 					openProjects.add(project); // TODO: das müssen wir rückgängig machen wenns geschlossen wird!
 				}
 				

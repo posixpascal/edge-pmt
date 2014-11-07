@@ -19,26 +19,17 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane fx:id="gridScrollPane" layoutY="53.0" prefHeight="450.0" prefWidth="711.0" AnchorPane.bottomAnchor="38.0">
+                        <ScrollPane fx:id="gridScrollPane" layoutY="53.0" prefHeight="450.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <content>
                             <AnchorPane fx:id="gridAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="396.0" prefWidth="709.0">
                                  <children>
-                                    <TilePane fx:id="projectsGrid" layoutY="-59.0" prefHeight="922.0" prefWidth="970.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                     <TilePane fx:id="projectsGrid" layoutY="-59.0" prefHeight="922.0" prefWidth="970.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     </TilePane>
+
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <ToolBar fx:id="bottomToolbar" prefHeight="38.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
-                           <effect>
-                              <InnerShadow color="#0000009f" height="17.96" offsetY="2.0" radius="3.99" width="0.0" />
-                           </effect>
-                           <items>
-                              <Button mnemonicParsing="false" onAction="#updateProjectsGrid" text="Aktualisieren" />
-                              <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
-                              <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#createProject" text="Create project" />
-                           </items>
-                        </ToolBar>
                      </children>
                   </AnchorPane>
             </content>
@@ -51,5 +42,15 @@
           </Tab>
         </tabs>
       </TabPane>
+      <ToolBar fx:id="bottomToolbar" prefHeight="38.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <effect>
+            <InnerShadow color="#0000009f" height="17.96" offsetY="2.0" radius="3.99" width="0.0" />
+         </effect>
+         <items>
+            <Button mnemonicParsing="false" onAction="#updateProjectsGrid" text="Aktualisieren" />
+            <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+            <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#createProject" text="Create project" />
+         </items>
+      </ToolBar>
    </children>
 </AnchorPane>

@@ -78,6 +78,13 @@ public class ProjectController extends BaseController {
 
 	}
 	
+	public ProjectController(){}
+	private MainController mainController;
+	
+	
+	public void setMainController(MainController mainController){
+		this.mainController = mainController;
+	}
 	
 	private File imagePath = null;
 	
@@ -179,6 +186,9 @@ public class ProjectController extends BaseController {
 			alert.setContentText("Das Projekt wurde erfolgreich erstellt. Die Mitarbeiter wurden per E-Mail informiert.");
 			alert.showAndWait();
 			Stage stage = (Stage) projectPane.getScene().getWindow();
+			
+			this.mainController.updateProjectsGrid();
+			
 			stage.close();
 		} 
 		else 
