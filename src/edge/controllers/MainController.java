@@ -31,6 +31,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -47,7 +48,7 @@ public class MainController extends BaseController {
 	private ToolBar bottomToolbar;
 	
 	@FXML
-	private GridPane projectsGrid;
+	private TilePane projectsGrid;
 	
 	@FXML
 	private AnchorPane gridAnchorPane;
@@ -110,7 +111,7 @@ public class MainController extends BaseController {
 		List<Project> projects = Project.getAll();
 		
 		// 4x4 grid for projects.
-		int rows = (int) Math.ceil(projects.size() / 4);
+		/*int rows = (int) Math.ceil(projects.size() / 4);
 				
 		for (int i = 0; i < maxColumns; i++){
 			projectsGrid.addColumn(i);
@@ -124,7 +125,7 @@ public class MainController extends BaseController {
 				
 		double projectBoxSize = 280;
 				
-		projectsGrid.setPadding(new Insets(10, 10, 10, 10));
+		
 		
 		projectsGrid.setPrefHeight(700 * rows);
 		projectsGrid.setMinHeight(700 * rows);
@@ -135,12 +136,17 @@ public class MainController extends BaseController {
 		gridAnchorPane.setMinHeight(700 * rows);
 		gridAnchorPane.setMaxHeight(700 * rows);
 		
-		projectsGrid.setVgap(50);
-		projectsGrid.setHgap(50);
+	
 		
 	
 		currentColumnIndex = 0;
 		currentRowIndex = 0;
+		*/
+		
+		projectsGrid.setVgap(50);
+		projectsGrid.setHgap(50);
+		
+		projectsGrid.setPadding(new Insets(10, 10, 10, 10));
 		
 		projects.forEach( (project) -> {
 			GridPane projectBox = new GridPane();
@@ -153,7 +159,7 @@ public class MainController extends BaseController {
 			projectBox.setMaxHeight(300);
 			projectBox.setMinHeight(300);
 			projectBox.setPrefHeight(300);
-			projectBox.setMinWidth(projectBoxSize);
+			//projectBox.setMinWidth(projectBoxSize);
 			
 			
 					
@@ -194,7 +200,7 @@ public class MainController extends BaseController {
 				imageView.autosize();
 	
 				projectImage.getChildren().add(imageView);
-				projectImage.setPrefWidth(projectBoxSize - 20);
+				//projectImage.setPrefWidth(projectBoxSize - 20);
 
 				projectImage.setMaxWidth(260.0);
 
@@ -210,7 +216,7 @@ public class MainController extends BaseController {
 			
 			projectProgress.setProgress(projectActualProgress);
 			
-			projectProgress.setMinWidth(projectBoxSize - 20);		
+			projectProgress.setMinWidth(260);		
 					
 					
 					
@@ -266,7 +272,7 @@ public class MainController extends BaseController {
 					
 			projectBox.setStyle("-fx-effect: dropshadow(three-pass-box, #000, 5, 0, 0, 0)");
 					
-			projectsGrid.add(projectBox, currentColumnIndex++, currentRowIndex);
+			projectsGrid.getChildren().addAll(projectBox);
 			if (currentColumnIndex >= maxColumns){
 				currentColumnIndex = 0;
 				currentRowIndex++;
