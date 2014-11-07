@@ -23,15 +23,8 @@
                           <content>
                             <AnchorPane fx:id="gridAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="396.0" prefWidth="709.0">
                                  <children>
-                                    <GridPane fx:id="projectsGrid" layoutY="-59.0" prefHeight="922.0" prefWidth="970.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                      <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                          <RowConstraints maxHeight="456.0" minHeight="10.0" prefHeight="449.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="637.0" minHeight="10.0" prefHeight="473.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                    </GridPane>
+                                    <TilePane fx:id="projectsGrid" layoutY="-59.0" prefHeight="922.0" prefWidth="970.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                    </TilePane>
                                  </children>
                               </AnchorPane>
                           </content>

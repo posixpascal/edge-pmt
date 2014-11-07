@@ -151,7 +151,7 @@ public class MainController extends BaseController {
 		projectsGrid.setVgap(50);
 		projectsGrid.setHgap(50);
 		
-		projectsGrid.setPadding(new Insets(10, 10, 10, 10));
+		projectsGrid.setPadding(new Insets(100, 10, 10, 10));
 		
 		projects.forEach( (project) -> {
 			GridPane projectBox = new GridPane();
