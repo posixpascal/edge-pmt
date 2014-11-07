@@ -18,12 +18,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -58,12 +60,11 @@ public class MainController extends BaseController {
 	
 	@FXML
 	private void updateProjectsGrid(){
-		
-		
+		drawProjectsGrid();
 	}
 	
 	@FXML
-	public void createNewStage(){
+	public void createProject(){
 		try
 		{
 			EdgeFxmlLoader loader = new EdgeFxmlLoader();
@@ -121,7 +122,7 @@ public class MainController extends BaseController {
 				
 		double projectBoxSize = 280;
 				
-		projectsGrid.setPadding(new Insets(10, 10, 10, 10));
+		projectsGrid.setPadding(new Insets(200, 10, 10, 10));
 		
 		projectsGrid.setPrefHeight(700 * rows);
 		projectsGrid.setMinHeight(700 * rows);
