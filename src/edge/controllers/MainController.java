@@ -61,7 +61,8 @@ public class MainController extends BaseController {
 	@FXML
 	private void updateProjectsGrid(){
 		
-		
+		projectsGrid.getChildren().clear();
+		drawProjectsGrid();
 	}
 	
 	@FXML
