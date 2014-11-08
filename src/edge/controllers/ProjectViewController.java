@@ -81,29 +81,9 @@ public class ProjectViewController extends BaseController {
 
 	@FXML
 	private void createNewTodo(){
-		EdgeFxmlLoader loader = new EdgeFxmlLoader("../views/todo_new.fxml");
-		TodoCreateController projectViewController = new TodoCreateController(project);
-		loader.getRawLoader().setController(projectViewController); // das is wichtig, wie optimieren wir das?
-		Stage stage = new Stage();
-		Scene scene = null;
-		
-		try {
-			scene = new Scene(
-					(Pane) loader.getRawLoader().load()
-				);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		
-		try {
-			stage.setScene(
-				scene
-			);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		stage.show();
+		TodoCreateController todoCreateController = new TodoCreateController(project);
+		todoCreateController.setParent(this);
+		openView("todo_new.fxml", todoCreateController);
 	}
 	
 	@FXML
@@ -128,58 +108,71 @@ public class ProjectViewController extends BaseController {
 		
 		PieChart todoChart = new PieChart(todoChartData);
 		todoChart.setTitle("Todo Übersicht");
-		
 		todoChartContainer.getChildren().add(todoChart);
+		
+		_initTodos();
+	}
+	
+	
+	protected void _initTodos(){
+		todoAccordion.getPanes().clear();
 		
 		Set<TodoGroup> todoGroups = project.getTodoGroups();
 		
 		todoGroups.forEach( (todoGroup) -> {
-			TitledPane todoGroupPane = new TitledPane();
-			todoGroupPane.setText(todoGroup.getTitle());
-		
-			
-			Set<Todo> todos = todoGroup.getTodos();
-			
-			AnchorPane todoContainer = new AnchorPane();
-			GridPane todoGridPane = new GridPane();
-			
-			todoGridPane.addColumn(4);
-			todoGridPane.addRow(todos.size());
-
-			todos.forEach( (todo) -> {
-				Text todoTitle = new Text();
-				todoTitle.setText(todo.getTitle());
-				
-				CheckBox todoCompleteCheckbox = new CheckBox();
-				if (todo.isClosed()){
-					todoCompleteCheckbox.setSelected(true);
-				} else {
-					todoCompleteCheckbox.setSelected(false);
-				}
-				
-				Text deadlineText = new Text();
-				deadlineText.setText(todo.getDeadline().toString());
-				
-				Button openTodoViewBtn = new Button();
-				openTodoViewBtn.setText("Todo öffnen");
-				
-				todoGridPane.paddingProperty().set(new Insets(10, 10, 10, 10));
-				
-				todoGridPane.add(todoCompleteCheckbox, 0, currentRow);
-				todoGridPane.add(todoTitle, 1, currentRow);
-				todoGridPane.add(deadlineText, 2, currentRow);
-				todoGridPane.add(openTodoViewBtn, 4, currentRow);
-				todoGridPane.setPrefWidth(todoContainer.getWidth());
-				todoContainer.getChildren().add(todoGridPane);
-				
-				
-				currentRow++;
-				
-			});
-			
-			todoGroupPane.setContent(todoContainer);
-			todoAccordion.getPanes().add(todoGroupPane);
+			_addTodogroup(todoGroup);
 		});	
+	}
+	
+	private void _addTodogroup(TodoGroup todoGroup){
+		TitledPane todoGroupPane = new TitledPane();
+		todoGroupPane.setText(todoGroup.getTitle());
+	
+		
+		Set<Todo> todos = todoGroup.getTodos();
+		
+		AnchorPane todoContainer = new AnchorPane();
+		GridPane todoGridPane = new GridPane();
+		
+		todoGridPane.addColumn(4);
+		todoGridPane.addRow(todos.size());
+
+		todos.forEach( (todo) -> {
+			_addTodo(todo, todoGridPane, todoContainer);
+		});
+		
+		todoGroupPane.setContent(todoContainer);
+		todoAccordion.getPanes().add(todoGroupPane);
+	}
+	
+	private void _addTodo(Todo todo, GridPane todoGridPane, AnchorPane todoContainer){
+		Text todoTitle = new Text();
+		todoTitle.setText(todo.getTitle());
+		
+		CheckBox todoCompleteCheckbox = new CheckBox();
+		if (todo.isClosed()){
+			todoCompleteCheckbox.setSelected(true);
+		} else {
+			todoCompleteCheckbox.setSelected(false);
+		}
+		
+		Text deadlineText = new Text();
+		if (todo.getDeadline() != null) deadlineText.setText(todo.getDeadline().toString());
+		
+		Button openTodoViewBtn = new Button();
+		openTodoViewBtn.setText("Todo öffnen");
+		
+		todoGridPane.paddingProperty().set(new Insets(10, 10, 10, 10));
+		
+		todoGridPane.add(todoCompleteCheckbox, 0, currentRow);
+		todoGridPane.add(todoTitle, 1, currentRow);
+		todoGridPane.add(deadlineText, 2, currentRow);
+		todoGridPane.add(openTodoViewBtn, 4, currentRow);
+		todoGridPane.setPrefWidth(todoContainer.getWidth());
+		todoContainer.getChildren().add(todoGridPane);
+		
+		
+		currentRow++;
 	}
 	
 	private int currentRow = 0;

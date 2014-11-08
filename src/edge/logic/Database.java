@@ -112,15 +112,15 @@ public class Database {
 	    /**
 	     * saves the hibernateObject to the database using the active session
 	     * @param hibernateObject any edge.models Class object which should be saved to db
-	     * @return boolean whether the object was an edge.model or not.
+	     * @return
 	     */
 	    public static boolean save(Object hibernateObject){
-	    	Database.getSession().save(hibernateObject);
+	    	Database.getSession().saveOrUpdate(hibernateObject);
 	    	return true;
 	    }
 	    
 	    /**
-	     * Saves and commits the transaction. This instantely saves the object to the database
+	     * Saves/updates and commits the transaction. This instantely saves the object to the database
 	     * @param hibernateObject any edge.models Class object which should be saved to db
 	     */
 	    public static void saveAndCommit(Object hibernateObject){
@@ -131,7 +131,7 @@ public class Database {
 	    				
 	    	
 	    		try {
-	    			session.save(hibernateObject);
+	    			session.saveOrUpdate(hibernateObject);
 	    			transaction.commit();
 	    		} catch (Exception ex){
 	    			transaction.rollback();

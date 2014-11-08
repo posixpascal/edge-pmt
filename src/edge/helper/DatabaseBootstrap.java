@@ -1,5 +1,6 @@
 package edge.helper;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -67,6 +68,41 @@ public class DatabaseBootstrap {
 				System.out.println("========");
 			}
 		});
+
+		
+		Project project = new Project();
+		
+		project.setName("Testprojekt");
+		project.setCustomerName("Testkunde");
+		project.getUsers().add((User) User.findByUsername("test1"));
+		project.getUsers().add((User) User.findByUsername("test2"));
+		
+		Database.saveAndCommit(project);
+		
+		TodoGroup tg = new TodoGroup();
+		tg.setTitle("Design");
+		tg.setProject(project);
+		Database.saveAndCommit(tg);
+		
+		Todo testTodo = new Todo();
+		testTodo.setProject(project);
+		testTodo.setTitleName("Vankash macht Design");
+		testTodo.setContent("<h1>pls mach design</h1>");
+		testTodo.setUser((User) User.findByUsername("test1"));
+		testTodo.setTodoGroup(tg);
+		Database.saveAndCommit(testTodo);
+		
+	
+		tg.getTodos().add(testTodo);
+		
+		project.getTodos().add(testTodo);
+		User user = ((User) User.findByUsername("test1"));
+		user.getTodos().add(testTodo);
+		
+		project.getTodoGroups().add(tg);
+		Database.saveAndCommit(project);
+		Database.saveAndCommit(tg);
+		Database.saveAndCommit(user);
 		
 		
 		

@@ -65,20 +65,9 @@ public class TodoCreateController extends BaseController {
 			newTodoGroup = new TodoGroup();
 			newTodoGroup.setTitle(newTitle);
 			this.project.getTodoGroups().add(newTodoGroup);	
-			Database.save(newTodoGroup);
+			Database.saveAndCommit(newTodoGroup);
 		}
 		
-		
-		Todo newTodo = new Todo();
-		newTodo.setClosed(false);
-		newTodo.setContent(contentEditor.getHtmlText());
-		newTodo.setTitleName(titleField.getText());
-		
-		LocalDate t = deadlineField.getValue();
-		long timestamp = t.toEpochDay() * 24 * 60 * 60 * 1000;
-		Date deadline = new Date(timestamp);
-		newTodo.setDeadline(deadline);
-		project.getTodos().add(newTodo);
 		
 		User theUser = (User) User.findByUsername(usersDropdown.getValue());
 		if (theUser == null){
@@ -88,32 +77,45 @@ public class TodoCreateController extends BaseController {
 			alert.setContentText("Das Todo konnte nicht gespeichert werden! Es muss einem Mitarbeiter zugewiesen werden.");
 			alert.showAndWait();
 		} else {
+			Todo newTodo = new Todo();
+			newTodo.setClosed(false);
+			newTodo.setContent(contentEditor.getHtmlText());
+			newTodo.setTitleName(titleField.getText());
+			
+			LocalDate t = deadlineField.getValue();
+			long timestamp = t.toEpochDay() * 24 * 60 * 60 * 1000;
+			Date deadline = new Date(timestamp);
+			newTodo.setDeadline(deadline);
+			newTodo.setUser(theUser);
+			newTodo.setTodoGroup(newTodoGroup);
+			newTodo.setProject(project);
+			
+			Database.saveAndCommit(newTodo);
+			newTodoGroup.getTodos().add(newTodo);
+			newTodoGroup.setProject(project);
+			
+			
+			project.getTodos().add(newTodo);
 			theUser.getTodos().add(newTodo);
-		}
-		
-		newTodo.setUser(theUser);
-		newTodo.setTodoGroup(newTodoGroup);
-		newTodo.setProject(project);
-		
-		
-		Database.saveAndCommit(newTodo);
-		
-		theUser.update();
-		newTodoGroup.update();
-		project.update();
-		
-		
-		// TODO: vllt auch nur save & am ende die transaction commiten...
-
-		
+			
+			Database.saveAndCommit(newTodoGroup);
+			Database.saveAndCommit(project);
+			Database.saveAndCommit(theUser);
 	
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Hinweis");
-		alert.setHeaderText("Todo '" + newTodo.getTitle() + "' erstellt.");
-		alert.setContentText("Todo erfolgreich erstellt. Zugewiesen zu " + theUser.toString() + ".");
-		alert.showAndWait();
-		Stage stage = (Stage) categoryBox.getScene().getWindow();
-		stage.close();
+			
+		
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Hinweis");
+			alert.setHeaderText("Todo '" + newTodo.getTitle() + "' erstellt.");
+			alert.setContentText("Todo erfolgreich erstellt. Zugewiesen zu " + theUser.toString() + ".");
+			alert.showAndWait();
+			Stage stage = (Stage) categoryBox.getScene().getWindow();
+			ProjectViewController p = (ProjectViewController) this.getParent();
+			p._initTodos();
+			stage.close();
+			
+			
+		}
 	}
 	
 	@FXML

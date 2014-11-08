@@ -24,7 +24,7 @@ public class Todo extends BaseModel implements java.io.Serializable {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="todo_id")
+	@Column(name="id")
 	private Long id;
 
 	
@@ -42,37 +42,41 @@ public class Todo extends BaseModel implements java.io.Serializable {
 	private Date created;
 	private Date modified;
 	
-	@OneToOne
-	private User user;
-	
-	@OneToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id")
 	private Project project;
 	
-	
-	@OneToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "todogroup_id", nullable = false)
 	private TodoGroup todoGroup;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id", nullable=false)
+	private User user;
+	
+	
+	public User getUser() {
+		return this.user;
+	}
 	
 	
 	public void setTodoGroup(TodoGroup todoGroup) {
 		this.todoGroup = todoGroup;
 	}
 
+	
 
     public Project getProject()  
     {  
         return project;  
     }  
 	
+
     public TodoGroup getTodoGroup()  
     {  
-        return todoGroup;  
+        return todoGroup;
     }  
-	
-	public User getUser()  
-	{  
-       return user;  
-	}  
-	
+		
 	public void setUser(User user) {
 		this.user = user;
 	}

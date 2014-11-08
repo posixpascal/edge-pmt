@@ -18,7 +18,6 @@ import org.hibernate.Session;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
-
 import edge.logic.Database;
 
 
@@ -29,7 +28,7 @@ public class Project extends BaseModel implements java.io.Serializable {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="project_id")
+	@Column(name="id")
 	private Long id;
 	
 	//@NotNull(message = "Das Projekt benötigt einen Namen")
@@ -56,24 +55,30 @@ public class Project extends BaseModel implements java.io.Serializable {
 		created = new Date();
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	private Set<User> users = new HashSet<User>();
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<User> users = new HashSet<User>(0);
 	
 	
 	@OneToMany(fetch = FetchType.EAGER)
-	private Set<TodoGroup> todoGroups = new HashSet<TodoGroup>();
+	private Set<TodoGroup> todoGroups = new HashSet<TodoGroup>(0);
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Todo> todos = new HashSet<Todo>(0);
+	
 	
 	/**
 	 * returns a hashset containing all attached users to this project
 	 * @return
 	 */
+
 	public Set<User> getUsers(){
 		return this.users;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	private Set<Todo> todos = new HashSet<Todo>();
-	
+	public void setUsers(Set<User> users){
+		this.users = users;
+	}
+
 	/**
 	 * returns a hashset containing all attached todos to this project
 	 * @return

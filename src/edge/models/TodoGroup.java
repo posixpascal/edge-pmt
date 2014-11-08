@@ -29,7 +29,7 @@ import java.util.Set;
 @Table
 public class TodoGroup extends BaseModel implements java.io.Serializable {
 	@Id
-	@Column(name="todogroup_id")
+	@Column(name="id")
 	@GeneratedValue
 	private Long id;
 	
@@ -48,7 +48,8 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 		this.title = title;
 	}
 
-	@OneToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id")
 	private Project project;
 
 	
@@ -62,7 +63,12 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
     {  
         return project;  
     }  
-	
+    
+    public void setProject(Project project) {
+		this.project = project;
+		
+	}
+    
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Todo> todos = new HashSet<Todo>();
 	
@@ -145,5 +151,7 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 	protected void onUpdate(){
 		modified = new Date();
 	}
+
+	
 	
 }

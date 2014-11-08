@@ -19,16 +19,16 @@
          <children>
             <Text layoutX="25.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vorname" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
             <Text layoutX="223.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nachname" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="10.0" />
-            <TextField layoutX="10.0" layoutY="32.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0" />
-            <TextField layoutX="203.0" layoutY="30.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="10.0" />
+            <TextField fx:id="firstnameField" layoutX="10.0" layoutY="32.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0" />
+            <TextField fx:id="lastnameField" layoutX="203.0" layoutY="30.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="10.0" />
             <Text layoutX="10.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="80.0" />
-            <TextField layoutX="10.0" layoutY="98.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0" />
-            <Button layoutX="203.0" layoutY="100.0" mnemonicParsing="false" text="Benutzerbild..." AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="10.0" />
+            <TextField fx:id="emailField" layoutX="10.0" layoutY="98.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0" />
+            <Button fx:id="changeAvatarBtn" layoutX="203.0" layoutY="100.0" mnemonicParsing="false" onAction="#changeAvatar" text="Benutzerbild..." AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="10.0" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="83.0" fitWidth="103.0" layoutX="286.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
-      <CheckBox layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Benutzer per E-Mail über seinen neuen Account informieren" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="361.0" />
-      <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neuen Benutzer anlegen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
+      <ImageView fitHeight="57.0" fitWidth="64.0" layoutX="39.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" />
+      <CheckBox fx:id="remindPerEmailCheckbox" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Benutzer per E-Mail über seinen neuen Account informieren" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="361.0" />
+      <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neuen Benutzer anlegen" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font size="26.0" />
          </font>

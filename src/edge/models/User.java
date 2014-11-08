@@ -29,7 +29,7 @@ import java.util.Set;
 @Table
 public class User extends BaseModel implements java.io.Serializable {
 	@Id
-	@Column(name="user_id")
+	@Column(name="id")
 	@GeneratedValue
 	private Long id;
 	
@@ -43,20 +43,27 @@ public class User extends BaseModel implements java.io.Serializable {
 	private Date modified;
 	
 	
+	
+	
 	// TODO: bit retarded to use TEXT here. maybe BLOB is working too
 	@Column(name="profile_pic", columnDefinition="mediumblob")
 	private byte[] image;
 	
 
 	@OneToMany(fetch = FetchType.EAGER)
-	private Set<Todo> todos = new HashSet<Todo>();
+	private Set<Todo> todos = new HashSet<Todo>(0);
 	
 	/**
 	 * returns a hashset containing all attached todos to this project
 	 * @return
 	 */
+	
 	public Set<Todo> getTodos(){
 		return this.todos;
+	}
+	
+	public void setTodos(Set<Todo> todos){
+		this.todos = todos;
 	}
 	
 	public void update(){};
@@ -78,9 +85,17 @@ public class User extends BaseModel implements java.io.Serializable {
 		this.image = image;
 	}
 
-	@ManyToMany(cascade = {CascadeType.ALL})
-	@JoinTable(name="Project_User", joinColumns={@JoinColumn(name="user_id")}, inverseJoinColumns={@JoinColumn(name="project_id")})
-	private Set<Project> projects = new HashSet<Project>();
+	@ManyToMany
+	private Set<Project> projects;
+	
+	public Set<Project> getProjects(){
+		return projects;
+	}
+	
+	
+	public void setProjects(Set<Project> projects){
+		this.projects = projects;
+	}
 	
 	/**
 	 * @constructor

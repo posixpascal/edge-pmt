@@ -32,6 +32,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -58,7 +59,7 @@ public class ProjectController extends BaseController {
 	private CheckBox notifyPerEmailCheckBox;
 	
 	@FXML
-	private TableView<User> coworkerTable;
+	private ListView<User> coworkerTable;
 	
 	@FXML
 	private ToggleButton mobileToggleBtn;
@@ -90,14 +91,8 @@ public class ProjectController extends BaseController {
 	
 	@FXML
 	private void setImage(){
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Bild zum Projekt hinzufügen");
-		fileChooser.getExtensionFilters().addAll(
-			new FileChooser.ExtensionFilter("Alle Bilder", "*.*"),
-			new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-			new FileChooser.ExtensionFilter("PNG", "*.png")
-		);
-		this.imagePath = fileChooser.showOpenDialog(MainApplication.getInstance().getRootStage());
+		
+		this.imagePath = openImageChooser();
 		if (this.imagePath  != null){		
 			ImageView t = new ImageView();
 			imageView.setImage(new Image(this.imagePath .getAbsoluteFile().toURI().toString()));
@@ -139,17 +134,8 @@ public class ProjectController extends BaseController {
 		
 	
 		if (imagePath != null){
-			byte[] bFile = new byte[(int) imagePath.length()];
-			try {
-				FileInputStream fis = new FileInputStream(imagePath);
-				fis.read(bFile);
-				fis.close();
-			} catch (IOException e){
-				e.printStackTrace();
-			}
-			
+			byte[] bFile = imageToByteArray(imagePath);
 			project.setImage(bFile);
-			
 		}
 		
 		LocalDate t = deadlineField.getValue();

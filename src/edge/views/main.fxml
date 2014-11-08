@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
@@ -15,17 +16,16 @@
    <children>
       <TabPane prefHeight="517.0" prefWidth="711.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Projects">
+          <Tab text="Projekte">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane fx:id="gridScrollPane" layoutY="53.0" prefHeight="450.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="gridScrollPane" layoutY="53.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <content>
                             <AnchorPane fx:id="gridAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="396.0" prefWidth="709.0">
                                  <children>
-                                     <TilePane fx:id="projectsGrid" layoutY="-59.0" prefHeight="922.0" prefWidth="970.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                     <TilePane fx:id="projectsGrid" layoutX="6.0" prefColumns="10" prefRows="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     </TilePane>
-
                                  </children>
                               </AnchorPane>
                           </content>
@@ -34,10 +34,47 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Module #1">
+          <Tab text="Benutzer">
             <content>
               <!-- hurensohn -->
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="userListView" layoutX="1.0" prefHeight="447.0" prefWidth="268.0" style="-fx-background-color: #fdfdfd;" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <AnchorPane layoutX="286.0" layoutY="49.0" opacity="0.0" prefHeight="421.0" prefWidth="423.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Text layoutX="14.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vorname" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="140.0" />
+                              <TextField fx:id="firstnameField" editable="false" layoutX="14.0" layoutY="159.0" AnchorPane.leftAnchor="10.0" />
+                              <Text layoutX="205.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nachname" />
+                              <TextField fx:id="lastnameField" editable="false" layoutX="205.0" layoutY="159.0" prefHeight="26.0" prefWidth="209.0" AnchorPane.rightAnchor="10.0" />
+                              <Text layoutX="14.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benutzername" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="205.0" />
+                              <TextField fx:id="usernameField" editable="false" layoutX="14.0" layoutY="224.0" AnchorPane.leftAnchor="10.0" />
+                              <Text layoutX="205.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" AnchorPane.topAnchor="205.0" />
+                              <TextField fx:id="emailField" editable="false" layoutX="205.0" layoutY="224.0" prefHeight="26.0" prefWidth="207.0" AnchorPane.rightAnchor="10.0" />
+                              <ImageView fx:id="avatarImageView" fitHeight="106.0" fitWidth="106.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                              <Separator layoutY="283.0" prefHeight="0.0" prefWidth="425.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                              <Button fx:id="deleteUserBtn" layoutX="12.0" layoutY="406.0" mnemonicParsing="false" onAction="#deleteUser" text="Benutzer löschen" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0">
+                                 <effect>
+                                    <ColorAdjust brightness="-0.14" contrast="0.07" hue="0.02" saturation="0.43" />
+                                 </effect>
+                                 <textFill>
+                                    <LinearGradient endX="1.0" endY="1.0">
+                                       <stops>
+                                          <Stop color="#8d2a2a" />
+                                          <Stop color="#7c0e0e" offset="1.0" />
+                                       </stops>
+                                    </LinearGradient>
+                                 </textFill>
+                              </Button>
+                              <Button fx:id="editUserBtn" layoutX="154.0" layoutY="406.0" mnemonicParsing="false" onAction="#editUser" text="Benutzer bearbeiten" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="10.0" />
+                              <Text layoutX="131.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benutzer erstellt am:" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="10.0" />
+                              <Text layoutX="131.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In Projekten:" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="40.0" />
+                              <Text layoutX="130.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Offene Todos:" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="70.0" />
+                              <Text fx:id="createdAtText" layoutX="275.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              <Text fx:id="numberOfProjectsText" layoutX="310.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
+                              <Text layoutX="331.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
         </tabs>
@@ -49,7 +86,7 @@
          <items>
             <Button mnemonicParsing="false" onAction="#updateProjectsGrid" text="Aktualisieren" />
             <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
-            <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#createProject" text="Create project" />
+            <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#createProject" text="Projekt erstellen" />
          </items>
       </ToolBar>
    </children>

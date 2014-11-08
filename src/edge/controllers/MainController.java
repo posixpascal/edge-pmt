@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -64,9 +65,61 @@ public class MainController extends BaseController {
 	protected Button createProjectButton;
 	
 	@FXML
+	protected ListView userListView;
+	
+	@FXML
+	protected Button createUserButton;
+	
+	@FXML
+	protected Button deleteUserBtn;
+	
+	@FXML
+	protected ImageView avatarImageView;
+	
+	@FXML
+	protected Button editUserBtn;
+	
+	@FXML
+	protected Text createdAtText;
+	
+	@FXML
+	protected Text numberOfProjectsText;
+	
+	@FXML
+	protected Text openTodosText;
+	
+	@FXML
+	public void editUser(){
+		
+	}
+	
+	@FXML
+	public void deleteUser(){
+		
+	}
+	
+	@FXML
+	protected TextField firstnameField;
+	
+	@FXML
+	protected TextField lastnameField;
+	
+	@FXML
+	protected TextField emailField;
+	
+	@FXML
+	protected TextField usernameField;
+	
+	@FXML
 	public void updateProjectsGrid(){
 		projectsGrid.getChildren().clear();
 		drawProjectsGrid();
+		//	gridScrollPane.setPrefHeight(projectsGrid.getHeight());
+	}
+	
+	@FXML
+	public void createUser(){
+		
 	}
 	
 	@FXML
@@ -104,47 +157,20 @@ public class MainController extends BaseController {
 		gridAnchorPane.setMinWidth(WINDOW_WIDTH - 30);
 
 		drawProjectsGrid();
+		
+		List<User> users = User.getAll();
+		users.forEach( (user) -> {
+			this.userListView.getItems().add(user);
+		});
+		
+		this.userListView.setOnMouseClicked((event) -> {
+			
+		});
 	}
 	
 	protected void drawProjectsGrid(){
 		List<Project> projects = Project.getAll();
 		
-		// 4x4 grid for projects.
-		/*int rows = (int) Math.ceil(projects.size() / 4);
-				
-		for (int i = 0; i < maxColumns; i++){
-			projectsGrid.addColumn(i);
-		}
-				
-		for (int i = 0; i < rows; i++){
-			projectsGrid.addRow(i);
-		}
-				
-				
-				
-		double projectBoxSize = 280;
-				
-<<<<<<< HEAD
-		projectsGrid.setPadding(new Insets(200, 10, 10, 10));
-=======
-		
->>>>>>> branch 'master' of https://edgeVK@bitbucket.org/edgeVK/edge-projektmanagement.git
-		
-		projectsGrid.setPrefHeight(700 * rows);
-		projectsGrid.setMinHeight(700 * rows);
-		projectsGrid.setMaxHeight(700 * rows);
-		
-		
-		gridAnchorPane.setPrefHeight(700 * rows);
-		gridAnchorPane.setMinHeight(700 * rows);
-		gridAnchorPane.setMaxHeight(700 * rows);
-		
-	
-		
-	
-		currentColumnIndex = 0;
-		currentRowIndex = 0;
-		*/
 		
 		projectsGrid.setVgap(50);
 		projectsGrid.setHgap(50);
@@ -238,7 +264,7 @@ public class MainController extends BaseController {
 
 			Long projectId = project.getId();
 			
-			// TODO: das kann man sicher optimieren.
+		
 			projectBox.setOnMouseClicked( (m) -> {
 				if (!openProjects.contains(project)){
 					
