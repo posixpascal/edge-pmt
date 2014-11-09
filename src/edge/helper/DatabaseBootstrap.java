@@ -14,7 +14,6 @@ public class DatabaseBootstrap {
 	public static void main(String[] args){
 		SessionFactory factory = Database.getSessionFactory();
 		
-		
 		System.out.print("Erstelle Testuser...");
 		
 		List<HashMap<String, String>> users = new ArrayList();
