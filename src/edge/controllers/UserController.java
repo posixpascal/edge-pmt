@@ -33,6 +33,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class UserController extends BaseController {
+	
+
 	@FXML
 	private TextField usernameField;
 	
@@ -69,6 +71,7 @@ public class UserController extends BaseController {
 	@FXML
 	private PasswordField passwordField;
 	
+	private User transmittedUser;
 	
 	@FXML
 	private void initialize() 
@@ -76,8 +79,15 @@ public class UserController extends BaseController {
 		ImageView t = new ImageView();
 		avatarImageView.setImage(new Image(getNoPicturePath()));
 		System.out.print("OK");
+		if(transmittedUser != null){
+		emailField.setText(transmittedUser.getEMail());
+		usernameField.setText(transmittedUser.getUsername());
+		firstnameField.setText(transmittedUser.getFirstname());
+		lastnameField.setText(transmittedUser.getLastname());
+		
+		}
 	}
-	
+
 
 	@FXML
 	private void createUser(){
@@ -122,6 +132,15 @@ public class UserController extends BaseController {
 			
 			stage.close();
 		}
+	}
+	
+	public UserController(User transmittedUser){
+			this.transmittedUser = transmittedUser;
+	}
+	
+	public UserController()
+	{
+		
 	}
 }
 

@@ -35,6 +35,16 @@
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab text="Meine Todos">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="todosList1" prefHeight="477.0" prefWidth="238.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <BorderPane fx:id="settingsView1" layoutX="238.0" layoutY="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
           <Tab text="Benutzer">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

@@ -90,10 +90,14 @@ public class MainController extends BaseController {
 	
 	@FXML
 	protected Text openTodosText;
+	User selectedUser;
 	
 	@FXML
 	public void editUser(){
-		
+		User transmittableUser = selectedUser;
+		UserController userController = new UserController(transmittableUser);
+		userController.setParent(this);
+		openView("user_new.fxml", userController);
 	}
 	
 	@FXML
@@ -195,7 +199,7 @@ public class MainController extends BaseController {
 		
 		});
 		this.userListView.setOnMouseClicked((event) -> {
-			User selectedUser = (User) userListView.getSelectionModel().getSelectedItem();
+			selectedUser = (User) userListView.getSelectionModel().getSelectedItem();
 			_updateUserView(selectedUser);
 		});
 	}
@@ -244,6 +248,7 @@ public class MainController extends BaseController {
 		//openTodosText.setText("" + user.getTodos().size());
 		this.activeUser = user;
 	}
+	
 	
 	protected void drawProjectsGrid(){
 		List<Project> projects = Project.getAll();
