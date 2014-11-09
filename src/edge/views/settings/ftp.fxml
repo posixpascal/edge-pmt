@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="247.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FTP Einstellungen" />
+      <Text fill="#b9b9b9" layoutX="212.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit welchem FTP Server soll EDGE PMT arbeiten?" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0" />
+      <Separator layoutX="10.0" layoutY="48.0" prefHeight="5.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0" />
+      <Text layoutX="24.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FTP Einstellungen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="19.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host" />
+      <TextField fx:id="hostField" layoutX="19.0" layoutY="73.0" prefHeight="26.0" prefWidth="298.0" />
+      <TextField fx:id="portField" layoutX="323.0" layoutY="73.0" prefHeight="26.0" prefWidth="34.0" text="22" />
+      <Text layoutX="326.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port" />
+      <Text layoutX="20.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benutzername" />
+      <TextField fx:id="usernameField" layoutX="19.0" layoutY="136.0" />
+      <Text layoutX="195.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwort" />
+      <TextField fx:id="passwordField" layoutX="194.0" layoutY="136.0" />
+      <Text layoutX="20.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pfad zur Dateiablage" />
+      <TextField fx:id="pathField" layoutX="19.0" layoutY="189.0" prefHeight="26.0" prefWidth="338.0" />
+      <Separator layoutX="202.0" layoutY="199.0" prefHeight="48.0" prefWidth="354.0" rotate="90.0" />
+      <Button layoutX="403.0" layoutY="60.0" mnemonicParsing="false" onAction="#checkConnection" prefHeight="26.0" prefWidth="181.0" text="Verbindung testen">
+         <effect>
+            <ColorAdjust hue="-0.83" saturation="0.38" />
+         </effect>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="#261818" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Button>
+      <Button layoutX="403.0" layoutY="99.0" mnemonicParsing="false" onAction="#saveConnection" prefHeight="26.0" prefWidth="181.0" text="Verbindung speichern">
+         <effect>
+            <ColorAdjust hue="0.5" saturation="0.69" />
+         </effect>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="#261818" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Button>
+      <Text fill="#656565" layoutX="11.0" layoutY="250.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDGE PMT nutzt einen FTP Server um Dateien auszutauschen. Tragen Sie hier die FTP Einstellungen Ihres Teams ein, damit der Dateiaustausch untereinander funktioniert. Ohne funktionierende FTP Einstellungen lässt sich die Dateifunktion nicht nutzen. Prüfen Sie vor dem Speichern ob eine Verbindung zum FTP Server möglich ist." textAlignment="JUSTIFY" wrappingWidth="350.6829261779785" />
+      <ImageView fitHeight="192.0" fitWidth="192.0" layoutX="394.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../oxygen/256x256/places/network-workgroup.png" />
+         </image>
+      </ImageView>
    </children>
-</Pane>
+</AnchorPane>

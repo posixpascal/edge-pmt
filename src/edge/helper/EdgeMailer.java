@@ -13,7 +13,7 @@ public class EdgeMailer {
 	private String message = "";
 	private String subject = "";
 	
-	private final String from = "fraujaeckel@ich.will.den.cock.vankash.de";
+	private final String from = "default@edge.mailer";
 	private final String host = "localhost";
 	
 	Properties props = new Properties();

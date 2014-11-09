@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="192.0" fitWidth="192.0" layoutX="400.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../oxygen/256x256/places/mail-message.png" />
+         </image>
+      </ImageView>
+      <Text fill="#575757" layoutX="28.0" layoutY="269.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDGE PMT benötigt eine Verbindung zu einem SMTP Server. Sie können in diesem Fenster angeben, von welcher Adresse EDGE PMT E-Mails verschicken soll. Außerdem können Sie hier generelle Optionen zum Erhalt von E-Mails konfigurieren" textAlignment="JUSTIFY" wrappingWidth="361.24896240234375" />
+      <Text layoutX="28.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Absender" />
+      <TextField layoutX="28.0" layoutY="43.0" />
+      <Text layoutX="28.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host" />
+      <TextField layoutX="28.0" layoutY="159.0" />
+      <Text layoutX="28.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benutzer" />
+      <TextField layoutX="28.0" layoutY="215.0" />
+      <Text layoutX="205.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwort" />
+      <TextField layoutX="205.0" layoutY="217.0" />
+      <CheckBox layoutX="209.0" layoutY="47.0" mnemonicParsing="false" text="E-Mails von EDGE PMT erhalten" />
+      <Text layoutX="131.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SMTP Einstellungen">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Button layoutX="419.0" layoutY="215.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Speichern" />
+   </children>
+</AnchorPane>

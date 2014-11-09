@@ -185,7 +185,8 @@ public class MainController extends BaseController {
 			Class<?> settingsController;
 			try {
 				settingsController = (Class) Class.forName("edge.controllers.settings." + selectedItem + "SettingsController");
-				Scene settingsScene = getSceneWithController(view, settingsController);
+				
+				Scene settingsScene = getSceneWithController(view, settingsController.newInstance());
 				settingsView.setCenter(settingsScene.getRoot());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -203,6 +204,7 @@ public class MainController extends BaseController {
 		List<String> settings = new ArrayList<String>(){{
 			add("Templates"); // hooks views/settings/templates.fxml
 			add("FTP"); // hooks views/settings/ftp.fxml
+			add("Email");
 		}};
 		
 		settingsList.getItems().addAll(settings);
