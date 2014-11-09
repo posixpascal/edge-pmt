@@ -53,7 +53,16 @@ public class Project extends BaseModel implements java.io.Serializable {
 	@Type(type="timestamp")
 	private Date modified;
 	
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<FTPFiles> ftpFiles = new HashSet<FTPFiles>(0);
+	
+	public Set<FTPFiles> getFtpFiles() {
+		return ftpFiles;
+	}
 
+	public void setFtpFiles(Set<FTPFiles> ftpFiles) {
+		this.ftpFiles = ftpFiles;
+	}
 
 	
 	@PrePersist

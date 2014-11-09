@@ -50,6 +50,7 @@ public class User extends BaseModel implements java.io.Serializable {
 	
 	
 	
+
 	
 	// TODO: bit retarded to use TEXT here. maybe BLOB is working too
 	@Column(name="profile_pic", columnDefinition="mediumblob")
@@ -62,6 +63,17 @@ public class User extends BaseModel implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Settings> settings = new HashSet<Settings>(0);
 	
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<FTPFiles> ftpFiles = new HashSet<FTPFiles>(0);
+	
+	public Set<FTPFiles> getFtpFiles() {
+		return ftpFiles;
+	}
+
+	public void setFtpFiles(Set<FTPFiles> ftpFiles) {
+		this.ftpFiles = ftpFiles;
+	}
+
 	/**
 	 * returns a hashset containing all attached settings to this user
 	 * @return
@@ -319,6 +331,38 @@ public class User extends BaseModel implements java.io.Serializable {
 		char[] hexPassword = Hex.encodeHex(md5password);
 		
 		return String.copyValueOf(hexPassword);
+	}
+	
+	public Settings getSettingFor(String key, String defaultValue){
+		Session session = Database.getSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from Settings as settings where keyName = :key and user_id = :user_id");
+		query.setParameter("key", key);
+		query.setParameter("user_id", this.getId());
+		
+		List<?> result = query.list();
+		
+		session.close();
+		if (result.size() == 0){ 
+			Settings setting = new Settings(this, key, defaultValue);
+			Database.saveAndCommit(setting);
+			this.getSettings().add(setting);
+			Database.saveAndCommit(this);
+			return setting;
+		}
+		return (Settings) result.get(0);	
+	}
+	
+	public Settings saveSetting(String key, String defaultValue){
+		Session session = Database.getSession();
+		Settings setting = getSettingFor(key, defaultValue);
+		setting.setStringValue(defaultValue);
+		Database.saveAndCommit(setting);
+		
+		return setting;
+		
+		
 	}
 	
 	

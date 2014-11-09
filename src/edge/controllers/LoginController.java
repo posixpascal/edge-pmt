@@ -11,6 +11,7 @@ import edge.logic.EdgeFxmlLoader;
 import edge.logic.MainApplication;
 import edge.models.User;
 import edge.helper.EdgeMailer;
+import edge.helper.EdgeSession;
 
 public class LoginController extends BaseController {
 	@FXML
@@ -48,6 +49,8 @@ public class LoginController extends BaseController {
 			}
 			else {
 				if (md5Password.equals(user.getPassword())){
+					EdgeSession.setActiveUser(user);
+					
 					usernameField.getStyleClass().remove("error");
 					passwordField.getStyleClass().remove("error");
 					addSuccessClass(usernameField);

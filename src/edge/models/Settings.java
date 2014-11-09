@@ -21,6 +21,13 @@ public class Settings extends BaseModel {
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	public Settings(){}
+	public Settings(User user, String key, String defaultValue) {
+		this.setUser(user);
+		this.setKeyName(key);
+		this.setStringValue(defaultValue);
+	}
+
 	public Integer getId() {
 		return id;
 	}

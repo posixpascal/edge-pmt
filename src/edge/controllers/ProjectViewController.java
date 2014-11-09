@@ -3,17 +3,30 @@ package edge.controllers;
 
 
 
+import it.sauronsoftware.ftp4j.FTPAbortedException;
+import it.sauronsoftware.ftp4j.FTPClient;
+import it.sauronsoftware.ftp4j.FTPDataTransferException;
+import it.sauronsoftware.ftp4j.FTPException;
+import it.sauronsoftware.ftp4j.FTPIllegalReplyException;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
+import org.apache.commons.io.FilenameUtils;
+
+import edge.helper.EdgeFTP;
+import edge.helper.EdgeSession;
+import edge.helper.EdgeTransferListener;
 import edge.logic.Database;
 import edge.logic.EdgeFxmlLoader;
 import edge.logic.MainApplication;
@@ -75,6 +88,25 @@ public class ProjectViewController extends BaseController {
 	@FXML
 	private Text deadlineLabel;
 	
+	@FXML
+	private Text sizeText;
+	
+	@FXML
+	private Text filenameText;
+	
+	@FXML
+	private Text ftpServerText;
+	
+	@FXML
+	private ImageView previewImage;
+	
+	
+	@FXML
+	private Text speedText;
+	
+	@FXML
+	private ProgressBar progressBar;
+	
 	public ProjectViewController(Project project) {
 		this.initWithProject(project);
 	}
@@ -112,6 +144,53 @@ public class ProjectViewController extends BaseController {
 		
 		_initTodos();
 	}
+	
+	private File fileToBeUploaded = null;
+	
+	@FXML
+	private void selectFileForUpload(){
+		fileToBeUploaded = openFileChooser((Stage) this.projectNameLabel.getScene().getWindow());
+		if (fileToBeUploaded != null){
+			sizeText.setText(""+fileToBeUploaded.length());
+			filenameText.setText(fileToBeUploaded.getName());
+			ftpServerText.setText(EdgeSession.getActiveUser().getSettingFor("ftp_host", "vankash.de").getStringValue());
+			
+			String extension = FilenameUtils.getExtension(fileToBeUploaded.getAbsolutePath());
+			previewImage.setImage(new Image(fromFileExtension(extension).getAbsoluteFile().toURI().toString()));
+			
+		} else {
+			sizeText.setText("");
+			filenameText.setText("");
+			ftpServerText.setText("");
+		}
+	}
+	
+	@FXML
+	private void startUpload(){
+		String host = EdgeSession.getActiveUser().getSettingFor("ftp_host", null).getStringValue();
+		String port = EdgeSession.getActiveUser().getSettingFor("ftp_port", null).getStringValue();
+		String user = EdgeSession.getActiveUser().getSettingFor("ftp_user", null).getStringValue();
+		String pass = EdgeSession.getActiveUser().getSettingFor("ftp_pass", null).getStringValue();
+		EdgeFTP ftp = new EdgeFTP(host, port, user, pass);
+		ftp.connect();
+		try {
+			EdgeTransferListener transferListener = new EdgeTransferListener();
+			transferListener.setSpeed(this.speedText);
+			transferListener.setProgressBar(this.progressBar);
+			((FTPClient) ftp.getClient()).upload(fileToBeUploaded, transferListener);
+		} catch (IllegalStateException | IOException | FTPIllegalReplyException
+				| FTPException | FTPDataTransferException | FTPAbortedException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Hinweis");
+			alert.setHeaderText("Fehler beim Upload der Datei");
+			alert.setContentText("Beim Upload ist ein Fehler unterlaufen. Konnte Datei nicht hochladen.");
+			alert.showAndWait();
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	
 	
 	protected void _initTodos(){

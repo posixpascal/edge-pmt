@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.effect.*?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -70,7 +70,27 @@
                   </Tab>
                   <Tab text="Dateien">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TilePane fx:id="fileTilePane" hgap="50.0" prefHeight="423.0" prefWidth="386.0" vgap="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Button contentDisplay="BOTTOM" layoutX="537.0" layoutY="14.0" mnemonicParsing="false" onAction="#selectFileForUpload" text="Datei hochladen" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="447.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../oxygen/32x32/actions/document-new.png" />
+                                 </image>
+                              </ImageView>
+                              <Text layoutX="408.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datei:" AnchorPane.leftAnchor="390.0" />
+                              <Text fx:id="filenameText" layoutX="427.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.0" AnchorPane.leftAnchor="427.0" AnchorPane.rightAnchor="7.0" />
+                              <ProgressBar fx:id="progressBar" layoutX="435.0" layoutY="108.0" prefHeight="20.0" prefWidth="162.0" progress="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                              <Button layoutX="538.0" layoutY="358.0" mnemonicParsing="false" onAction="#startUpload" text="Upload starten" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="10.0" />
+                              <Text layoutX="408.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Größe:" AnchorPane.leftAnchor="390.0" />
+                              <Text layoutX="408.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FTP Server:" AnchorPane.leftAnchor="390.0" />
+                              <Text fx:id="ftpServerText" layoutX="482.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="127.46343994140625" AnchorPane.rightAnchor="10.0" />
+                              <Text fx:id="sizeText" layoutX="455.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="143.68292617797852" AnchorPane.leftAnchor="455.0" AnchorPane.rightAnchor="10.0" />
+                              <Text layoutX="466.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <ImageView fx:id="previewImage" fitHeight="96.0" fitWidth="96.0" layoutX="387.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text fx:id="speedText" layoutX="435.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                           </children></AnchorPane>
                      </content>
                   </Tab>
                   <Tab text="Mitarbeiter">

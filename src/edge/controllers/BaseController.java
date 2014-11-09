@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
@@ -98,6 +99,17 @@ public class BaseController {
 		return fileChooser.showOpenDialog(MainApplication.getInstance().getRootStage());
 	}
 	
+	
+	protected File openFileChooser(Stage stage){
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Datei zum Projekt hinzufügen");
+		fileChooser.getExtensionFilters().addAll(
+			new FileChooser.ExtensionFilter("Alle Dateien", "*.*")
+		);
+		if (stage == null) stage = MainApplication.getInstance().getRootStage();
+		return fileChooser.showOpenDialog(stage);
+	}
+	
 	protected void openView(String view, Object controller){
 		EdgeFxmlLoader loader = new EdgeFxmlLoader("../views/" + view);
 		loader.getRawLoader().setController(controller);
@@ -132,4 +144,52 @@ public class BaseController {
 		return scene;
 	}
 	
+	private HashMap<String, String> extImages = new HashMap<String, String>(){{
+		put("pdf", "application-pdf.png");
+		put("js", "application-javascript.png");
+		put("ai", "application-illustrator.png");
+		put("rtf", "application-rtf.png");
+		put("pptx", "application-vnd.ms-powerpoint.png");
+		put("ppt", "application-vnd.ms-powerpoint.png");
+		put("xlsx", "application-vnd.ms-excel.png");
+		put("xls", "application-vnd.ms-excel.png");
+		put("zip", "application-x-7z-compressed.png");
+		put("gz", "application-x-7z-compressed.png");
+		put("java", "application-x-java.png");
+		put("png", "application-x-it87.png");
+		put("gif", "application-x-it87.png");
+		put("jpeg", "application-x-it87.png");
+		put("jpg", "application-x-it87.png");
+		put("php", "application-x-php.png");
+		put("perl", "application-x-perl.png");
+		put("ruby", "application-x-ruby.png");
+		put("mp3", "audio-x-flac.png");
+		put("ogg", "audio-x-flac.png");
+		put("flac", "audio-x-flac.png");
+		put("wma", "audio-x-flac.png");
+		put("mp4", "audio-vnd.rn.realvideo.png");
+		put("mpeg", "audio-vnd.rn.realvideo.png");
+		put("mov", "audio-vnd.rn.realvideo.png");
+		put("webm", "audio-vnd.rn.realvideo.png");
+		put("ogv", "audio-vnd.rn.realvideo.png");
+		put("css", "text-css.png");
+		put("html", "text-html.png");
+		put("csv", "test-csv.png");
+		put("undefined", "x-office-document.png");
+		put("txt", "x-office-document.png");
+	}};
+	
+	protected File fromFileExtension(String fileExtension){
+		fileExtension = fileExtension.toLowerCase();
+		if (!this.extImages.containsKey(fileExtension)){
+			fileExtension = "undefined";
+		}
+		try {
+			return new File(this.getClass().getResource("/edge/assets/img/mimetypes/" + this.extImages.get(fileExtension)).toURI());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+			return this.getNoPictureFile();
+	
+		}
+	}
 }
