@@ -62,6 +62,10 @@ public class Todo extends BaseModel implements java.io.Serializable {
 	}
 	
 	
+	public void setUser(User user) {
+		this.user = user;
+	}
+		
 	public void setTodoGroup(TodoGroup todoGroup) {
 		this.todoGroup = todoGroup;
 	}
@@ -78,10 +82,7 @@ public class Todo extends BaseModel implements java.io.Serializable {
     {  
         return todoGroup;
     }  
-		
-	public void setUser(User user) {
-		this.user = user;
-	}
+
 	
 	public void setProject(Project project){
 		this.project = project;

@@ -59,11 +59,26 @@ public class User extends BaseModel implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Todo> todos = new HashSet<Todo>(0);
 	
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Setting> settings = new HashSet<Setting>(0);
+	
 	/**
-	 * returns a hashset containing all attached todos to this project
+	 * returns a hashset containing all attached settings to this user
 	 * @return
 	 */
+	public Set<Setting> getSettings(){
+		return this.settings;
+	}
 	
+	public void setSettings(Set<Setting> settings){
+		this.settings = settings;
+	}
+	
+	
+	/**
+	 * returns a hashset containing all attached todos to this user
+	 * @return
+	 */
 	public Set<Todo> getTodos(){
 		return this.todos;
 	}

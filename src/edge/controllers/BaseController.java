@@ -72,10 +72,9 @@ public class BaseController {
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
-		
 		return image;
-		
 	}
+	
 	protected byte[] imageToByteArray(File imagePath){
 		byte[] bFile = new byte[(int) imagePath.length()];
 		try {
@@ -117,6 +116,20 @@ public class BaseController {
 			e1.printStackTrace();
 		}
 		stage.show();
+	}
+	
+	protected Scene getSceneWithController(String view, Object controller){
+		EdgeFxmlLoader loader = new EdgeFxmlLoader("../views/" + view);
+		loader.getRawLoader().setController(controller);
+		Scene scene = null;
+		try {
+			scene = new Scene(
+				(Pane) loader.getRawLoader().load()
+			);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return scene;
 	}
 	
 }

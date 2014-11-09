@@ -21,6 +21,7 @@
     <property name="current_session_context_class">thread</property>
  
      <mapping class="edge.models.Project" />
+     <mapping class="edge.models.Setting" />
      <mapping class="edge.models.User" />
      <mapping class="edge.models.Template" />
      <mapping class="edge.models.TimeTracking" />
@@ -29,5 +30,6 @@
      <mapping class="edge.models.Comment" />
      <mapping class="edge.models.Milestone" />
      <mapping class="edge.models.TodoGroup" />
+     
 </session-factory>
 </hibernate-configuration>

@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.control.Alert;
@@ -33,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
@@ -145,6 +147,11 @@ public class MainController extends BaseController {
 	@FXML
 	private AnchorPane userContentPane;
 	
+	@FXML
+	private ListView<String> settingsList;
+	
+	@FXML
+	private BorderPane settingsView;
 	
 	protected int currentColumnIndex;
 	protected int currentRowIndex;
@@ -167,13 +174,42 @@ public class MainController extends BaseController {
 		drawProjectsGrid();
 		
 		this._initUserList();
+		this._initSettingsList();
 		
+		
+		this.settingsList.setOnMouseClicked((event) -> {
+			String selectedItem = (String) settingsList.getSelectionModel().getSelectedItem();
+			String view = selectedItem;
+			view = "settings/" + view.toLowerCase() + ".fxml";
+			
+			Class<?> settingsController;
+			try {
+				settingsController = (Class) Class.forName("edge.controllers.settings." + selectedItem + "SettingsController");
+				Scene settingsScene = getSceneWithController(view, settingsController);
+				settingsView.setCenter(settingsScene.getRoot());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		
+		});
 		this.userListView.setOnMouseClicked((event) -> {
 			User selectedUser = (User) userListView.getSelectionModel().getSelectedItem();
 			_updateUserView(selectedUser);
 		});
 	}
 	
+	private void _initSettingsList() {
+		List<String> settings = new ArrayList<String>(){{
+			add("Templates"); // hooks views/settings/templates.fxml
+			add("FTP"); // hooks views/settings/ftp.fxml
+		}};
+		
+		settingsList.getItems().addAll(settings);
+		
+		
+	}
+
 	protected void _initUserList(){
 		
 		List<User> users = User.getAll();
