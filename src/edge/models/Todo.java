@@ -13,6 +13,7 @@ import javax.validation.Validator;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
@@ -27,30 +28,31 @@ public class Todo extends BaseModel implements java.io.Serializable {
 	@Column(name="id")
 	private Long id;
 
-	
-	//@NotNull(message = "Das Todo ben�tigt einen Titel")
-	//@Min(2)
 	private String title;
 	
-	//@NotNull(message = "Das kann aber leer sein")
+
 	private String content;
 	private boolean isClosed = false;
-	
-	//@NotNull(message = "Füge eine Deadline zum Projekt hinzu")
+
 	private Date deadLine;
 	
+	@Column
+	@Type(type="timestamp")
 	private Date created;
+	
+	@Column
+	@Type(type="timestamp")
 	private Date modified;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "project_id")
 	private Project project;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "todogroup_id", nullable = false)
 	private TodoGroup todoGroup;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;
 	

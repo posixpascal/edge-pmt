@@ -3,6 +3,7 @@ package edge.controllers;
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -43,7 +44,7 @@ import javafx.stage.WindowEvent;
 import javafx.scene.image.*;
 public class MainController extends BaseController {
 	public MainController(){
-		System.out.println("faggots");
+		super();
 	}
 	List<Project> openProjects = new ArrayList<Project>(5);
 	protected final int WINDOW_WIDTH = 1306;
@@ -99,6 +100,16 @@ public class MainController extends BaseController {
 	}
 	
 	@FXML
+	public void createUser(){
+		UserController userController = new UserController();
+		userController.setParent(this);
+		openView("user_new.fxml", userController);
+	}
+	
+	@FXML
+	protected Button createUserBtn;
+	
+	@FXML
 	protected TextField firstnameField;
 	
 	@FXML
@@ -118,25 +129,22 @@ public class MainController extends BaseController {
 	}
 	
 	@FXML
-	public void createUser(){
-		
-	}
-	
-	@FXML
 	public void createProject(){
 		try
 		{
 			ProjectController projectController = new ProjectController();
-			projectController.setMainController(this);
+			projectController.setParent(this);
 			openView("project_new.fxml", projectController);
-		
-		
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
 	}
+	
+	@FXML
+	private AnchorPane userContentPane;
+	
 	
 	protected int currentColumnIndex;
 	protected int currentRowIndex;
@@ -158,14 +166,45 @@ public class MainController extends BaseController {
 
 		drawProjectsGrid();
 		
+		this._initUserList();
+		
+		this.userListView.setOnMouseClicked((event) -> {
+			User selectedUser = (User) userListView.getSelectionModel().getSelectedItem();
+			_updateUserView(selectedUser);
+		});
+	}
+	
+	protected void _initUserList(){
+		
 		List<User> users = User.getAll();
 		users.forEach( (user) -> {
 			this.userListView.getItems().add(user);
 		});
+	}
+	
+	public void refreshUserList(){
+		this.userListView.getItems().clear();
+		this._initUserList();
+	}
+	
+	private User activeUser;
+	private void _updateUserView(User user){
+		userContentPane.setOpacity(1.0);
+		firstnameField.setText(user.getFirstname());
+		lastnameField.setText(user.getLastname());
+		emailField.setText(user.getEMail());
+		usernameField.setText(user.getUsername());
 		
-		this.userListView.setOnMouseClicked((event) -> {
+		if (user.getImage() == null){
+			ImageView t = new ImageView();
+			avatarImageView.setImage(new Image(getNoPicturePath()));
 			
-		});
+		} else {
+			avatarImageView.setImage(byteArrayToImage(user.getImage()));
+		}
+		//numberOfProjectsText.setText("" + user.getProjects().size());
+		//openTodosText.setText("" + user.getTodos().size());
+		this.activeUser = user;
 	}
 	
 	protected void drawProjectsGrid(){
@@ -207,33 +246,24 @@ public class MainController extends BaseController {
 			
 
 			
-
+			ImageView imageView = new ImageView();
 			if (project.getImage() != null){
-				ImageView imageView = new ImageView();
-
-				ByteArrayInputStream bais = new ByteArrayInputStream(project.getImage());
-				BufferedImage bImage = null;
-				try {
-					bImage = ImageIO.read(bais);
-					Image image = SwingFXUtils.toFXImage(bImage, null);
-					imageView.setImage(image);
-				} catch (Exception e2) {
-					e2.printStackTrace();
-				}
-				
-		
-				imageView.setFitWidth(156);
-				imageView.setFitHeight(156);
-				imageView.setStyle("-fx-border-radius: 50%");
-				imageView.setLayoutX(0.5 * (260 - 156));
-				imageView.autosize();
-	
-				projectImage.getChildren().add(imageView);
-				//projectImage.setPrefWidth(projectBoxSize - 20);
-
-				projectImage.setMaxWidth(260.0);
-
+				imageView.setImage(byteArrayToImage(project.getImage()));
+			} else {
+				imageView.setImage(new Image(getNoPicturePath()));
 			}
+			
+
+			imageView.setFitWidth(160);
+			imageView.setFitHeight(160);
+			
+			imageView.setLayoutX(0.5 * (260 - 156));
+			imageView.autosize();
+
+			projectImage.getChildren().add(imageView);
+			//projectImage.setPrefWidth(projectBoxSize - 20);
+
+			projectImage.setMaxWidth(260.0);
 			
 			
 			ProgressBar projectProgress = new ProgressBar();
@@ -244,9 +274,7 @@ public class MainController extends BaseController {
 			double projectActualProgress = 0.0;
 			
 			projectProgress.setProgress(projectActualProgress);
-			
 			projectProgress.setMinWidth(260);		
-					
 					
 					
 			projectBox.add(projectName, 0, 0);

@@ -21,6 +21,7 @@ import javax.persistence.*;
 import org.hibernate.*;
 import org.hibernate.Query;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import java.util.Set;
 
@@ -35,7 +36,12 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 	
 	private String name;
 	
+	@Column
+	@Type(type="timestamp")
 	private Date created;
+	
+	@Column
+	@Type(type="timestamp")
 	private Date modified;
 	
 	private String title;
@@ -48,7 +54,7 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 		this.title = title;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "project_id")
 	private Project project;
 

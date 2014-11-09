@@ -43,6 +43,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ProjectController extends BaseController {
+	public ProjectController(){
+		super();
+	}
+	
 	@FXML
 	private TextField projectNameField;
 	
@@ -75,11 +79,11 @@ public class ProjectController extends BaseController {
 	
 	@FXML
 	private void initialize() {
-		
+		imageView.setImage(new Image(getNoPicturePath()));
 
 	}
 	
-	public ProjectController(){}
+
 	private MainController mainController;
 	
 	
@@ -95,8 +99,7 @@ public class ProjectController extends BaseController {
 		this.imagePath = openImageChooser();
 		if (this.imagePath  != null){		
 			ImageView t = new ImageView();
-			imageView.setImage(new Image(this.imagePath .getAbsoluteFile().toURI().toString()));
-			
+			imageView.setImage(new Image(this.imagePath.getAbsoluteFile().toURI().toString()));
 		}
 		
 	}
@@ -173,7 +176,7 @@ public class ProjectController extends BaseController {
 			alert.showAndWait();
 			Stage stage = (Stage) projectPane.getScene().getWindow();
 			
-			this.mainController.updateProjectsGrid();
+			((MainController) this.getParent()).updateProjectsGrid();
 			
 			stage.close();
 		} 

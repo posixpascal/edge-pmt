@@ -20,7 +20,7 @@ public class DatabaseBootstrap {
 		List<HashMap<String, String>> users = new ArrayList();
 		
 		HashMap<String, String> user1 = new HashMap<String, String>(){{
-			put("email", "test@edge-pmt.de");
+			put("email", "maxmustermann@mobiletrooper.de");
 			put("password", "test1234");
 			put("firstname", "Max");
 			put("lastname", "Mustermann");
@@ -28,24 +28,34 @@ public class DatabaseBootstrap {
 		}};
 		
 		HashMap<String, String> user2 = new HashMap<String, String>(){{
-			put("email", "test@edge-pmt.de");
+			put("email", "jo@mobiletrooper.de");
 			put("password", "test1234");
-			put("firstname", "Max");
-			put("lastname", "Mustermann");
-			put("username", "test2");
+			put("firstname", "Jens");
+			put("lastname", "Otto");
+			put("username", "jensotto");
 		}};
 		
 		HashMap<String, String> user3 = new HashMap<String, String>(){{
-			put("email", "test@edge-pmt.de");
+			put("email", "nu@mobiletrooper.de");
 			put("password", "test1234");
-			put("firstname", "Max");
-			put("lastname", "Mustermann");
-			put("username", "test3");
+			put("firstname", "Natascha");
+			put("lastname", "Ulm");
+			put("username", "nataschaulm");
 		}};
+		
+		HashMap<String, String> user4 = new HashMap<String, String>(){{
+			put("email", "pr@mobiletrooper.de");
+			put("password", "test1234");
+			put("firstname", "Pascal");
+			put("lastname", "Raszyk");
+			put("username", "pascalraszyk");
+		}};
+		
 		
 		users.add(user1);
 		users.add(user2);
 		users.add(user3);
+		users.add(user4);
 		
 		
 		users.forEach( (userData) -> {
@@ -75,7 +85,7 @@ public class DatabaseBootstrap {
 		project.setName("Testprojekt");
 		project.setCustomerName("Testkunde");
 		project.getUsers().add((User) User.findByUsername("test1"));
-		project.getUsers().add((User) User.findByUsername("test2"));
+		project.getUsers().add((User) User.findByUsername("pascalraszyk"));
 		
 		Database.saveAndCommit(project);
 		
@@ -96,8 +106,9 @@ public class DatabaseBootstrap {
 		tg.getTodos().add(testTodo);
 		
 		project.getTodos().add(testTodo);
-		User user = ((User) User.findByUsername("test1"));
+		User user = ((User) User.findByUsername("pascalraszyk"));
 		user.getTodos().add(testTodo);
+		user.getProjects().add(project);
 		
 		project.getTodoGroups().add(tg);
 		Database.saveAndCommit(project);

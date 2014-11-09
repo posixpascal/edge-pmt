@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="388.0" minWidth="399.0" prefHeight="511.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edge.controllers.UserController">
+<AnchorPane minHeight="388.0" minWidth="399.0" prefHeight="511.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Benutzername:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="80.0" />
       <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="240.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0" />
@@ -26,8 +26,8 @@
             <Button fx:id="changeAvatarBtn" layoutX="203.0" layoutY="100.0" mnemonicParsing="false" onAction="#changeAvatar" text="Benutzerbild..." AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="10.0" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="57.0" fitWidth="64.0" layoutX="39.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" />
-      <CheckBox fx:id="remindPerEmailCheckbox" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Benutzer per E-Mail über seinen neuen Account informieren" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="361.0" />
+      <ImageView fx:id="avatarImageView" fitHeight="121.0" fitWidth="121.0" layoutX="152.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="152.0" />
+      <CheckBox fx:id="notifyUserCheckbox" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" selected="true" text="Benutzer per E-Mail über seinen neuen Account informieren" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="361.0" />
       <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neuen Benutzer anlegen" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font size="26.0" />

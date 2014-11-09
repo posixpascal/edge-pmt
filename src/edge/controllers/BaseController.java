@@ -1,19 +1,41 @@
 package edge.controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+
+import javax.imageio.ImageIO;
 
 import edge.logic.EdgeFxmlLoader;
 import edge.logic.MainApplication;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 public class BaseController {
 	protected void addErrorClass(TextField field){
 		field.getStyleClass().add("error");
+	}
+	
+	public File getNoPictureFile(){
+		try {
+			return new File(this.getClass().getResource("/edge/assets/img/no-picture.png").toURI());
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String getNoPicturePath(){
+		return getNoPictureFile().getAbsoluteFile().toURI().toString();
 	}
 	
 	private Object parent = null;
@@ -38,6 +60,22 @@ public class BaseController {
 		field.getStyleClass().add("success");
 	}
 	
+	
+	protected Image byteArrayToImage(byte[] byteArray){
+		ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+		BufferedImage bImage = null;
+		Image image = null;
+		
+		try {
+			bImage = ImageIO.read(bais);
+			image = SwingFXUtils.toFXImage(bImage, null);
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
+		
+		return image;
+		
+	}
 	protected byte[] imageToByteArray(File imagePath){
 		byte[] bFile = new byte[(int) imagePath.length()];
 		try {

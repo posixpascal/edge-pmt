@@ -21,6 +21,7 @@ import javax.persistence.*;
 import org.hibernate.*;
 import org.hibernate.Query;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import java.util.Set;
 
@@ -39,7 +40,12 @@ public class User extends BaseModel implements java.io.Serializable {
 	private String lastname;
 	private String eMail;
 	
+	@Column
+	@Type(type="timestamp")
 	private Date created;
+	
+	@Column
+	@Type(type="timestamp")
 	private Date modified;
 	
 	
@@ -85,7 +91,7 @@ public class User extends BaseModel implements java.io.Serializable {
 		this.image = image;
 	}
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Project> projects;
 	
 	public Set<Project> getProjects(){

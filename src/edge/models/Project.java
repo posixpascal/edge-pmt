@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
@@ -44,7 +45,12 @@ public class Project extends BaseModel implements java.io.Serializable {
 	//@NotNull(message = "Füge eine Deadline zum Projekt hinzu")
 	private Date deadLine;
 	
+	@Column
+	@Type(type="timestamp")
 	private Date created;
+	
+	@Column
+	@Type(type="timestamp")
 	private Date modified;
 	
 
@@ -312,37 +318,4 @@ public class Project extends BaseModel implements java.io.Serializable {
 		return this.todoGroups;
 	}
 
-	// updates the current instance of an object (only possible for already objects)
-	public void update() {
-	
-		
-	}
-
-	
-	/* validation stuff 
-	 * disabled for fucks sake. 
-	 *
-	 *Vankash: okay das ist echt edel!
-	 * add / to the star to enable: *
-	 
-	
-
-	@Transient
-	private Validator validator = Validation.byDefaultProvider()
-							.configure()
-							.messageInterpolator(
-								new ResourceBundleMessageInterpolator(
-									new PlatformResourceBundleLocator("Messages")
-								)
-							)
-							.buildValidatorFactory()
-							.getValidator();
-	
-	
-	public String getErrorMessages(){
-		String errors = "";
-		errors += validator.validateProperty(this, "deadline").iterator().next().getMessage();
-		
-		return errors;
-	}/**/
 }
