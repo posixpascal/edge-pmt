@@ -78,12 +78,14 @@ public class UserController extends BaseController {
 	{
 		ImageView t = new ImageView();
 		avatarImageView.setImage(new Image(getNoPicturePath()));
-		System.out.print("OK");
+		
 		if(transmittedUser != null){
 		emailField.setText(transmittedUser.getEMail());
 		usernameField.setText(transmittedUser.getUsername());
 		firstnameField.setText(transmittedUser.getFirstname());
 		lastnameField.setText(transmittedUser.getLastname());
+		passwordField.setText(transmittedUser.getPassword());
+		//avatarImageView.setImage( new Image(transmittedUser.getImage()));
 		
 		}
 	}
@@ -107,7 +109,7 @@ public class UserController extends BaseController {
 			
 			if (avatar == null){
 				theUser.setImage(imageToByteArray(getNoPictureFile()));
-			} else {
+			} else { 
 				theUser.setImage(imageToByteArray(avatar));
 			}
 			

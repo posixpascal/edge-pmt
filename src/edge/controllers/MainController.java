@@ -8,9 +8,11 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import edge.helper.EdgeSession;
 import edge.logic.MainApplication;
 import edge.logic.EdgeFxmlLoader;
 import edge.models.Project;
+import edge.models.Todo;
 import edge.models.User;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
@@ -72,6 +74,9 @@ public class MainController extends BaseController {
 	protected ListView userListView;
 	
 	@FXML
+	protected ListView todosListView;
+	
+	@FXML
 	protected Button createUserButton;
 	
 	@FXML
@@ -111,6 +116,11 @@ public class MainController extends BaseController {
 		UserController userController = new UserController();
 		userController.setParent(this);
 		openView("user_new.fxml", userController);
+	}
+	
+	@FXML
+	public void loadTodoinList(){
+		
 	}
 	
 	@FXML
@@ -179,6 +189,7 @@ public class MainController extends BaseController {
 		drawProjectsGrid();
 		
 		this._initUserList();
+		this._initTodoList();
 		this._initSettingsList();
 		
 		
@@ -226,9 +237,23 @@ public class MainController extends BaseController {
 		});
 	}
 	
+	protected void _initTodoList(){
+		List<Todo> todos = EdgeSession.getActiveUser().getTodo();
+		if(todos != null){
+			todos.forEach( (todo) -> {
+				this.todosListView.getItems().add(todo.getTitle());
+			});
+		}
+	}
+	
 	public void refreshUserList(){
 		this.userListView.getItems().clear();
 		this._initUserList();
+	}
+	
+	public void refreshTodoList(){
+		this.todosListView.getItems().clear();
+		this._initTodoList();
 	}
 	
 	private User activeUser;

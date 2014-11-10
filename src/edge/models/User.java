@@ -277,9 +277,24 @@ public class User extends BaseModel implements java.io.Serializable {
 		
 		@SuppressWarnings("unchecked")
 		List<User> result = (List<User>) query.list();
-		
 
 		session.close();
+		
+		return result;
+	}
+	public List<Todo> getTodo(){
+		Session session = Database.getSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from Todo where user_id = :userid");
+		query.setParameter("userid", this.getId());
+		
+		@SuppressWarnings("unchecked")
+		List<Todo> result = query.list();
+		
+		session.close();
+		
+		if (result.size() == 0){ return null; }
 		
 		return result;
 	}
