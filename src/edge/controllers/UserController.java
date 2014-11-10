@@ -85,7 +85,7 @@ public class UserController extends BaseController {
 		firstnameField.setText(transmittedUser.getFirstname());
 		lastnameField.setText(transmittedUser.getLastname());
 		passwordField.setText(transmittedUser.getPassword());
-		//avatarImageView.setImage( new Image(transmittedUser.getImage()));
+		avatarImageView.setImage( byteArrayToImage(transmittedUser.getImage()));
 		
 		}
 	}
@@ -120,6 +120,22 @@ public class UserController extends BaseController {
 				mailer.sendMail();
 			}
 			
+			Database.saveAndCommit(theUser);
+			
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Hinweis");
+			alert.setHeaderText("Benutzer erfolgreich angelegt.");
+			alert.setContentText("Das Benutzerkonto wurde erfolgreich angelegt." + (notifyUserCheckbox.isSelected() ? "Der Benutzer wurde per E-Mail benachrichtigt" : "Der Benutzer wurde nicht benachrichtigt."));
+			alert.showAndWait();
+			Stage stage = (Stage) usernameField.getScene().getWindow();
+			
+			MainController mainController = ((MainController) this.getParent());
+			mainController.refreshUserList();
+			
+			stage.close();
+		}
+		else
+		{
 			Database.saveAndCommit(theUser);
 			
 			Alert alert = new Alert(AlertType.INFORMATION);
