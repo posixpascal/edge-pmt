@@ -16,6 +16,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
@@ -155,7 +156,7 @@ public class MainController extends BaseController {
 	private ListView<String> settingsList;
 	
 	@FXML
-	private BorderPane settingsView;
+	private AnchorPane settingsView;
 	
 	protected int currentColumnIndex;
 	protected int currentRowIndex;
@@ -191,7 +192,8 @@ public class MainController extends BaseController {
 				settingsController = (Class) Class.forName("edge.controllers.settings." + selectedItem + "SettingsController");
 				
 				Scene settingsScene = getSceneWithController(view, settingsController.newInstance());
-				settingsView.setCenter(settingsScene.getRoot());
+				Parent s = (Parent) settingsScene.getRoot();
+				settingsView.getChildren().add(s);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -343,6 +345,7 @@ public class MainController extends BaseController {
 					openView("project_view.fxml", projectViewController);
 					
 					openProjects.add(project); // TODO: das müssen wir rückgängig machen wenns geschlossen wird!
+					
 				}
 				
 			});
