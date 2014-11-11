@@ -376,8 +376,16 @@ public class User extends BaseModel implements java.io.Serializable {
 		Database.saveAndCommit(setting);
 		
 		return setting;
+	}
+	
+	public boolean delete(){
+		Session session = Database.getSession();
+		session.beginTransaction();
 		
-		
+		Query query = session.createQuery("delete from User where user_id = :user_id");
+		query.setParameter("user_id", this.getId());
+		session.close();
+		return false;
 	}
 	
 	

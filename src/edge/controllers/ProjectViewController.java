@@ -30,6 +30,7 @@ import edge.helper.EdgeTransferListener;
 import edge.logic.Database;
 import edge.logic.EdgeFxmlLoader;
 import edge.logic.MainApplication;
+import edge.models.FTPFiles;
 import edge.models.Project;
 import edge.models.User;
 import edge.models.TodoGroup;
@@ -143,9 +144,16 @@ public class ProjectViewController extends BaseController {
 		todoChartContainer.getChildren().add(todoChart);
 		
 		_initTodos();
+		_initFiles();
 	}
 	
 	private File fileToBeUploaded = null;
+	
+	private void _initFiles(){
+		this.project.getFtpFiles().forEach( (ftpFile) -> {
+			
+		});
+	}
 	
 	@FXML
 	private void selectFileForUpload(){
@@ -178,6 +186,24 @@ public class ProjectViewController extends BaseController {
 			transferListener.setSpeed(this.speedText);
 			transferListener.setProgressBar(this.progressBar);
 			((FTPClient) ftp.getClient()).upload(fileToBeUploaded, transferListener);
+			
+			FTPFiles ftpFile = new FTPFiles();
+			ftpFile.setFileName(fileToBeUploaded.getName());
+			ftpFile.setProject(project);
+			ftpFile.setUser(EdgeSession.getActiveUser());
+			
+			String extension = FilenameUtils.getExtension(fileToBeUploaded.getAbsolutePath());
+			ftpFile.setPreview(imageToByteArray(fromFileExtension(extension)));
+			ftpFile.setUrl(EdgeSession.getActiveUser().getSettingFor("ftp_path", null).getStringValue());
+			Database.saveAndCommit(ftpFile);
+			
+			this.project.getFtpFiles().add(ftpFile);
+			
+			EdgeSession.getActiveUser().getFtpFiles().add(ftpFile);
+			Database.saveAndCommit(ftpFile);
+			Database.saveAndCommit(project);
+			Database.saveAndCommit(EdgeSession.getActiveUser());
+			
 		} catch (IllegalStateException | IOException | FTPIllegalReplyException
 				| FTPException | FTPDataTransferException | FTPAbortedException e) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -186,13 +212,10 @@ public class ProjectViewController extends BaseController {
 			alert.setContentText("Beim Upload ist ein Fehler unterlaufen. Konnte Datei nicht hochladen.");
 			alert.showAndWait();
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 	
-	
-	
-	
+
 	protected void _initTodos(){
 		todoAccordion.getPanes().clear();
 		
