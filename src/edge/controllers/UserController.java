@@ -54,6 +54,12 @@ public class UserController extends BaseController {
 	private Button changeAvatarBtn;
 	
 	@FXML
+	private Button createUserBtn;
+	
+	@FXML
+	private Text titleText;
+	
+	@FXML
 	private CheckBox notifyUserCheckbox;
 	
 	private File avatar = null;
@@ -80,13 +86,25 @@ public class UserController extends BaseController {
 		avatarImageView.setImage(new Image(getNoPicturePath()));
 		
 		if(transmittedUser != null){
-		emailField.setText(transmittedUser.getEMail());
-		usernameField.setText(transmittedUser.getUsername());
-		firstnameField.setText(transmittedUser.getFirstname());
-		lastnameField.setText(transmittedUser.getLastname());
-		passwordField.setText(transmittedUser.getPassword());
-		avatarImageView.setImage( byteArrayToImage(transmittedUser.getImage()));
-		
+			titleText.setText("Bearbeite " + transmittedUser.getUsername());
+			emailField.setText(transmittedUser.getEMail());
+			usernameField.setText(transmittedUser.getUsername());
+			usernameField.setDisable(true);
+			
+			firstnameField.setText(transmittedUser.getFirstname());
+			lastnameField.setText(transmittedUser.getLastname());
+			passwordField.setText(transmittedUser.getPassword());
+			
+			if (transmittedUser.getImage() != null){
+				avatarImageView.setImage( byteArrayToImage(transmittedUser.getImage()));
+			} else {
+				avatarImageView.setImage(new Image(getNoPicturePath()));
+			}
+			
+			createUserBtn.setText("Benutzer speichern");
+			createUserBtn.setOnAction((m) -> {
+				editUser();
+			});
 		}
 	}
 
@@ -133,27 +151,39 @@ public class UserController extends BaseController {
 			mainController.refreshUserList();
 			
 			stage.close();
-		}
-		else
-		{
-			transmittedUser.setUsername(username);
-			transmittedUser.setPassword(password);
-			transmittedUser.setEMail(email);
-			transmittedUser.setFirstname(firstname);
-			transmittedUser.setLastname(lastname);
-			Database.saveAndCommit(transmittedUser);
-			
-			Alert alert = new Alert(AlertType.INFORMATION);
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Hinweis");
-			alert.setHeaderText("Benutzer erfolgreich aktualisiert.");
+			alert.setHeaderText("Benutzername bereits vorhanden.");
+			alert.setContentText("Der Benutzername ist bereits vergeben, der Benutzer konnte nicht erstellt werden.");
 			alert.showAndWait();
-			Stage stage = (Stage) usernameField.getScene().getWindow();
-			
-			MainController mainController = ((MainController) this.getParent());
-			mainController.refreshUserList();
-			
-			stage.close();
 		}
+	}
+	
+	private void editUser(){
+
+		String password = passwordField.getText();
+		String firstname = firstnameField.getText();
+		String lastname = lastnameField.getText();
+		String email = emailField.getText();
+
+		
+		transmittedUser.setPassword(password);
+		transmittedUser.setEMail(email);
+		transmittedUser.setFirstname(firstname);
+		transmittedUser.setLastname(lastname);
+		Database.saveAndCommit(transmittedUser);
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Hinweis");
+		alert.setHeaderText("Benutzer erfolgreich aktualisiert.");
+		alert.showAndWait();
+		Stage stage = (Stage) usernameField.getScene().getWindow();
+		
+		MainController mainController = ((MainController) this.getParent());
+		mainController.refreshUserList();
+		
+		stage.close();
 	}
 	
 	public UserController(User transmittedUser){
