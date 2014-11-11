@@ -136,12 +136,16 @@ public class UserController extends BaseController {
 		}
 		else
 		{
-			Database.saveAndCommit(theUser);
+			transmittedUser.setUsername(username);
+			transmittedUser.setPassword(password);
+			transmittedUser.setEMail(email);
+			transmittedUser.setFirstname(firstname);
+			transmittedUser.setLastname(lastname);
+			Database.saveAndCommit(transmittedUser);
 			
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Hinweis");
-			alert.setHeaderText("Benutzer erfolgreich angelegt.");
-			alert.setContentText("Das Benutzerkonto wurde erfolgreich angelegt." + (notifyUserCheckbox.isSelected() ? "Der Benutzer wurde per E-Mail benachrichtigt" : "Der Benutzer wurde nicht benachrichtigt."));
+			alert.setHeaderText("Benutzer erfolgreich aktualisiert.");
 			alert.showAndWait();
 			Stage stage = (Stage) usernameField.getScene().getWindow();
 			
