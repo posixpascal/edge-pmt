@@ -37,6 +37,7 @@ import edge.models.TodoGroup;
 import edge.models.Todo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -101,6 +102,8 @@ public class ProjectViewController extends BaseController {
 	@FXML
 	private ImageView previewImage;
 	
+	@FXML
+	private TilePane fileTilePane;
 	
 	@FXML
 	private Text speedText;
@@ -151,69 +154,63 @@ public class ProjectViewController extends BaseController {
 	
 	private void _initFiles(){
 		this.project.getFtpFiles().forEach( (ftpFile) -> {
-			
+			addFileToGrid(ftpFile);
 		});
+	}
+	
+	protected void addFileToGrid(FTPFiles ftpFile){
+		GridPane fileBox = new GridPane();
+		
+		fileBox.addColumn(0);
+		fileBox.addRow(0); // filename
+		fileBox.addRow(1); // preview
+		fileBox.addRow(2); // größe
+		fileBox.addRow(3); // uploader
+		fileBox.addRow(4); // download button
+		
+		
+		Text fileNameText = new Text();
+		fileNameText.setText(ftpFile.getFileName());
+		
+		Text sizeText = new Text();
+		long fSize = ftpFile.getSize();
+		double size = Math.round(fSize / 1024);
+		
+		sizeText.setText("" + size + " kBytes");
+		
+		
+		Text uploaderText = new Text();
+		uploaderText.setText(ftpFile.getUser().getFirstname() + " " + ftpFile.getUser().getLastname());
+		
+		ImageView previewImage = new ImageView();
+		previewImage.setImage(byteArrayToImage(ftpFile.getPreview()));
+		
+		fileBox.add(fileNameText, 0, 0);
+		fileBox.add(previewImage, 0, 1);
+		fileBox.add(uploaderText, 0, 2);
+		fileBox.add(sizeText, 0, 3);
+		fileBox.setPadding(new Insets(10, 10, 10, 10));
+		
+		fileTilePane.getChildren().add(fileBox);
 	}
 	
 	@FXML
 	private void selectFileForUpload(){
 		fileToBeUploaded = openFileChooser((Stage) this.projectNameLabel.getScene().getWindow());
 		if (fileToBeUploaded != null){
-			sizeText.setText(""+fileToBeUploaded.length());
-			filenameText.setText(fileToBeUploaded.getName());
-			ftpServerText.setText(EdgeSession.getActiveUser().getSettingFor("ftp_host", "vankash.de").getStringValue());
-			
-			String extension = FilenameUtils.getExtension(fileToBeUploaded.getAbsolutePath());
-			previewImage.setImage(new Image(fromFileExtension(extension).getAbsoluteFile().toURI().toString()));
-			
+			UploadController uploadController = new UploadController();
+			uploadController.setParent(this);
+			uploadController.setFile(fileToBeUploaded);
+			openView("upload.fxml", uploadController);
 		} else {
-			sizeText.setText("");
-			filenameText.setText("");
-			ftpServerText.setText("");
+			
 		}
 	}
 	
-	@FXML
-	private void startUpload(){
-		String host = EdgeSession.getActiveUser().getSettingFor("ftp_host", null).getStringValue();
-		String port = EdgeSession.getActiveUser().getSettingFor("ftp_port", null).getStringValue();
-		String user = EdgeSession.getActiveUser().getSettingFor("ftp_user", null).getStringValue();
-		String pass = EdgeSession.getActiveUser().getSettingFor("ftp_pass", null).getStringValue();
-		EdgeFTP ftp = new EdgeFTP(host, port, user, pass);
-		ftp.connect();
-		try {
-			EdgeTransferListener transferListener = new EdgeTransferListener();
-			transferListener.setSpeed(this.speedText);
-			transferListener.setProgressBar(this.progressBar);
-			((FTPClient) ftp.getClient()).upload(fileToBeUploaded, transferListener);
-			
-			FTPFiles ftpFile = new FTPFiles();
-			ftpFile.setFileName(fileToBeUploaded.getName());
-			ftpFile.setProject(project);
-			ftpFile.setUser(EdgeSession.getActiveUser());
-			
-			String extension = FilenameUtils.getExtension(fileToBeUploaded.getAbsolutePath());
-			ftpFile.setPreview(imageToByteArray(fromFileExtension(extension)));
-			ftpFile.setUrl(EdgeSession.getActiveUser().getSettingFor("ftp_path", null).getStringValue());
-			Database.saveAndCommit(ftpFile);
-			
-			this.project.getFtpFiles().add(ftpFile);
-			
-			EdgeSession.getActiveUser().getFtpFiles().add(ftpFile);
-			Database.saveAndCommit(ftpFile);
-			Database.saveAndCommit(project);
-			Database.saveAndCommit(EdgeSession.getActiveUser());
-			
-		} catch (IllegalStateException | IOException | FTPIllegalReplyException
-				| FTPException | FTPDataTransferException | FTPAbortedException e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Hinweis");
-			alert.setHeaderText("Fehler beim Upload der Datei");
-			alert.setContentText("Beim Upload ist ein Fehler unterlaufen. Konnte Datei nicht hochladen.");
-			alert.showAndWait();
-			e.printStackTrace();
-		}	
+	protected Project getProject(){
+		return this.project;
 	}
+
 	
 
 	protected void _initTodos(){

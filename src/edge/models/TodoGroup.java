@@ -101,7 +101,7 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 		
 		if (result.size() == 0){ throw new Error("ProjectNotFoundException"); }
 		
-		Query query = session.createQuery("from TodoGroup as todoGroup where todoGroup.title = :title and project.id = :project_id");
+		Query query = session.createQuery("from TodoGroup as todoGroup where title = :title and project_id = :project_id");
 		query.setParameter("project_id", project.getId());
 		query.setParameter("title", title);
 		

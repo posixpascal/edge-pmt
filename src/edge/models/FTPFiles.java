@@ -21,6 +21,18 @@ public class FTPFiles extends BaseModel {
 	public String getTitle() {
 		return title;
 	}
+	
+	private long size;
+	
+	
+
+	public long getSize() {
+		return this.size;
+	}
+
+	public void setSize(long size) {
+		this.size = size;
+	}
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -116,4 +128,5 @@ public class FTPFiles extends BaseModel {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+
 }

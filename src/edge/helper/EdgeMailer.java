@@ -14,7 +14,6 @@ public class EdgeMailer {
 	private String subject = "";
 	
 	private final String from = "default@edge.mailer";
-	private final String host = "localhost";
 	
 	Properties props = new Properties();
     Session session = Session.getDefaultInstance(props, null);
