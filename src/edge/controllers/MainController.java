@@ -369,10 +369,8 @@ public class MainController extends BaseController {
 					ProjectViewController projectViewController = new ProjectViewController(project);
 					openView("project_view.fxml", projectViewController);
 					
-					openProjects.add(project); // TODO: das müssen wir rückgängig machen wenns geschlossen wird!
-					
+					openProjects.add(project); // TODO: das müssen wir rückgängig machen wenns geschlossen wird!	
 				}
-				
 			});
 					
 			projectBox.setStyle("-fx-effect: dropshadow(three-pass-box, #000, 5, 0, 0, 0)");

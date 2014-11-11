@@ -174,7 +174,7 @@ public class ProjectController extends BaseController {
 			alert.setHeaderText("Projekt '" + projectName + "' für '" + customerName + "' erstellt.");
 			alert.setContentText("Das Projekt wurde erfolgreich erstellt. Die Mitarbeiter wurden per E-Mail informiert.");
 			alert.showAndWait();
-			Stage stage = (Stage) projectPane.getScene().getWindow();
+			Stage stage = (Stage) projectNameField.getScene().getWindow();
 			
 			((MainController) this.getParent()).updateProjectsGrid();
 			

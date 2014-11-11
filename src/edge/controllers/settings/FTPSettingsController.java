@@ -66,7 +66,7 @@ public class FTPSettingsController extends SettingsController {
 	@FXML
 	private void initialize(){
 		Settings ftpHost = EdgeSession.getActiveUser().getSettingFor("ftp_host", "vankash.de");
-		Settings ftpPort = EdgeSession.getActiveUser().getSettingFor("ftp_port", "11");
+		Settings ftpPort = EdgeSession.getActiveUser().getSettingFor("ftp_port", "21");
 		Settings ftpUser = EdgeSession.getActiveUser().getSettingFor("ftp_user", "pascal");
 		Settings ftpPassword = EdgeSession.getActiveUser().getSettingFor("ftp_pass", "boss");
 		Settings ftpPath = EdgeSession.getActiveUser().getSettingFor("ftp_path", "/");
