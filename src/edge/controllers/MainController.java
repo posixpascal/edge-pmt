@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-
+import javafx.beans.property.*;
 import edge.controllers.project.ProjectCreateController;
 import edge.controllers.project.ProjectViewController;
 import edge.helper.EdgeSession;
@@ -16,6 +16,8 @@ import edge.logic.EdgeFxmlLoader;
 import edge.models.Project;
 import edge.models.Todo;
 import edge.models.User;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -68,7 +70,8 @@ public class MainController extends BaseController {
 	
 	@FXML
 	protected ScrollPane gridScrollPane;
-	
+	@FXML
+	protected AnchorPane mainPane;
 	@FXML
 	protected Button createProjectButton;
 	
@@ -286,8 +289,15 @@ public class MainController extends BaseController {
 		
 		projectsGrid.setVgap(50);
 		projectsGrid.setHgap(50);
+		projectsGrid.setPadding(new Insets(30,30,30,30));
+		mainPane.widthProperty().addListener(new ChangeListener<Number>() {
+		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+		        //System.out.println("Width: " + newSceneWidth);
+		    	projectsGrid.resize(newSceneWidth.doubleValue(), 300.);
+		    	gridAnchorPane.setMinWidth(newSceneWidth.doubleValue());
+		    }
+		});
 		
-		projectsGrid.setPadding(new Insets(10, 10, 10, 10));
 		
 		projects.forEach( (project) -> {
 			GridPane projectBox = new GridPane();
@@ -300,10 +310,8 @@ public class MainController extends BaseController {
 			projectBox.setMaxHeight(300);
 			projectBox.setMinHeight(300);
 			projectBox.setPrefHeight(300);
-			projectBox.setPrefWidth(WINDOW_WIDTH/5);
-			//projectBox.setMinWidth(projectBoxSize);
-			
-			
+			//projectBox.setPrefWidth(WINDOW_WIDTH/4);
+			//projectBox.setMinWidth();
 					
 			projectBox.setPadding(new Insets(10, 10, 10, 10));
 				
