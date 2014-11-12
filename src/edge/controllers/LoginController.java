@@ -28,6 +28,7 @@ public class LoginController extends BaseController {
 	
 	@FXML
 	private void initialize() {
+		
 		/**
 		 * @loginBtn clicked
 		 */
@@ -38,6 +39,7 @@ public class LoginController extends BaseController {
 			String md5Password = User.hashPassword(password);
 			
 			User user = (User) User.findByUsername(username);
+			
 			if (user == null){
 				usernameField.getStyleClass().remove("success");
 				passwordField.getStyleClass().remove("success");
@@ -46,41 +48,40 @@ public class LoginController extends BaseController {
 				addErrorClass(usernameField);
 				statusLabel.setText("User nicht gefunden");
 				statusLabel.getStyleClass().add("status-error");
-			}
-			else {
-				if (md5Password.equals(user.getPassword())){
-					EdgeSession.setActiveUser(user);
+			} else if (md5Password.equals(user.getPassword())){
+				EdgeSession.setActiveUser(user);
 					
-					usernameField.getStyleClass().remove("error");
-					passwordField.getStyleClass().remove("error");
-					addSuccessClass(usernameField);
-					addSuccessClass(passwordField);
+				// visualize the current state of the application for the user
+				usernameField.getStyleClass().remove("error");
+				passwordField.getStyleClass().remove("error");
+				addSuccessClass(usernameField);
+				addSuccessClass(passwordField);
 					
-					statusLabel.setText("... nächste View öffnen (TODO)");
-					statusLabel.getStyleClass().remove("status-error");
-					statusLabel.getStyleClass().add("status-success");
+				statusLabel.getStyleClass().remove("status-error");
+				statusLabel.getStyleClass().add("status-success");
 					
-					EdgeFxmlLoader loader = new EdgeFxmlLoader();
-					try {
-			        Parent root = (Parent) loader.load("../views/main.fxml", MainController.class);
-			        Scene scene = new Scene(root, 1300, 700);
+				// opens the login view in the active stage
+				EdgeFxmlLoader loader = new EdgeFxmlLoader();
+				try {
+			       Parent root = (Parent) loader.load("../views/main.fxml", MainController.class);
+			       Scene scene = new Scene(root, 1300, 700);
 			        
-			        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/main.css").toString());
-			        String StageTitle = "EDGE-PMT: Projects";
-					MainApplication.getInstance().setView(StageTitle, scene);
-					
-					}
-					catch(Exception ex)
-					{
-						ex.printStackTrace();
-					}
-				} else {
-					addErrorClass(usernameField);
-					addErrorClass(passwordField);
-					
-					statusLabel.setText("Falsches Passwort");
-					statusLabel.getStyleClass().add("status-error");
+			       scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/main.css").toString());
+			       String StageTitle = "EDGE-PMT: Projects";
+				   MainApplication.getInstance().setView(StageTitle, scene);
+				   openView("main.fxml", new MainController());
+				   
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
+				
+			} else {
+				addErrorClass(usernameField);
+				addErrorClass(passwordField);
+					
+				statusLabel.setText("Falsches Passwort");
+				statusLabel.getStyleClass().add("status-error");
+				
 			}
 		});
 	}
