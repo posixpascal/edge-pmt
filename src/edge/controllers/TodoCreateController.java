@@ -118,6 +118,8 @@ public class TodoCreateController extends BaseController {
 		}
 	}
 	
+	
+	
 	@FXML
 	private void initialize(){
 		this.projectNameText.setText(project.getName());

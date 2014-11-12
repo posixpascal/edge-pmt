@@ -235,16 +235,17 @@ public class ProjectViewController extends BaseController {
 		
 		todoGridPane.addColumn(4);
 		todoGridPane.addRow(todos.size());
-
+		
+		currentRow = 0;
 		todos.forEach( (todo) -> {
-			_addTodo(todo, todoGridPane, todoContainer);
+			_addTodo(todo, todoGridPane, todoContainer, currentRow++);
 		});
 		
 		todoGroupPane.setContent(todoContainer);
 		todoAccordion.getPanes().add(todoGroupPane);
 	}
 	
-	private void _addTodo(Todo todo, GridPane todoGridPane, AnchorPane todoContainer){
+	private void _addTodo(Todo todo, GridPane todoGridPane, AnchorPane todoContainer, int currentRow){
 		Text todoTitle = new Text();
 		todoTitle.setText(todo.getTitle());
 		
@@ -260,6 +261,12 @@ public class ProjectViewController extends BaseController {
 		
 		Button openTodoViewBtn = new Button();
 		openTodoViewBtn.setText("Todo öffnen");
+		openTodoViewBtn.setOnAction( (m) -> {
+			TodoViewController todoViewController = new TodoViewController(todo, project);
+			todoViewController.setParent(this);
+			
+			openView("todo_view.fxml", todoViewController);
+		});
 		
 		todoGridPane.paddingProperty().set(new Insets(10, 10, 10, 10));
 		
@@ -268,10 +275,10 @@ public class ProjectViewController extends BaseController {
 		todoGridPane.add(deadlineText, 2, currentRow);
 		todoGridPane.add(openTodoViewBtn, 4, currentRow);
 		todoGridPane.setPrefWidth(todoContainer.getWidth());
+		todoGridPane.setMinWidth(todoContainer.getWidth());
 		todoContainer.getChildren().add(todoGridPane);
 		
 		
-		currentRow++;
 	}
 	
 	private int currentRow = 0;

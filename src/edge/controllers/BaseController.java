@@ -88,7 +88,7 @@ public class BaseController {
 		return bFile;
 	}
 	
-	protected File openImageChooser(){
+	protected File openImageChooser(Stage stage){
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Bild zum Projekt hinzufügen");
 		fileChooser.getExtensionFilters().addAll(
@@ -96,7 +96,8 @@ public class BaseController {
 			new FileChooser.ExtensionFilter("JPG", "*.jpg"),
 			new FileChooser.ExtensionFilter("PNG", "*.png")
 		);
-		return fileChooser.showOpenDialog(MainApplication.getInstance().getRootStage());
+		if (stage == null) stage = MainApplication.getInstance().getRootStage();
+		return fileChooser.showOpenDialog(stage);
 	}
 	
 	

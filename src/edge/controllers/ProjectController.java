@@ -96,7 +96,7 @@ public class ProjectController extends BaseController {
 	@FXML
 	private void setImage(){
 		
-		this.imagePath = openImageChooser();
+		this.imagePath = openImageChooser((Stage) this.imageView.getScene().getWindow());
 		if (this.imagePath  != null){		
 			ImageView t = new ImageView();
 			imageView.setImage(new Image(this.imagePath.getAbsoluteFile().toURI().toString()));
@@ -104,26 +104,7 @@ public class ProjectController extends BaseController {
 		
 	}
 	
-	@FXML
-	public void createTodoStage()
-	{
-		try
-		{
-			EdgeFxmlLoader loader = new EdgeFxmlLoader();
-	        Parent projectCreate = (Parent) loader.load("../views/Todo.fxml", TodoController.class);
-	        Scene scene = new Scene(projectCreate, 575, 250);
-	        scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/todo.css").toString());
-	        String StageTitle = "Todo";
-	      
-			MainApplication projectCreateWindow = new MainApplication();
-			projectCreateWindow.setNewView(StageTitle, scene); 
-		}
-		catch(Exception ex)
-		{
-			System.out.println(ex);
-		}
-		
-	}
+	
 	
 	@FXML
 	private void createProject()

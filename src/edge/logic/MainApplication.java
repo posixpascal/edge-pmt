@@ -3,7 +3,6 @@ package edge.logic;
 import org.hibernate.SessionFactory;
 
 import edge.controllers.LoginController;
-import edge.controllers.TodoController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

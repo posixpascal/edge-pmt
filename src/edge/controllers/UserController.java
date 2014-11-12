@@ -66,7 +66,7 @@ public class UserController extends BaseController {
 	
 	@FXML
 	private void changeAvatar(){
-		this.avatar = openImageChooser();
+		this.avatar = openImageChooser((Stage) this.titleText.getScene().getWindow());
 		if (this.avatar  != null){		
 			ImageView t = new ImageView();
 			avatarImageView.setImage(new Image(this.avatar.getAbsoluteFile().toURI().toString()));

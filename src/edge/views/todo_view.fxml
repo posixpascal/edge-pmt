@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="613.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="currentUserImage" fitHeight="64.0" fitWidth="64.0" layoutX="21.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" />
+      <TextArea fx:id="commentTextArea" layoutX="112.0" layoutY="378.0" prefHeight="119.0" prefWidth="455.0" promptText="Kommentar schreiben" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="10.0" />
+      <Button layoutX="419.0" layoutY="508.0" mnemonicParsing="false" onAction="#writeComment" text="Kommentar verfassen" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <CheckBox fx:id="informAdminCheckbox" layoutX="112.0" layoutY="508.0" mnemonicParsing="false" text="Projektleiter informieren" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="100.0" />
+      <ToolBar layoutX="12.0" layoutY="8.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <Text fx:id="todoText" strokeType="OUTSIDE" strokeWidth="0.0" text="\%TODOTEXT%" textAlignment="CENTER" wrappingWidth="100.0" />
+         </items>
+      </ToolBar>
+      <WebView fx:id="webView" layoutY="40.0" prefHeight="250.0" prefWidth="613.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <CheckBox fx:id="isClosedCheckbox" layoutX="101.0" layoutY="356.0" mnemonicParsing="false" onAction="#toggleClosedState" text="Als erledigt markieren" />
+      <Text fx:id="deadlineText" layoutX="541.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deadline" AnchorPane.rightAnchor="10.0" />
+      <Button fx:id="viewCommentsBtn" layoutX="538.0" layoutY="318.0" mnemonicParsing="false" onAction="#viewComments" text="Kommentare..." AnchorPane.rightAnchor="10.0" />
+   </children>
+</AnchorPane>

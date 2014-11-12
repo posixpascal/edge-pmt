@@ -82,8 +82,6 @@ public class UploadController extends BaseController {
 			
 			Stage s = (Stage) this.filenameText.getScene().getWindow();
 			s.close();
-			
-			
 		};
 		
 		Thread uploadThread = new Thread(uploadMethod);
