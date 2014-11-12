@@ -467,8 +467,6 @@ public class MainController extends BaseController {
 			projectBox.setStyle("-fx-effect: dropshadow(three-pass-box, #000, 5, 0, 0, 0)");
 			
 			
-			
-			
 			/**
 			 * adds a click handler to open another view
 			 */
