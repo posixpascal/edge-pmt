@@ -1,4 +1,4 @@
-package edge.controllers;
+package edge.controllers.project;
 
 
 
@@ -24,6 +24,10 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.io.FilenameUtils;
 
+import edge.controllers.BaseController;
+import edge.controllers.UploadController;
+import edge.controllers.todo.TodoCreateController;
+import edge.controllers.todo.TodoViewController;
 import edge.helper.EdgeFTP;
 import edge.helper.EdgeSession;
 import edge.helper.EdgeTransferListener;
@@ -66,7 +70,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class ProjectViewController extends BaseController {
+public class ProjectViewController extends ProjectController {
 	Project project = null;
 
 	@FXML
@@ -158,7 +162,7 @@ public class ProjectViewController extends BaseController {
 		});
 	}
 	
-	protected void addFileToGrid(FTPFiles ftpFile){
+	public void addFileToGrid(FTPFiles ftpFile){
 		GridPane fileBox = new GridPane();
 		
 		fileBox.addColumn(0);
@@ -207,13 +211,13 @@ public class ProjectViewController extends BaseController {
 		}
 	}
 	
-	protected Project getProject(){
+	public Project getProject(){
 		return this.project;
 	}
 
 	
 
-	protected void _initTodos(){
+	public void _initTodos(){
 		todoAccordion.getPanes().clear();
 		
 		Set<TodoGroup> todoGroups = project.getTodoGroups();

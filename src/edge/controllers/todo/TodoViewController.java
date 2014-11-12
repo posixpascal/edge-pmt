@@ -1,5 +1,6 @@
-package edge.controllers;
+package edge.controllers.todo;
 
+import edge.controllers.BaseController;
 import edge.helper.EdgeSession;
 import edge.models.Project;
 import edge.models.Todo;
@@ -13,7 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-public class TodoViewController extends BaseController {
+public class TodoViewController extends TodoController {
 	@FXML
 	private Text deadlineText;
 	

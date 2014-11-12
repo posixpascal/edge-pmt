@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import edge.controllers.project.ProjectCreateController;
+import edge.controllers.project.ProjectViewController;
 import edge.helper.EdgeSession;
 import edge.logic.MainApplication;
 import edge.logic.EdgeFxmlLoader;
@@ -149,7 +151,7 @@ public class MainController extends BaseController {
 	public void createProject(){
 		try
 		{
-			ProjectController projectController = new ProjectController();
+			ProjectCreateController projectController = new ProjectCreateController();
 			projectController.setParent(this);
 			openView("project_new.fxml", projectController);
 		}

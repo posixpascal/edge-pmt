@@ -3,7 +3,7 @@ import javafx.fxml.FXMLLoader;
 
 import org.springframework.context.ApplicationContext;
 
-import edge.controllers.ProjectViewController;
+import edge.controllers.project.ProjectViewController;
 
 import java.io.IOException;
 import java.io.InputStream;

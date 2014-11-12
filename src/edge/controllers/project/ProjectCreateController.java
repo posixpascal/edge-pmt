@@ -1,4 +1,4 @@
-package edge.controllers;
+package edge.controllers.project;
 
 
 
@@ -17,6 +17,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
+import edge.controllers.BaseController;
+import edge.controllers.MainController;
 import edge.helper.EdgeMailer;
 import edge.logic.Database;
 import edge.logic.EdgeFxmlLoader;
@@ -42,8 +44,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class ProjectController extends BaseController {
-	public ProjectController(){
+public class ProjectCreateController extends ProjectController {
+	public ProjectCreateController(){
 		super();
 	}
 	

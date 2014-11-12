@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import org.apache.commons.io.FilenameUtils;
 
+import edge.controllers.project.ProjectViewController;
 import edge.helper.EdgeFTP;
 import edge.helper.EdgeSession;
 import edge.logic.Database;

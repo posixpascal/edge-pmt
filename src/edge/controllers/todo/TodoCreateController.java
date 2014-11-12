@@ -1,4 +1,4 @@
-package edge.controllers;
+package edge.controllers.todo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,13 +20,15 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
+import edge.controllers.BaseController;
+import edge.controllers.project.ProjectViewController;
 import edge.logic.Database;
 import edge.models.Project;
 import edge.models.TodoGroup;
 import edge.models.User;
 import edge.models.Todo;
 
-public class TodoCreateController extends BaseController {
+public class TodoCreateController extends TodoController {
 
 	Project project = null;
 	

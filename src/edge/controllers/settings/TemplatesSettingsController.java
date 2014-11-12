@@ -1,7 +1,6 @@
 package edge.controllers.settings;
 
 import javafx.fxml.FXML;
-import edge.controllers.SettingsController;
 
 public class TemplatesSettingsController extends SettingsController {
 	@FXML

@@ -45,7 +45,7 @@ public class BaseController {
 		this.parent = parent;
 	}
 	
-	public Object getParent(){
+	protected Object getParent(){
 		return this.parent;
 	}
 	

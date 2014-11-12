@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import edge.controllers.SettingsController;
 import edge.helper.EdgeSession;
 import edge.models.Settings;
 
