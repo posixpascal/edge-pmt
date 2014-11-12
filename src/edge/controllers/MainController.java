@@ -174,7 +174,7 @@ public class MainController extends BaseController {
 	protected int currentRowIndex;
 	
 	// how many columns for projects should be in the grid yo.
-	protected final int maxColumns = 4;
+	protected final int maxColumns = 5;
 	
 	@FXML
 	public void initialize(){
@@ -249,6 +249,7 @@ public class MainController extends BaseController {
 	}
 	
 	public void refreshUserList(){
+		
 		this.userListView.getItems().clear();
 		this._initUserList();
 	}
@@ -286,7 +287,7 @@ public class MainController extends BaseController {
 		projectsGrid.setVgap(50);
 		projectsGrid.setHgap(50);
 		
-		projectsGrid.setPadding(new Insets(100, 10, 10, 10));
+		projectsGrid.setPadding(new Insets(10, 10, 10, 10));
 		
 		projects.forEach( (project) -> {
 			GridPane projectBox = new GridPane();
@@ -299,6 +300,7 @@ public class MainController extends BaseController {
 			projectBox.setMaxHeight(300);
 			projectBox.setMinHeight(300);
 			projectBox.setPrefHeight(300);
+			projectBox.setPrefWidth(WINDOW_WIDTH/5);
 			//projectBox.setMinWidth(projectBoxSize);
 			
 			

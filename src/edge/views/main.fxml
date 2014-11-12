@@ -21,11 +21,11 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane fx:id="gridScrollPane" layoutY="53.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="gridScrollPane" layoutY="53.0" prefHeight="480.0" prefWidth="769.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <content>
-                            <AnchorPane fx:id="gridAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="396.0" prefWidth="709.0">
+                            <AnchorPane fx:id="gridAnchorPane">
                                  <children>
-                                     <TilePane fx:id="projectsGrid" layoutX="6.0" prefColumns="10" prefRows="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                     <TilePane fx:id="projectsGrid" alignment="CENTER" layoutX="29.0" prefColumns="10" prefHeight="472.0" prefRows="10" prefWidth="755.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     </TilePane>
                                  </children>
                               </AnchorPane>
