@@ -5,9 +5,13 @@ import edge.models.Todo;
 
 import java.util.HashMap;
 
+/**
+ * allows saving of commonly used todos and their todo groups.
+ */
 public class TodoTemplate extends BaseTemplate {
 	private Project project = null;
 	
+	@SuppressWarnings("unused")
 	private HashMap<String, Todo> files = new HashMap<String, Todo>(){
 		private static final long serialVersionUID = 4396856278328549765L;
 		{
@@ -16,14 +20,13 @@ public class TodoTemplate extends BaseTemplate {
 		}
 	};
 	
-	private HashMap<String, Todo> getFiles(){
-		return this.files;
-	}
-	
+
+	@SuppressWarnings("unused")
 	private void setProject(Project project){
 		this.project = project;
 	}
 	
+	@SuppressWarnings("unused")
 	private Project getProject(){
 		return this.project;
 	}

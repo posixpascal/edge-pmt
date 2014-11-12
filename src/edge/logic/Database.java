@@ -1,6 +1,5 @@
 package edge.logic;
 
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,8 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-
-import edge.models.User;
+import edge.helper.EdgeError;
 import edge.models.BaseModel;
 
 /**
@@ -19,7 +17,11 @@ import edge.models.BaseModel;
 public class Database {
 	 	private static  SessionFactory sessionFactory;
 	  	private static ServiceRegistry serviceRegistry;
-	  	private static final ThreadLocal<Session> threadLocal = new ThreadLocal();
+	  	
+	  	/**
+	  	 * used to store active transactions
+	  	 */
+	  	private static final ThreadLocal<Session> threadLocal = new ThreadLocal<Session>();
 	  	
 	 	/**
 	 	 * Initialize hibernate using the hibernate.cfg.xml file
@@ -28,7 +30,7 @@ public class Database {
 	 	 */
 	    private static SessionFactory configureSessionFactory() {
 	    	try {
-
+	    		// loads hibernate.cfg
 	            Configuration configuration = new Configuration();
 	            configuration.configure();
 	            serviceRegistry = new ServiceRegistryBuilder()
@@ -40,6 +42,7 @@ public class Database {
 	        } catch (HibernateException e) {
 	            System.out.append("** Exception in SessionFactory **");
 	            e.printStackTrace();
+	        	EdgeError.alertAndExit("Konnte keine Verbindung zur Datenbank herstellen.", "Die Verbindung zur Datenbank konnte nicht hergestellt werden. Bitte prüfen Sie ob ein MySQL Server konfiguriert ist.");
 	        }
 	       return sessionFactory;
 	    }
@@ -50,6 +53,7 @@ public class Database {
 	    	} catch (Exception e){
 	    		System.err.println("Error creating the session factory");
 	    		e.printStackTrace();
+	    		EdgeError.alertAndExit("Konnte keine Verbindung zur Datenbank herstellen.", "Die Verbindung zur Datenbank konnte nicht hergestellt werden. Bitte prüfen Sie ob ein MySQL Server konfiguriert ist.");
 	    	}
 	    }
 	    
@@ -81,11 +85,15 @@ public class Database {
 	    	return session;
 	    }
 	    
+	    /**
+	     * Reconfigures the session factory.
+	     */
 	    private static void rebuildSessionFactory(){
 	    	try {
 	    		sessionFactory = configureSessionFactory();
 	    	} catch (Exception e){
 	    		e.printStackTrace();
+	    		EdgeError.alertAndExit("Konnte keine Datenbank Session herstellen.", "Hibernate war nicht in der Lage eine Datenbank Sitzung zu eröffnen.");
 	    	}
 	    }
 	    

@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 import edge.logic.EdgeFxmlLoader;
 import edge.logic.MainApplication;
 import edge.models.User;
-import edge.helper.EdgeMailer;
+import edge.helper.EdgeError;
 import edge.helper.EdgeSession;
 
 public class LoginController extends BaseController {
@@ -41,6 +41,7 @@ public class LoginController extends BaseController {
 			User user = (User) User.findByUsername(username);
 			
 			if (user == null){
+				
 				usernameField.getStyleClass().remove("success");
 				passwordField.getStyleClass().remove("success");
 				passwordField.getStyleClass().remove("error");
@@ -48,10 +49,13 @@ public class LoginController extends BaseController {
 				addErrorClass(usernameField);
 				statusLabel.setText("User nicht gefunden");
 				statusLabel.getStyleClass().add("status-error");
+				
 			} else if (md5Password.equals(user.getPassword())){
 				EdgeSession.setActiveUser(user);
 					
-				// visualize the current state of the application for the user
+				/**
+				 *  visualize the current state of the application for the user
+				 */
 				usernameField.getStyleClass().remove("error");
 				passwordField.getStyleClass().remove("error");
 				addSuccessClass(usernameField);
@@ -60,7 +64,9 @@ public class LoginController extends BaseController {
 				statusLabel.getStyleClass().remove("status-error");
 				statusLabel.getStyleClass().add("status-success");
 					
-				// opens the login view in the active stage
+				/**
+				 *  opens the login view in the active stage
+				 */
 				EdgeFxmlLoader loader = new EdgeFxmlLoader();
 				try {
 			       Parent root = (Parent) loader.load("../views/main.fxml", MainController.class);
@@ -72,6 +78,7 @@ public class LoginController extends BaseController {
 				   openView("main.fxml", new MainController());
 				   
 				} catch(Exception ex) {
+					EdgeError.alertAndExit("Warnung", "Die Anwendung konnte nicht geladen werden. Bitte überprüfen Sie Ihre Installation auf mögliche Fehler.");
 					ex.printStackTrace();
 				}
 				

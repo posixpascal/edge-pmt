@@ -1,6 +1,5 @@
 package edge.controllers.todo;
 
-import edge.controllers.BaseController;
 import edge.helper.EdgeSession;
 import edge.models.Project;
 import edge.models.Todo;
@@ -60,6 +59,9 @@ public class TodoViewController extends TodoController {
 		else 
 			this.deadlineText.setText("Keine Deadline gesetzt.");
 		
+		/**
+		 * sets the image, if no image is present it uses the default image
+		 */
 		if (EdgeSession.getActiveUser().getImage() != null){
 			this.currentUserImage.setImage(byteArrayToImage(EdgeSession.getActiveUser().getImage()));
 		} else {
@@ -82,8 +84,24 @@ public class TodoViewController extends TodoController {
 	
 	public TodoViewController(Todo todo, Project project){
 		this.activeTodo = todo;
-		this.activeProject = project;
+		this.setActiveProject(project);
 		
+	}
+
+	/**
+	 * gets the active project for the todoView
+	 * @return
+	 */
+	public Project getActiveProject() {
+		return activeProject;
+	}
+
+	/**
+	 * sets the active project for the todoView
+	 * @param activeProject
+	 */
+	public void setActiveProject(Project activeProject) {
+		this.activeProject = activeProject;
 	}
 
 	

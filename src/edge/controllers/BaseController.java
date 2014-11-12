@@ -7,19 +7,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-
 import javax.imageio.ImageIO;
-
 import edge.logic.EdgeFxmlLoader;
 import edge.logic.MainApplication;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 public class BaseController {
 	/**
 	 * Adds error class to a textfield instance
@@ -217,7 +215,12 @@ public class BaseController {
 	 * specific file extensions. The valueString should be a String representing any image filename
 	 * located in <tt>/edge/assets/img/mimetypes/</tt>
 	 */
-	private HashMap<String, String> extImages = new HashMap<String, String>(){{
+	private HashMap<String, String> extImages = new HashMap<String, String>(){/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+	{
 		put("pdf", "application-pdf.png");
 		put("js", "application-javascript.png");
 		put("ai", "application-illustrator.png");

@@ -1,40 +1,25 @@
 package edge.models;
 
-
-
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-
-import org.apache.commons.codec.binary.Hex;
-
 import edge.logic.Database;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 import javax.persistence.*;
-
 import org.hibernate.*;
 import org.hibernate.Query;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import java.util.Set;
 
 
 @Entity
 @Table
 public class TodoGroup extends BaseModel implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="id")
 	@GeneratedValue
 	private Long id;
-	
-	private String name;
 	
 	@Column
 	@Type(type="timestamp")
@@ -64,12 +49,19 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 	 */
 	public TodoGroup(){}
 
-
+	/**
+	 * gets the attached project of the current todogroup
+	 * @return a Project instance of the project attached to this todoGroup
+	 */
     public Project getProject()  
     {  
         return project;  
     }  
     
+    /**
+     * sets the project of the current todoGroup
+     * @param project
+     */
     public void setProject(Project project) {
 		this.project = project;
 		
@@ -130,6 +122,10 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 		this.id = id;
 	}
 	
+	/**
+	 * Gets all todoGroups from the database.
+	 * @return
+	 */
 	public static List<TodoGroup> getAll() {
 		Session session = Database.getSession();
 		session.beginTransaction();
@@ -138,7 +134,6 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 		
 		@SuppressWarnings("unchecked")
 		List<TodoGroup> result = (List<TodoGroup>) query.list();
-		
 
 		session.close();
 		
@@ -151,13 +146,8 @@ public class TodoGroup extends BaseModel implements java.io.Serializable {
 		created = new Date();
 	}
 	
-	public void update(){};
-	
 	@PreUpdate
 	protected void onUpdate(){
 		modified = new Date();
-	}
-
-	
-	
+	}	
 }

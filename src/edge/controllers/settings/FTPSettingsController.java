@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import edge.helper.EdgeError;
 import edge.helper.EdgeFTP;
 import edge.helper.EdgeSession;
 import edge.models.Settings;
@@ -11,6 +12,9 @@ import edge.models.User;
 
 public class FTPSettingsController extends SettingsController {
 	
+	/**
+	 * checks if the FTP connection is possible with the given parameters
+	 */
 	@FXML
 	private void checkConnection(){
 		EdgeFTP ftp = new EdgeFTP(hostField.getText(), portField.getText(), usernameField.getText(), passwordField.getText());
@@ -22,11 +26,7 @@ public class FTPSettingsController extends SettingsController {
 			alert.setContentText("Die Verbindung zum FTP Server ist erfolgreich! EDGE PMT kann dort Dateien archivieren.");
 			alert.showAndWait();
 		} else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Hinweis");
-			alert.setHeaderText("Keine Verbindung zum FTP Server");
-			alert.setContentText("Die Verbindung zum FTP Server ist gescheitert. Bitte überprüfen Sie ihre Angaben und versuchen Sie es erneut");
-			alert.showAndWait();
+			EdgeError.alert("Keine Verbindung zum FTP Server", "Die Verbindung zum FTP Server ist gescheitert. Bitte überprüfen Sie ihre Angaben und versuchen Sie es erneut");
 		}
 		
 	}

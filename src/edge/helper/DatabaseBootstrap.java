@@ -1,24 +1,32 @@
 package edge.helper;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import org.hibernate.SessionFactory;
-
 import edge.logic.Database;
 import edge.models.*;
 
+/**
+ * fills the database with test stuff.
+ * 
+ * this class has to be run using eclipse's runconfigurations.
+ * it creates 4 users and a project.
+ */
 public class DatabaseBootstrap {
 	
 	public static void main(String[] args){
-		SessionFactory factory = Database.getSessionFactory();
+		Database.getSessionFactory();
 		
 		System.out.print("Erstelle Testuser...");
 		
-		List<HashMap<String, String>> users = new ArrayList();
+		List<HashMap<String, String>> users = new ArrayList<HashMap<String, String>>();
 		
-		HashMap<String, String> user1 = new HashMap<String, String>(){{
+		HashMap<String, String> user1 = new HashMap<String, String>(){/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		{
 			put("email", "maxmustermann@mobiletrooper.de");
 			put("password", "test1234");
 			put("firstname", "Max");
@@ -26,7 +34,12 @@ public class DatabaseBootstrap {
 			put("username", "test1");
 		}};
 		
-		HashMap<String, String> user2 = new HashMap<String, String>(){{
+		HashMap<String, String> user2 = new HashMap<String, String>(){/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		{
 			put("email", "jo@mobiletrooper.de");
 			put("password", "test1234");
 			put("firstname", "Jens");
@@ -34,7 +47,12 @@ public class DatabaseBootstrap {
 			put("username", "jensotto");
 		}};
 		
-		HashMap<String, String> user3 = new HashMap<String, String>(){{
+		HashMap<String, String> user3 = new HashMap<String, String>(){/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		{
 			put("email", "nu@mobiletrooper.de");
 			put("password", "test1234");
 			put("firstname", "Natascha");
@@ -42,7 +60,12 @@ public class DatabaseBootstrap {
 			put("username", "nataschaulm");
 		}};
 		
-		HashMap<String, String> user4 = new HashMap<String, String>(){{
+		HashMap<String, String> user4 = new HashMap<String, String>(){/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		{
 			put("email", "pr@mobiletrooper.de");
 			put("password", "test1234");
 			put("firstname", "Pascal");
@@ -59,9 +82,7 @@ public class DatabaseBootstrap {
 		
 		users.forEach( (userData) -> {
 			
-			
 			if (User.findByUsername(userData.get("username")) == null){
-
 				User user = new User();
 				user.setEMail(userData.get("email"));
 				user.setPassword(userData.get("password"));
@@ -113,9 +134,5 @@ public class DatabaseBootstrap {
 		Database.saveAndCommit(project);
 		Database.saveAndCommit(tg);
 		Database.saveAndCommit(user);
-		
-		
-		
 	}
-	
 }

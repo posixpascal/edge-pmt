@@ -1,24 +1,13 @@
 package edge.models;
 
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.*;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
-import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
-
 import edge.logic.Database;
 
 
@@ -26,23 +15,19 @@ import edge.logic.Database;
 @Entity
 @Table
 public class Project extends BaseModel implements java.io.Serializable {
-	
+	private static final long serialVersionUID = 463646589751663896L;
+
 	@Id
 	@GeneratedValue
 	@Column(name="id")
 	private Long id;
 	
-	//@NotNull(message = "Das Projekt benötigt einen Namen")
-	//@Min(2)
 	private String name;
 	
 	@Column(name="image", columnDefinition="mediumblob")
 	private byte[] image;
-	
-	//@NotNull(message = "Ein Projekt muss einem Kunden zugewiesen sein")
+
 	private String customerName;
-	
-	//@NotNull(message = "Füge eine Deadline zum Projekt hinzu")
 	private Date deadLine;
 	
 	@Column
@@ -56,10 +41,39 @@ public class Project extends BaseModel implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<FTPFiles> ftpFiles = new HashSet<FTPFiles>(0);
 	
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Comment> comments = new HashSet<Comment>(0);
+	
+	/**
+	 * returns a hashset containing all attached comments to this project
+	 * @return hashset with all comments for this project
+	 */
+	public Set<Comment> getComments(){
+		return this.comments;
+	}
+	
+	/**
+	 * sets a hashset containing all attached comments to this project
+	 * @param comments hashset with all comments for this project
+	 */
+	public void setComments(Set<Comment> comments){
+		this.comments = comments;
+	}
+	
+	
+	
+	/**
+	 * gets the associated ftp files which were uploaded to this project
+	 * @return a hashset of the FTPFiles which were uploaded to the project
+	 */
 	public Set<FTPFiles> getFtpFiles() {
 		return ftpFiles;
 	}
 
+	/**
+	 * sets the ftp files 
+	 * @param ftpFiles a hashset of FTPFiles
+	 */
 	public void setFtpFiles(Set<FTPFiles> ftpFiles) {
 		this.ftpFiles = ftpFiles;
 	}
@@ -85,22 +99,28 @@ public class Project extends BaseModel implements java.io.Serializable {
 	 * returns a hashset containing all attached users to this project
 	 * @return
 	 */
-
 	public Set<User> getUsers(){
 		return this.users;
 	}
 	
+	/**
+	 * sets all users which are working on this project
+	 * @param users a hashset of users
+	 */
 	public void setUsers(Set<User> users){
 		this.users = users;
 	}
 
 	/**
 	 * returns a hashset containing all attached todos to this project
-	 * @return
+	 * @return hashset with all todos for this project
 	 */
 	public Set<Todo> getTodos(){
 		return this.todos;
 	}
+	
+
+	
 	
 	/**
 	 * Get a hashset of all closed todos for this project
@@ -270,14 +290,29 @@ public class Project extends BaseModel implements java.io.Serializable {
 		this.image = image;
 	}
 
+	/**
+	 * gets the deadline of the project
+	 * @return a date object (null if not set)
+	 */
 	public Date getDeadLine() {
 		return deadLine;
 	}
 
+	/**
+	 * sets the deadline for this project
+	 * @param deadLine
+	 */
 	public void setDeadLine(Date deadLine) {
 		this.deadLine = deadLine;
 	}
 
+	/**
+	 * returns the number of days until the project has ended.
+	 * this uses the deadline to produce a number.
+	 * 
+	 * if the number is negative the project is over its deadline
+	 * @return an integer representing the days until the project is due 
+	 */
 	public int getDaysToDeadLine() {
 		long now = new Date().getTime();
 		long deadline = this.getDeadLine().getTime();
@@ -295,7 +330,10 @@ public class Project extends BaseModel implements java.io.Serializable {
 		return days;
 	}
 	
-	
+	/**
+	 * returns the number of days as a string
+	 * @return string when the project is due
+	 */
 	public String getDaysToDeadLineInWords(){
 		int days = this.getDaysToDeadLine();
 		String dayString = "";
@@ -307,7 +345,15 @@ public class Project extends BaseModel implements java.io.Serializable {
 		return dayString;
 	}
 	
-	
+	/**
+	 * gets a css color class for the days until deadline.
+	 * if the deadline is 30 or more days ahead of the project, the color will be green.
+	 * if its 20 or more days ahead it'll be yellow
+	 * if its 10 or more it'll be orange.
+	 * if its below 10 but more than 0 it'll be red
+	 * and if the deadline was reached the color will be dark-red-
+	 * @return a string representing a CSS class.
+	 */
 	public String getDeadlineColorClass(){
 		String colorClass = "default";
 		int days = this.getDaysToDeadLine();
@@ -323,6 +369,10 @@ public class Project extends BaseModel implements java.io.Serializable {
 		
 	}
 
+	/**
+	 * sets the todoGroups which are attached to this project.
+	 * @return a HashSet containing every todoGroup attached to this project.
+	 */
 	public Set<TodoGroup> getTodoGroups() {
 		return this.todoGroups;
 	}

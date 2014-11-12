@@ -1,25 +1,12 @@
 package edge.controllers;
 
-import it.sauronsoftware.ftp4j.FTPAbortedException;
-import it.sauronsoftware.ftp4j.FTPClient;
-import it.sauronsoftware.ftp4j.FTPDataTransferException;
-import it.sauronsoftware.ftp4j.FTPException;
-import it.sauronsoftware.ftp4j.FTPIllegalReplyException;
 
 import java.io.File;
-import java.io.IOException;
-
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import org.apache.commons.io.FilenameUtils;
-
 import edge.controllers.project.ProjectViewController;
 import edge.helper.EdgeFTP;
 import edge.helper.EdgeSession;
@@ -34,12 +21,18 @@ public class UploadController extends BaseController {
 	@FXML
 	private void cancelUpload(){};
 	
+	/**
+	 * gets the file which will be uploaded
+	 * @return the File which will be uploaded
+	 */
 	public File getFile() {
 		return fileToBeUploaded;
 	}
-
-
-
+	
+	/**
+	 * sets the file which should be uploaded
+	 * @param fileToBeUploaded 
+	 */
 	public void setFile(File fileToBeUploaded) {
 		this.fileToBeUploaded = fileToBeUploaded;
 	}
@@ -60,36 +53,60 @@ public class UploadController extends BaseController {
 		filenameText.setText(this.fileToBeUploaded.getName());
 		progressBar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
 		
+		/**
+		 * Executes the upload in a new thread.
+		 */
 		Runnable uploadMethod = () -> {
+			
+			/**
+			 * constructs a new EdgeFTP construct
+			 */
 			EdgeFTP ftp = new EdgeFTP(activeUser);
 			ftp.setFile(this.fileToBeUploaded);
 			ftp.upload();
+			
+			/**
+			 * create a FTPFile Database model
+			 */
 			FTPFiles ftpFile = new FTPFiles();
 			ftpFile.setFileName(fileToBeUploaded.getName());
 			ftpFile.setProject(((ProjectViewController) this.getParent()).getProject());
 			ftpFile.setUser(EdgeSession.getActiveUser());
 			ftpFile.setSize(fileToBeUploaded.length());
+			
+			/**
+			 * create a preview icon
+			 */
 			String extension = FilenameUtils.getExtension(fileToBeUploaded.getAbsolutePath());
 			ftpFile.setPreview(imageToByteArray(fromFileExtension(extension)));
 			ftpFile.setUrl(EdgeSession.getActiveUser().getSettingFor("ftp_path", null).getStringValue());
-			Database.saveAndCommit(ftpFile);
-
 			
+			
+			/**
+			 * update changes to the database.
+			 */
+			Database.saveAndCommit(ftpFile);
 			EdgeSession.getActiveUser().getFtpFiles().add(ftpFile);
 			Database.saveAndCommit(ftpFile);
 			Database.saveAndCommit(((ProjectViewController) this.getParent()).getProject());
 			Database.saveAndCommit(EdgeSession.getActiveUser());
+			
+			/**
+			 * refresh ftp files grid
+			 */
 			((ProjectViewController) this.getParent()).addFileToGrid(ftpFile);
 			
+			/** 
+			 * close the window
+			 */
 			Stage s = (Stage) this.filenameText.getScene().getWindow();
 			s.close();
 		};
 		
+		/**
+		 * start the upload process in a new thread
+		 */
 		Thread uploadThread = new Thread(uploadMethod);
 		uploadThread.start();
-		
-		
-		
-		
 	}
 }

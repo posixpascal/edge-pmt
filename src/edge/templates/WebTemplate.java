@@ -1,8 +1,10 @@
 package edge.templates;
 
 import java.util.HashMap;
+import edge.controllers.BaseController;
 
-public class WebTemplate {
+public class WebTemplate extends BaseController {
+	@SuppressWarnings("unused")
 	private HashMap<String, String> files = new HashMap<String, String>(){
 		private static final long serialVersionUID = 4396856278328549766L;
 		{
@@ -18,5 +20,17 @@ public class WebTemplate {
 			put("assets/js/main.js", "yo");
 		}
 	};
+
+	public boolean run() {
+		return false;
+	}
+
+
+	public void beforeStart() {
+	}
+
+
+	public void afterFinish() {
+	}
 	
 }

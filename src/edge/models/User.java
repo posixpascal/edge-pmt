@@ -1,34 +1,25 @@
 package edge.models;
 
-
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-
 import org.apache.commons.codec.binary.Hex;
-
 import edge.logic.Database;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 import javax.persistence.*;
-
 import org.hibernate.*;
 import org.hibernate.Query;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import java.util.Set;
 
 
 @Entity
 @Table
 public class User extends BaseModel implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="id")
 	@GeneratedValue
@@ -48,11 +39,46 @@ public class User extends BaseModel implements java.io.Serializable {
 	@Type(type="timestamp")
 	private Date modified;
 	
-	
+	private boolean isAdmin = false;
 	
 
+	/**
+	 * checks if the user is an admin
+	 * defaults to false;
+	 * @return true if the user has admin rights
+	 */
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	/**
+	 * sets the admin level for the current user
+	 * @param isAdmin true if admin, false if not.
+	 */
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Comment> comments = new HashSet<Comment>(0);
 	
-	// TODO: bit retarded to use TEXT here. maybe BLOB is working too
+	/**
+	 * returns a hashset containing all attached comments to this user
+	 * @return hashset with all comments for this user
+	 */
+	public Set<Comment> getComments(){
+		return this.comments;
+	}
+	
+	/**
+	 * sets a hashset containing all attached comments to this user
+	 * @param comments hashset with all comments for this user
+	 */
+	public void setComments(Set<Comment> comments){
+		this.comments = comments;
+	}
+	
+	
 	@Column(name="profile_pic", columnDefinition="mediumblob")
 	private byte[] image;
 	
@@ -166,7 +192,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	/**
 	 * gets the username of the user object
 	 * @return username as string
-	 * @author pr
 	 */
 	public String getUsername() {
 		return username;
@@ -175,7 +200,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	/**
 	 * gets the firstname of the user object
 	 * @return firstname as string
-	 * @author pr
 	 */
 	public String getFirstname() {
 		return firstname;
@@ -184,7 +208,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	/**
 	 * sets the firstname of the user object
 	 * @param firstname a string containing the firstname of the user
-	 * @author pr
 	 */
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
@@ -193,7 +216,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	/**
 	 * gets the last name of the user object
 	 * @return lastname as string 
-	 * @author pr
 	 */
 	public String getLastname() {
 		return lastname;
@@ -202,7 +224,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	/**
 	 * Sets the lastname of the user object
 	 * @param lastname a string containing the lastname of the user
-	 * @author pr
 	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
@@ -211,7 +232,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	/**
 	 * Sets the username of the user object
 	 * @param username a string containing the username of the user
-	 * @author pr
 	 */
 	public void setUsername(String username) {
 		this.username = username;
@@ -220,7 +240,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	/**
 	 * Gets the MD5 password of the user object
 	 * @return the password as MD5 string
-	 * @author pr
 	 */
 	public String getPassword() {
 		return password;
@@ -230,7 +249,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	 * Sets the password of the user object
 	 * This method takes the password and transforms it into an MD5 hash.
 	 * @param password
-	 * @author pr
 	 */
 	public void setPassword(String password) {
 		this.password = User.hashPassword(password);
@@ -238,7 +256,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	
 	/**
 	 * Sets the email of the user
-	 * @author nahom
 	 * @param eMail
 	 */
 	public void setEMail(String eMail) {
@@ -248,7 +265,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	/**
 	 * Gets the email of user
 	 * @return the email of the current user. returns null if not available.
-	 * @author nahom
 	 */
 	public String getEMail() {
 		return eMail;
@@ -266,7 +282,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	
 	/**
 	 * Get all users from DB
-	 * @author pr
 	 * @return A List containing every user found in the database.
 	 */
 	public static List<User> getAll() {
@@ -282,6 +297,12 @@ public class User extends BaseModel implements java.io.Serializable {
 		
 		return result;
 	}
+	
+	/**
+	 * returns a list of all todos attached to this user.
+	 * returns null if no todo was found.
+	 * @return a List of Todos which belong to the current user.
+	 */
 	public List<Todo> getTodo(){
 		Session session = Database.getSession();
 		session.beginTransaction();
@@ -303,7 +324,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	 * Searches DB for a user with the specified username
 	 * @param username String containing the username which Hibernate should look for
 	 * @return User returns user as UserObject if found otherwise null.
-	 * @author pr
 	 */
 	public static Object findByUsername(String username){
 		Session session = Database.getSession();
@@ -323,7 +343,6 @@ public class User extends BaseModel implements java.io.Serializable {
 	/**
 	 * Transform any password into a MD5 hash
 	 * @param password
-	 * @author pr
 	 * @return the MD5 hash of the given password
 	 */
 	public static String hashPassword(String password){
@@ -348,6 +367,14 @@ public class User extends BaseModel implements java.io.Serializable {
 		return String.copyValueOf(hexPassword);
 	}
 	
+	/**
+	 * Gets the user setting for a specific key while also
+	 * providing a default value which will be instantly available to the database
+	 * and other classes 
+	 * @param key the key of the setting
+	 * @param defaultValue the default value (also creates a new object if no setting was found)
+	 * @return a Settings object for the given key.
+	 */
 	public Settings getSettingFor(String key, String defaultValue){
 		Session session = Database.getSession();
 		session.beginTransaction();
@@ -369,8 +396,13 @@ public class User extends BaseModel implements java.io.Serializable {
 		return (Settings) result.get(0);	
 	}
 	
+	/**
+	 * Saves the setting to the users settings list.
+	 * @param key the settings key
+	 * @param defaultValue the value to save
+	 * @return the saved Settings object
+	 */
 	public Settings saveSetting(String key, String defaultValue){
-		Session session = Database.getSession();
 		Settings setting = getSettingFor(key, defaultValue);
 		setting.setStringValue(defaultValue);
 		Database.saveAndCommit(setting);
@@ -378,6 +410,10 @@ public class User extends BaseModel implements java.io.Serializable {
 		return setting;
 	}
 	
+	/**
+	 * removes the user from the database.
+	 * @return
+	 */
 	public boolean delete(){
 		Session session = Database.getSession();
 		session.beginTransaction();
@@ -388,9 +424,14 @@ public class User extends BaseModel implements java.io.Serializable {
 		return false;
 	}
 	
-	
+	/**
+	 * represents a nice readable name of the user
+	 * the string is build using the firstname and by appending:
+	 * lastname and email (email is wrapped with brackets) 
+	 * @return String the string representing the current user
+	 */
 	public String toString(){
-		return this.getFirstname() + " " + this.getLastname() + "(" + this.getEMail() + ")";
+		return this.getFirstname() + " " + this.getLastname() + " (" + this.getEMail() + ")";
 	}
 	
 }
