@@ -45,7 +45,11 @@ public class TodoViewController extends TodoController {
 	private void toggleClosedState(){}
 	
 	@FXML
-	private void viewComments(){}
+	private void viewComments(){
+		TodoCommentsController todoCommentsCtrl = new TodoCommentsController();
+		todoCommentsCtrl.setParent(this);
+		openView("view_comments.fxml", todoCommentsCtrl);
+	}
 	
 	@FXML
 	private void writeComment(){};
@@ -75,9 +79,9 @@ public class TodoViewController extends TodoController {
 		
 		if (activeTodo.isClosed()){
 			isClosedCheckbox.setSelected(true);
-		}
-		
+		}	
 	}
+	
 	private Todo activeTodo;
 	private Project activeProject;
 	
