@@ -370,7 +370,6 @@ public class MainController extends BaseController {
 		    }
 		});
 		
-		
 		projects.forEach( (project) -> {
 			/**
 			 * inits project container

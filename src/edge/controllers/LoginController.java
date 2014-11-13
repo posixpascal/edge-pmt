@@ -75,11 +75,9 @@ public class LoginController extends BaseController {
 			       scene.getStylesheets().add(this.getClass().getResource("../assets/stylesheets/main.css").toString());
 			       String StageTitle = "EDGE-PMT: Projects";
 				   MainApplication.getInstance().setView(StageTitle, scene);
-				   openView("main.fxml", new MainController());
-				   
 				} catch(Exception ex) {
-					EdgeError.alertAndExit("Warnung", "Die Anwendung konnte nicht geladen werden. Bitte überprüfen Sie Ihre Installation auf mögliche Fehler.");
 					ex.printStackTrace();
+					EdgeError.alertAndExit("Warnung", "Die Anwendung konnte nicht geladen werden. Bitte überprüfen Sie Ihre Installation auf mögliche Fehler.");
 				}
 				
 			} else {
