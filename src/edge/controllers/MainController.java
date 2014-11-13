@@ -369,10 +369,9 @@ public class MainController extends BaseController {
 		    	projectsGrid.setMinWidth(newSceneWidth.doubleValue());
 		    	gridAnchorPane.setMinWidth(newSceneWidth.doubleValue());
 		    	gridAnchorPane.setMaxWidth(newSceneWidth.doubleValue());
-		    	//gridAnchorPane.setMinHeight((mainPane.widthProperty().doubleValue() / 330.) * 330);
-		    	gridAnchorPane.setMinHeight((((projectsGrid.getHeight() + (projectsGrid.getPadding().getTop()*2) + 50) * ((projectsGrid.getChildren().size() / (mainPane.widthProperty().doubleValue() / 330.) )))));
-		    	
-		    	System.out.println(mainPane.widthProperty());
+		    	double projectsHeight = (projectsGrid.getHeight() + (projectsGrid.getPadding().getTop() * 2) + 50);
+		    	double projectsInARow = (projectsGrid.getChildren().size() / (mainPane.widthProperty().doubleValue() / 330.));
+		    	gridAnchorPane.setMinHeight(projectsHeight * projectsInARow);
 		    }
 		});
 		
@@ -380,8 +379,10 @@ public class MainController extends BaseController {
 			@Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
 		    	projectsGrid.resize(newSceneHeight.doubleValue(), 300.);
 		    	projectsGrid.setMinHeight(newSceneHeight.doubleValue());
-		    	gridAnchorPane.setMinHeight((((projectsGrid.getHeight() + (projectsGrid.getPadding().getTop()*2) + 50) * (projectsGrid.getChildren().size() / (mainPane.widthProperty().doubleValue() / 330.) ))));
-		    	System.out.println(projectsGrid.getChildren().size());
+		    	double projectsHeight = (projectsGrid.getHeight() + (projectsGrid.getPadding().getTop() * 2) + 50);
+		    	double projectsInARow = (projectsGrid.getChildren().size() / (mainPane.widthProperty().doubleValue() / 330.));
+		    	gridAnchorPane.setMinHeight(projectsHeight * projectsInARow);
+		    	
 			}
 		});
 		
