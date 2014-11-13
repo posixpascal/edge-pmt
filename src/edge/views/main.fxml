@@ -25,7 +25,7 @@
                           <content>
                             <AnchorPane fx:id="gridAnchorPane">
                                  <children>
-                                     <TilePane fx:id="projectsGrid" layoutX="29.0" prefHeight="472.0" prefRows="10" prefWidth="755.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                     <TilePane fx:id="projectsGrid" layoutX="29.0" prefHeight="472.0" prefRows="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     </TilePane>
                                  </children>
                               </AnchorPane>
