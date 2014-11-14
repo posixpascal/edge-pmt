@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
@@ -16,13 +17,13 @@
             <PasswordField fx:id="passwordField" layoutX="488.0" layoutY="407.0" prefHeight="31.0" prefWidth="341.0" />
             <Text layoutX="490.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benutzername:" />
             <Text layoutX="490.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwort:" />
-            <Text layoutX="468.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDGE - PMT">
-               <font>
-                  <Font name="AR DARLING" size="65.0" />
-               </font>
-            </Text>
             <Button fx:id="loginBtn" defaultButton="true" layoutX="564.0" layoutY="496.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="182.0" text="Login" />
             <Text fx:id="statusLabel" layoutX="529.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="260.6829261779785" />
+            <ImageView fitHeight="294.0" fitWidth="627.0" layoutX="324.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/img/mt_logo.jpg" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
