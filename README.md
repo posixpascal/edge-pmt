@@ -1,40 +1,52 @@
-# Simple standalone example using ActiveJDBC
-(no Ant or Maven)
+# EDGE Project Management
 
-This branch was created to show the issue we are having with dynamic instrumentation and Java 8.
-Steps to reproduce the issue:
+EDGE PMT V2 is based on Node-Webkit, Angular, Grunt & Google's Material Design Spec.
+The former version was based on Java, JavaFX, Hibernate & Maven.
 
-## Prepare your environment:
+I rewrote the project because, imho, the world needs a cross-platform Project Management Tool. 
+Also the old sourcecode lacked good dependency management, docs and readability.
 
-1. Configure Java 8 in your environment.
-2. Execute create.sql against your DB - this will create a table.
-3. Adjust database connection parameters in `src/activejdbc/examples/simple/SimpleExample.java`, line 11.
+## Dependencies
 
-## Execute project with static instrumentation
+You'll need the following dependencies to build EDGE Project Management for yourself:
 
-*  Execute script `run-static-instrumentation.sh`, and see that everything is fine
+* node + npm (http://nodejs.org/)[http://node]
+* bower (install using npm: npm install -g bower)
+* grunt + grunt-cli (install using npm: npm -g install grunt)
+* nwjs (npm install -g nw (_this may take some time tho..._)) 
 
-## Execute project with dynamic instrumentation
+Now it's time to install the needed dependencies. Fortunately NPM & bower solve this fairly easy:
+These instructions only apply for Linux and MacOSX, for Windows you have to convert the NPM & Bower commands to the corresponding windows format.
 
-*  Execute script `run-dymanic-instrumentation.sh`, and see that you are getting an exception below:
+```shell
+	cd app/ && npm install . && cd -
+	bower install .
+```
 
+# Build EDGE PMT
 
-    ./run-dynamic-instrumentation.sh
-    [main] INFO activejdbc.examples.simple.SimpleExample - =========> Created employee:
-    [main] INFO activejdbc.examples.simple.SimpleExample - Model: activejdbc.examples.simple.Employee, table: 'employees', attributes: {last_name=Doe, id=54, first_name=John}
-    [main] INFO activejdbc.examples.simple.SimpleExample - =========> Updated employee:
-    Java8 start>>>
-    Exception in thread "main" java.lang.BootstrapMethodError: java.lang.NoClassDefFoundError: Could not initialize class java.lang.invoke.CallSite
-        at activejdbc.examples.simple.SimpleExample.selectAllEmployees(SimpleExample.java:60)
-        at activejdbc.examples.simple.SimpleExample.main(SimpleExample.java:18)
-    Caused by: java.lang.NoClassDefFoundError: Could not initialize class java.lang.invoke.CallSite
-        at java.lang.invoke.MethodHandleNatives.linkCallSite(MethodHandleNatives.java:296)
-        ... 2 more
+Building EDGE PMT is easy. Just create a ZIP file of all files in the app/ folder.
+On Linux and MacOSX you can use the __zip command line tool__
 
-## Execute project with dynamic instrumentation, but remove Java 8 feature
+```shell
+zip -r app.zip app/*
+```
 
-* Comment out line 60 from file `src/activejdbc/examples/simple/SimpleExample.java`.
-* Execute script `run-dymanic-instrumentation.sh`, and see successful execution
+On Windows you can use one of the dozens GUI Zip Tools (WinRar/WinZip/7zip will work fine).
 
+# Running EDGE PMT:
+On Linux and MacOSX you have to run the following command: `nw ./app.zip`
+On Windows, all you have to do is drag-and-drop the ZIP package to the NWJS.exe (Download NWJS.exe from NWJS.io).
 
+# Standalone Package
+If you want to distribute EDGE PMT, you may consider including node-webkit and the app.zip file:
+On Linux and MACOSX you can use `cat /path/to/nw ./app.zip > "EDGE PMT"
+On Windows you have to use the __copy__ command from the commandline: `copy /b nw.exe+app.zip "EDGE PMT.exe"
 
+# Contribute
+You can contribute by forking this repo & commiting changes as a pull-request.
+Also consider opening issues on GitHub if you encounter any (I hope you won't encounter any...)
+
+# Copyright
+Since this project started as a school project I'll continue releasing it under the MIT license.
+You can use the project for your own but you have to consider putting a link to this REPO somewhere in your app/homepage.
