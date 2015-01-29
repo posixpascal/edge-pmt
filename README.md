@@ -1,40 +1,26 @@
-# Simple standalone example using ActiveJDBC
-(no Ant or Maven)
+# EDGE Project Management
 
-This branch was created to show the issue we are having with dynamic instrumentation and Java 8.
-Steps to reproduce the issue:
+EDGE PMT V2 is based on Node-Webkit, Angular, Grunt & Google's Material Design Spec.
+The former version was based on Java, JavaFX, Hibernate & Maven.
 
-## Prepare your environment:
+I rewrote the project because, imho, the world needs a cross-platform Project Management Tool. 
+Also the old sourcecode lacked good dependency management, docs and readability.
 
-1. Configure Java 8 in your environment.
-2. Execute create.sql against your DB - this will create a table.
-3. Adjust database connection parameters in `src/activejdbc/examples/simple/SimpleExample.java`, line 11.
+## Build instructions
 
-## Execute project with static instrumentation
+You'll need the following dependencies to build EDGE Project Management for yourself:
 
-*  Execute script `run-static-instrumentation.sh`, and see that everything is fine
+* node + npm (http://nodejs.org/)[http://node]
+* bower (install using npm: npm install bower)
+* grunt + grunt-cli (install using npm: npm install grunt)
 
-## Execute project with dynamic instrumentation
+Now it's time to install the needed dependencies. Fortunately NPM & bower solve this fairly easy:
 
-*  Execute script `run-dymanic-instrumentation.sh`, and see that you are getting an exception below:
+```shell
+	npm install .
+	bower install .
+```
 
-
-    ./run-dynamic-instrumentation.sh
-    [main] INFO activejdbc.examples.simple.SimpleExample - =========> Created employee:
-    [main] INFO activejdbc.examples.simple.SimpleExample - Model: activejdbc.examples.simple.Employee, table: 'employees', attributes: {last_name=Doe, id=54, first_name=John}
-    [main] INFO activejdbc.examples.simple.SimpleExample - =========> Updated employee:
-    Java8 start>>>
-    Exception in thread "main" java.lang.BootstrapMethodError: java.lang.NoClassDefFoundError: Could not initialize class java.lang.invoke.CallSite
-        at activejdbc.examples.simple.SimpleExample.selectAllEmployees(SimpleExample.java:60)
-        at activejdbc.examples.simple.SimpleExample.main(SimpleExample.java:18)
-    Caused by: java.lang.NoClassDefFoundError: Could not initialize class java.lang.invoke.CallSite
-        at java.lang.invoke.MethodHandleNatives.linkCallSite(MethodHandleNatives.java:296)
-        ... 2 more
-
-## Execute project with dynamic instrumentation, but remove Java 8 feature
-
-* Comment out line 60 from file `src/activejdbc/examples/simple/SimpleExample.java`.
-* Execute script `run-dymanic-instrumentation.sh`, and see successful execution
-
-
+Next thing you want to do is to compile the source code using nwjs (_if you run a different OS than MacOS, you should install NWJS program which corresponds with your OS).
+For NWJS downloads check: (NWJS.io)[http://nwjs.io/]
 

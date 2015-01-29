@@ -1,0 +1,18 @@
+{
+  "name": "edge-projektmanagement",
+  "version": "0.0.1",
+  "authors": [
+    "Various Devs (posixpascal@googlemail.com)"
+  ],
+  "description": "A modern way to handle projects",
+  "license": "MIT",
+  "homepage": "http://pascalraszyk.de/edge-pmt/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

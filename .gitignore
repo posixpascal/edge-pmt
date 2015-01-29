@@ -1,3 +1,5 @@
-/bin/
-.externalToolBuilders
-*.class
+nwjs.app/*
+npm-modules/
+www/bower_components/
+dist/
+.tmp/

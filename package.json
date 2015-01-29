@@ -1,0 +1,15 @@
+{
+  "name": "edge-projektmanagement",
+  "version": "0.0.1",
+  "description": "A modern way to handle Projects",
+  "main": "-",
+  "scripts": {
+    "test": "-"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://edgeVK@bitbucket.org/edgeVK/edge-projektmanagement.git"
+  },
+  "author": "Various Devs",
+  "license": "MIT"
+}
