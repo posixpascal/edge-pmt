@@ -1,6 +1,6 @@
 nwjs.app/*
 
-www/bower_components/
+app/bower_components/
 dist/
 .tmp/
-www/npm_modules
+app/npm_modules
