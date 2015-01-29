@@ -10,7 +10,7 @@ Also the old sourcecode lacked good dependency management, docs and readability.
 
 You'll need the following dependencies to build EDGE Project Management for yourself:
 
-* node + npm (http://nodejs.org/)[http://node]
+* node + npm (Download Node)[http://nodejs.org/]
 * bower (install using npm: npm install -g bower)
 * grunt + grunt-cli (install using npm: npm -g install grunt)
 * nwjs (npm install -g nw (_this may take some time tho..._)) 

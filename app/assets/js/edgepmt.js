@@ -16,3 +16,4 @@ angular
     .ready(function() {
         angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
     });
+
