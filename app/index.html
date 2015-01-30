@@ -3,18 +3,24 @@
 	<head>
 		<title>EDGE PMT - Your Project Management</title>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css" />
-		<link rel="stylesheet" href="assets/stylesheets/main.css" />
+		<link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" />
+		<link rel="stylesheet" href="bower_components/angular-material/default-theme.css" />
+		<!--<link rel="stylesheet" href="assets/stylesheets/main.css" />-->
 	</head>
 	<body>
+		<md-content>
 		<div ng-include="'assets/templates/navigation/navigation.html'"></div>
 		<ui-view>
 		</ui-view>
+		</md-content>
 
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/angular/angular.min.js"></script>
+		<script src="bower_components/hammerjs/hammer.min.js"></script>
 		<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-		<script src="bower_components/materialize/dist/js/materialize.min.js"></script>
+		<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+		<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+		<script src="bower_components/angular-material/angular-material.min.js"></script>
 
 		<!-- the app -->
 		<script src="assets/js/config.js"></script>
@@ -29,7 +35,11 @@
 		<script src="assets/js/modules/navigation/controllers/navigation.js"></script>
 		<script src="assets/js/modules/projects/controllers/projects.js"></script>
 		<script src="assets/js/modules/core/controllers/home.js"></script>
-
+		<script>
+    			document.addEventListener("ready", function(){
+    				$('ul.tabs').tabs();
+    			}, false);
+		</script>
 
 	</body>
 </html>

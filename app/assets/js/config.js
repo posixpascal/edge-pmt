@@ -5,7 +5,7 @@
 var ApplicationConfiguration = (function() {
   // Init module configuration options
   var applicationModuleName = 'edgepmt';
-  var applicationModuleVendorDependencies = ['ui.router'];
+  var applicationModuleVendorDependencies = ['ui.router', 'ngMaterial'];
 
   // Add a new vertical module
   var registerModule = function(moduleName) {
